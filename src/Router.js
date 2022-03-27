@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
@@ -5,6 +7,7 @@ import Board from './pages/board';
 import Calendar from './pages/calendar';
 import Member from './pages/member';
 import Header from './components/layout/header';
+import Login from './pages/login';
 
 function Router() {
     return (
@@ -15,6 +18,7 @@ function Router() {
                 <Route path='/board' element={<Board />} />
                 <Route path='/calendar' element={<Calendar />} />
                 <Route path='/member' element={<Member />} />
+                <Route path='/login' element={<Login />} />
             </Routes>
         </BrowserRouter>
     );
