@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    .inner {
+    .innerHeader {
         border-bottom: 0.5px solid black;
         min-height: 72px;
         max-width: 960px;
@@ -15,6 +15,7 @@ export const Container = styled.div`
         /* margin-left: 5rem; */
         /* margin-right: 2rem; */
         margin: 0 3.5rem;
+        cursor: pointer;
     }
 
     .logo {

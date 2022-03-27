@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
@@ -9,7 +11,7 @@ function Header() {
     const navigate = useNavigate();
     return (
         <Styled.Container>
-            <div className='innerHeder'>
+            <div className='innerHeader'>
                 <input
                     type='image'
                     className='logo'
@@ -18,7 +20,7 @@ function Header() {
                     onClick={() => navigate('/')}
                 />
                 <Nav />
-                <FaUserAlt className='user' />
+                <FaUserAlt className='user' onClick={() => navigate('/login')} />
             </div>
         </Styled.Container>
     );
