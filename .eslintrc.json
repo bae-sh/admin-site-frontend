@@ -14,13 +14,16 @@
     },
     "plugins": ["react"],
     "rules": {
-        "indent": [4, "tab", { "SwitchCase": 1, "VariableDeclarator": 1 }],
-        "react/prop-types": 0,
-        "react/jsx-indent-props": [4, "tab"],
+        "no-unused-vars": "warn",
+        "no-use-before-define": 1,
+        "indent": ["error", 4],
+        "react/jsx-indent": [2, 4, { "checkAttributes": true, "indentLogicalExpressions": true }],
+        "react/jsx-indent-props": [2, 4],
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "import/prefer-default-export": "off",
         "jsx-quotes": [2, "prefer-single"],
+        "no-console": 0,
         "jsx-a11y/no-noninteractive-element-interactions": [
             "error",
             {
@@ -33,6 +36,7 @@
                     "onKeyUp"
                 ]
             }
-        ]
+        ],
+        "react/jsx-props-no-spreading": ["warn"]
     }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
-import App from './App';
+import { RecoilRoot } from 'recoil';
 import GlobalStyle from './GlobalStyles';
 import { theme } from './theme';
-import { RecoilRoot } from 'recoil';
+import App from './App';
 
 ReactDOM.render(
     <React.StrictMode>
