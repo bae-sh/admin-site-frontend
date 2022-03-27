@@ -9,7 +9,7 @@ function Header() {
     const navigate = useNavigate();
     return (
         <Styled.Container>
-            <div className='inner'>
+            <div className='innerHeder'>
                 <input
                     type='image'
                     className='logo'
