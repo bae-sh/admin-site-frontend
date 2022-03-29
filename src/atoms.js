@@ -10,3 +10,8 @@ export const userIdState = atom({
         studentNumber: '',
     },
 });
+
+export const modalVisibleState = atom({
+    key: 'modalVisible',
+    default: false,
+});

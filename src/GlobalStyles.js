@@ -63,16 +63,25 @@ a {
   color:inherit;
 }
 .inner {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        justify-content: center;
-        align-items: center;
-        max-width: 960px;
-        margin: 0 auto;
-        display: flex;
-    }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 72px);
+  justify-content: center;
+  align-items: center;
+  max-width: 952px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 1023px) {
+  .inner{
+    max-width: 660px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .inner{
+    max-width: 394px;
+  }
+}
 `;
 
 export default GlobalStyle;

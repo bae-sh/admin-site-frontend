@@ -13,4 +13,13 @@ export const Container = styled.ul`
         color: inherit;
         text-decoration: inherit;
     }
+
+    @media screen and (max-width: 1023px) {
+        display: ${(props) => (props.modalVisible ? 'flex' : 'none')};
+        flex-direction: column;
+        li {
+            font-size: 3rem;
+            padding: 1rem 2rem;
+        }
+    }
 `;

@@ -6,10 +6,12 @@ import Calendar from './pages/calendar';
 import Member from './pages/member';
 import Header from './components/layout/header';
 import Login from './pages/login';
+import Modal from './components/modal';
 
 function Router() {
     return (
         <BrowserRouter>
+            <Modal />
             <Header />
             <Routes>
                 <Route exact path='/' element={<Home />} />
