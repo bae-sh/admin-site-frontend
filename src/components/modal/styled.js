@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    display: none;
+
     @media screen and (max-width: 1023px) {
         &.modal-enter {
             transform: translateX(-100%);
@@ -17,7 +19,7 @@ export const Container = styled.div`
             transform: translateX(-100%);
         }
 
-        /* display: ${(props) => (props.modalVisible ? 'block' : 'none')}; */
+        display: ${(props) => (props.modalVisible ? 'block' : 'none')};
         max-width: 412px;
         margin: 0 auto;
 
