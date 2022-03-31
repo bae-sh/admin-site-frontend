@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { FaUserAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { modalVisibleState } from '../../../atoms';
@@ -23,12 +23,10 @@ function Header() {
                 />
                 <Nav className='headerNav' />
                 <div className='headerRight'>
-                    <div
-                        className='user'
-                        onClick={() => setUserToggled(!userToggled)}
-                        aria-hidden='true'
-                    >
-                        <FaUserAlt size={20} />
+                    <div className='user' aria-hidden='true'>
+                        <Link to='/login'>
+                            <FaUserAlt size={20} />
+                        </Link>
                     </div>
                     <div
                         className='hamburger'
