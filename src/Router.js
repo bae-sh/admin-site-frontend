@@ -7,6 +7,7 @@ import Member from './pages/member';
 import Header from './components/layout/header';
 import Login from './pages/login';
 import Modal from './components/modal';
+import Signup from './pages/signup';
 
 function Router() {
     return (
@@ -19,6 +20,7 @@ function Router() {
                 <Route path='/calendar' element={<Calendar />} />
                 <Route path='/member' element={<Member />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<Signup />} />
             </Routes>
         </BrowserRouter>
     );
