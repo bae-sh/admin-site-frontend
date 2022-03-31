@@ -37,7 +37,6 @@
                 ]
             }
         ],
-        "react/jsx-props-no-spreading": ["warn"],
-        "react/jsx-no-useless-fragment": "allowExpressions: true"
+        "react/jsx-props-no-spreading": ["warn"]
     }
 }
