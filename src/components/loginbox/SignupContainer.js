@@ -11,13 +11,13 @@ const inputList = [
     },
     {
         name: '학번',
-        id: 'studentId',
+        id: 'studentNumber',
         placeholder: '학번을 입력하세요',
         errorMsg: '학번을 입력하세요.',
     },
     {
         name: 'ID',
-        id: 'id',
+        id: 'userId',
         placeholder: 'ID를 입력하세요',
         errorMsg: 'ID를 입력하세요.',
     },

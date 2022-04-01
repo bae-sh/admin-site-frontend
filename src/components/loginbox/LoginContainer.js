@@ -5,7 +5,7 @@ import * as Styled from './styled';
 const inputList = [
     {
         name: 'ID',
-        id: 'id',
+        id: 'userId',
         placeholder: 'ID를 입력하세요',
         errorMsg: 'ID를 입력하세요',
     },
@@ -25,8 +25,10 @@ function LoginContainer() {
         setError,
     } = useForm();
     const onValid = (data) => {
+        // 아이디 없는경우
+        setError('password', { message: '존재하지 않는 계정입니다.' });
         // 비밀번호가 일치하지 않을경우
-        setError('password', { message: 'ID 혹은 Password가 일치하지 않습니다' });
+        setError('password', { message: '비밀번호가 틀렸습니다.' });
     };
     return (
         <Styled.Container>
