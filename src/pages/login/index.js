@@ -1,16 +1,16 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { modalVisibleState } from '../../atoms';
-import * as Styled from './styled';
 import * as PageStyled from '../pageStyled';
+import LoginContainer from '../../components/loginbox/LoginContainer';
 
 function Login() {
     const modalVisible = useRecoilValue(modalVisibleState);
     return (
         <PageStyled.Container modalVisible={modalVisible}>
-            <Styled.Container>
-                <div className='inner'>Login</div>
-            </Styled.Container>
+            <div className='inner'>
+                <LoginContainer />
+            </div>
         </PageStyled.Container>
     );
 }
