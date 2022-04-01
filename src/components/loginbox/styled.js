@@ -91,6 +91,7 @@ export const Box = styled.div`
         input[type='checkbox']:checked::after {
             display: block;
         }
+
         span {
             margin-left: 8px;
         }
@@ -110,16 +111,21 @@ export const Box = styled.div`
 `;
 
 export const Input = styled.input`
-    margin-top: 5px;
+    margin: 5px 0;
     height: 40px;
     width: 100%;
     font-size: 18px;
     padding: 10px 20px;
-    border-radius: 16px;
+    border-radius: 5px;
     border: 1px solid black;
     :focus {
         outline: none;
         border: 2px solid black;
+    }
+    ::placeholder {
+        font-size: 14px;
+        color: #b4b4b4;
+        font-weight: 400;
     }
 `;
 
@@ -131,4 +137,11 @@ export const LoginBtn = styled.button`
     border-radius: 16px;
     border: none;
     cursor: pointer;
+`;
+
+export const ErrorMsg = styled.span`
+    color: red;
+    margin: 15px;
+    padding-top: 20px;
+    font-size: 14px;
 `;
