@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { FaUserAlt, FaBars, FaTimes } from 'react-icons/fa';
-import { modalVisibleState } from '../../../atoms';
+import { modalVisibleState, userIdState } from '../../../atoms';
 import Nav from '../../nav';
 import Logo from '../../../images/logo/admin_logo.png';
 import * as Styled from './styled';
@@ -11,6 +11,7 @@ function Header() {
     const navigate = useNavigate();
     const [modalVisible, setModalVisible] = useRecoilState(modalVisibleState);
     const [userToggled, setUserToggled] = React.useState(false);
+    const isLoggined = useRecoilValue(userIdState);
     return (
         <Styled.Container modalVisible={modalVisible} userToggled={userToggled}>
             <div className='innerHeader'>
@@ -25,7 +26,11 @@ function Header() {
                 <div className='headerRight'>
                     <div className='user' aria-hidden='true'>
                         <Link to='/login'>
-                            <FaUserAlt size={20} />
+                            {isLoggined.userId === '' ? (
+                                <Styled.Login>로그인</Styled.Login>
+                            ) : (
+                                <FaUserAlt size={20} />
+                            )}
                         </Link>
                     </div>
                     <div
