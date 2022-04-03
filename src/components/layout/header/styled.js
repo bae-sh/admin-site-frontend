@@ -70,3 +70,10 @@ export const Container = styled.div`
         }
     }
 `;
+
+export const Login = styled.span`
+    border: 1px solid black;
+    font-weight: 350;
+    padding: 5px 12px;
+    border-radius: 16px;
+`;
