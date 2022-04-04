@@ -3,13 +3,13 @@ import { useRecoilValue } from 'recoil';
 import { modalVisibleState } from '../../atoms';
 import * as PageStyled from '../pageStyled';
 
-function Board() {
+function QnA() {
     const modalVisible = useRecoilValue(modalVisibleState);
     return (
         <PageStyled.Container modalVisible={modalVisible}>
-            <div className='inner'>Board</div>
+            <div className='inner'>Q&A</div>
         </PageStyled.Container>
     );
 }
 
-export default Board;
+export default QnA;

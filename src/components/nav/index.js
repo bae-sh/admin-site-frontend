@@ -6,6 +6,7 @@ import * as Styled from './styled';
 
 const navList = [
     { path: '/board', name: '게시판' },
+    { path: '/qna', name: 'Q&A' },
     { path: '/calendar', name: '일정' },
     { path: '/member', name: '임원진' },
 ];
