@@ -3,10 +3,12 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { GoChevronLeft, GoChevronRight, GoPlus } from 'react-icons/go';
 import { AiOutlineCalendar } from 'react-icons/ai';
+import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import * as Styled from './styled';
 import * as PageStyled from '../pageStyled';
+import { fetchCalendarData } from '../../api';
 import { modalVisibleState } from '../../atoms';
 
 const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -112,28 +114,24 @@ const AddBtn = styled.button`
 `;
 
 function CalendarComponent({ date }) {
-    // 님 날짜 뭐 눌렀어요? (초기값은 오늘)
+    const { isLoading, data } = useQuery('calendarDatas', fetchCalendarData);
     const today = date;
-    // startOf('month') : 이번 달의 첫번 째 날로 설정 set to the first of this month, 12:00 am
-    // week() : Week of Year. 이번 년도의 몇번째 주인가? => 3월 8일이면 10이겠죠?
     const startWeek = today.clone().startOf('month').week();
 
-    // endOf('month').week() : 이번 달의 마지막 날로 설정 한 후 그것이 이번 년도의 몇번째 주인지 체크
-    // 만약 이번 해의 첫번째 주(1월 1일이 속한 주)라면 53으로 세팅, 아니라면 그대로 유지
-    // 이런 작업의 이유는 마지막 주가 첫 주가 될 수 없기 때문에 당연한 것임
     // eslint-disable-next-line operator-linebreak
     const endWeek =
         today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
 
     const calendar = [];
-    // 시작 주부터 마지막 주까지 +1 씩 증가시킴
-    // 이제 주마다 일을 표기해야 하므로 len이 7인 arr를 생성 후 index를 기반으로 day를 표기하자
+    const onClick = () => {
+        // delete post
+    };
+
     for (let week = startWeek; week <= endWeek; week += 1) {
         calendar.push(
             Array(7)
                 .fill(0)
                 .map((n, i) => {
-                    // 오늘 => 주어진 주의 시작 => n + i일 만큼 더해서 각 주의 '일'을 표기한다.
                     const current = today.clone().week(week).startOf('week').add(i, 'day');
                     const prev = current.format('D') > 10 && week === startWeek;
                     const next = current.format('D') < 10 && week === endWeek;
@@ -153,7 +151,6 @@ function CalendarComponent({ date }) {
 function Calendar() {
     const modalVisible = useRecoilValue(modalVisibleState);
     const [date, setdate] = useState(() => moment());
-    console.log(date.format('M'));
     // eslint-disable-next-line no-confusing-arrow
     const jumpToMonth = (num) =>
         // eslint-disable-next-line implicit-arrow-linebreak
