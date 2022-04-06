@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
+import { BsFillEyeSlashFill, BsFillEyeFill } from 'react-icons/bs';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
 import * as Styled from './styled';
 
 const inputList = [
@@ -30,6 +33,7 @@ function LoginContainer() {
         // 비밀번호가 일치하지 않을경우
         setError('password', { message: '비밀번호가 틀렸습니다.' });
     };
+    const [visible, setVisible] = useState(false);
     return (
         <Styled.Container>
             <form onSubmit={handleSubmit(onValid)}>
@@ -41,10 +45,16 @@ function LoginContainer() {
                             <span>{item.name}</span>
                             <br />
                             <Styled.Input
-                                type='text'
+                                type={!visible && item.name === 'Password' ? 'password' : 'text'}
+                                visible={visible}
                                 {...register(item.id, { required: item.errorMsg })}
                                 placeholder={item.placeholder}
                             />
+                            {item.name === 'Password' && (
+                                <Styled.EyeIcon onClick={() => setVisible((prev) => !prev)}>
+                                    {visible ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}
+                                </Styled.EyeIcon>
+                            )}
                             <Styled.ErrorMsg>{errors[item.id]?.message}</Styled.ErrorMsg>
                         </div>
                     ))}
