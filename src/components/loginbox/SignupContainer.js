@@ -1,5 +1,8 @@
+/* eslint-disable operator-linebreak */
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import * as Styled from './styled';
 
 const inputList = [
@@ -36,6 +39,8 @@ const inputList = [
 ];
 
 function SignupContainer() {
+    const [visible, setVisible] = useState(false);
+    const [visible2, setVisible2] = useState(false);
     const {
         register,
         handleSubmit,
@@ -60,10 +65,25 @@ function SignupContainer() {
                             <span>{item.name}</span>
                             <br />
                             <Styled.Input
-                                type='text'
+                                type={
+                                    (item.name === 'Password' && !visible) ||
+                                    (item.name === 'Password 확인' && !visible2)
+                                        ? 'password'
+                                        : 'text'
+                                }
                                 {...register(item.id, { required: item.errorMsg })}
                                 placeholder={item.placeholder}
                             />
+                            {item.name === 'Password' && (
+                                <Styled.EyeIcon onClick={() => setVisible((prev) => !prev)}>
+                                    {visible ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}
+                                </Styled.EyeIcon>
+                            )}
+                            {item.name === 'Password 확인' && (
+                                <Styled.EyeIcon onClick={() => setVisible2((prev) => !prev)}>
+                                    {visible2 ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}
+                                </Styled.EyeIcon>
+                            )}
                             <Styled.ErrorMsg>{errors[item.id]?.message}</Styled.ErrorMsg>
                         </div>
                     ))}
