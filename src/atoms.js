@@ -15,3 +15,8 @@ export const modalVisibleState = atom({
     key: 'modalVisible',
     default: false,
 });
+
+export const announcementTabIndexState = atom({
+    key: 'announcementTabIndex',
+    default: 0,
+});
