@@ -2,13 +2,13 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { URL } from './url';
 
-async function getAnnouncements() {
-    const { data } = await axios.get(`${URL}/announcement`);
+async function getAnnouncements(page, size) {
+    const { data } = await axios.get(`${URL}/announcement?page=${page}&size=${size}`);
     return data;
 }
 
-export function useAnnouncements() {
-    return useQuery('announcements', getAnnouncements);
+export function useAnnouncements(page, size) {
+    return useQuery(['announcements', page, size], () => getAnnouncements(page, size));
 }
 
 export async function postAnnouncement(formData) {
