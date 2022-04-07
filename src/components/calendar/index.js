@@ -55,7 +55,9 @@ function CalendarComponent({ date }) {
                         <Styled.DayBox key={current.format('D')} prev={prev || next}>
                             <div className='day'>{current.format('D')}</div>
                             {titles.map((item) => (
-                                <div className='toDo'>{item.title}</div>
+                                <div className='toDo' key={item.title}>
+                                    {item.title}
+                                </div>
                             ))}
                         </Styled.DayBox>
                     );

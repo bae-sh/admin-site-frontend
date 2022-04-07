@@ -42,6 +42,7 @@ function LoginContainer() {
                 navigate('/');
                 console.log(response.data.data);
                 setUserState(response.data.data);
+                localStorage.setItem('user', data);
             })
             .catch((error) => {
                 setError('password', { message: error.response.data.message });
