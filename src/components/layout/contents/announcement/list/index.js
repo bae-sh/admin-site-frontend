@@ -3,14 +3,12 @@
 /* eslint-disable indent */
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { useQueryClient } from 'react-query';
 import Logo from '../../../../../images/logo/admin_logo.png';
 import Paging from '../../../paging';
 import * as Styled from './styled';
 import { useAnnouncements } from '../../../../../api';
 
 function AnnouncementList() {
-    const queryClient = useQueryClient();
     const [currentPage, setCurrentPage] = React.useState(0);
     const { status, data, error } = useAnnouncements(currentPage, 6);
 
@@ -27,19 +25,23 @@ function AnnouncementList() {
                 return (
                     <>
                         <Styled.FlexContainer>
-                            {console.log(typeof data.data)}
                             {data.data.map((item) => {
                                 const date = item.lastModifiedAt.split(/T|-|[.]/);
                                 return (
                                     <li className='item_card' key={item.id}>
+                                        {console.log(item.title.length)}
                                         <div className='wrap_container'>
                                             <div className='announcement_title'>
                                                 <Link to={`/announcement/${item.id}`}>
-                                                    {item.title}
+                                                    {item.title.length > 10
+                                                        ? `${item.title.substr(0, 10)}...`
+                                                        : item.title}
                                                 </Link>
                                             </div>
                                             <div className='announcement_content'>
-                                                {item.content}
+                                                {item.content.length > 20
+                                                    ? `${item.content.substr(0, 20)}...`
+                                                    : item.content}
                                             </div>
                                             <div className='same'>
                                                 <span className='announcement_date'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]}`}</span>
