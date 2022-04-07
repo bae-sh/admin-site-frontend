@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
-import Board from './pages/board';
+import Announcement from './pages/announcement';
+import AnnouncementDetail from './pages/announcement/detail';
+import AnnouncementUpload from './pages/announcement/upload';
+import Gallery from './pages/gallery';
 import QnA from './pages/qna';
 import Calendar from './pages/calendar';
 import Member from './pages/member';
@@ -18,7 +21,10 @@ function Router() {
             <Header />
             <Routes>
                 <Route exact path='/' element={<Home />} />
-                <Route path='/board' element={<Board />} />
+                <Route path='/announcement' element={<Announcement />} />
+                <Route path='/announcement/:id' element={<AnnouncementDetail />} />
+                <Route path='/announcement/upload' element={<AnnouncementUpload />} />
+                <Route path='/gallery' element={<Gallery />} />
                 <Route path='/qna' element={<QnA />} />
                 <Route path='/calendar' element={<Calendar />} />
                 <Route path='/member' element={<Member />} />

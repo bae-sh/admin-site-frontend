@@ -5,7 +5,8 @@ import { modalVisibleState } from '../../atoms';
 import * as Styled from './styled';
 
 const navList = [
-    { path: '/board', name: '게시판' },
+    { path: '/announcement', name: '공지사항' },
+    { path: '/gallery', name: '갤러리' },
     { path: '/qna', name: 'Q&A' },
     { path: '/calendar', name: '일정' },
     { path: '/member', name: '임원진' },
