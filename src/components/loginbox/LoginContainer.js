@@ -3,6 +3,8 @@ import { BsFillEyeSlashFill, BsFillEyeFill } from 'react-icons/bs';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { useSetRecoilState } from 'recoil';
+import { userIdState } from '../../atoms';
 import * as Styled from './styled';
 import { url } from '../../api';
 
@@ -29,23 +31,21 @@ function LoginContainer() {
         setError,
     } = useForm();
     const navigate = useNavigate();
+    const setUserState = useSetRecoilState(userIdState);
     const onValid = async (data) => {
-        console.log(data);
-        // axios({
-        //     method: 'post',
-        //     url: `${url}/login`,
-        //     data: formData,
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //     },
-        // })
-        //     .then((response) => {
-        //         navigate('/');
-        //         console.log(response);
-        //     })
-        //     .catch((error) => {
-        //         setError('password', { message: error.response.data.message });
-        //     });
+        axios({
+            method: 'post',
+            url: `${url}/login`,
+            data,
+        })
+            .then((response) => {
+                navigate('/');
+                console.log(response.data.data);
+                setUserState(response.data.data);
+            })
+            .catch((error) => {
+                setError('password', { message: error.response.data.message });
+            });
     };
     const [visible, setVisible] = useState(false);
     return (
