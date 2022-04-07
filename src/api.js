@@ -11,6 +11,17 @@ export function useAnnouncements(page, size) {
     return useQuery(['announcements', page, size], () => getAnnouncements(page, size));
 }
 
+async function getAnnouncementDetail(id) {
+    const { data } = await axios.get(`${URL}/announcement/${id}`);
+    return data;
+}
+
+export function useAnnouncementDetail(id) {
+    return useQuery(['announcement', id.id], () => getAnnouncementDetail(id.id), {
+        enabled: !!id.id,
+    });
+}
+
 export async function postAnnouncement(formData) {
     const { data } = await axios.post(`${URL}/announcement`, formData, {
         headers: {
