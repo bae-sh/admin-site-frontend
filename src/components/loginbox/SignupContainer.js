@@ -1,8 +1,11 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable operator-linebreak */
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
+import axios from 'axios';
+import { url } from '../../api';
 import * as Styled from './styled';
 
 const inputList = [
@@ -47,11 +50,32 @@ function SignupContainer() {
         formState: { errors },
         setError,
     } = useForm();
+    const navigate = useNavigate();
     const onValid = (data) => {
         if (data.password !== data.password2) {
             setError('password2', { message: '비밀번호가 일치하지 않습니다.' });
         } else {
-            console.log('post 부분');
+            const formData = new FormData();
+            formData.append('name', data.name);
+            formData.append('studentNumber', data.studentNumber);
+            formData.append('userId', data.userId);
+            formData.append('password', data.password);
+            axios({
+                method: 'post',
+                url: `${url}/signup`,
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+                .then((response) => {
+                    navigate('/');
+                    alert('Admin 가입을 환영합니다!');
+                    console.log(response);
+                })
+                .catch((error) => {
+                    setError('password2', { message: error.response.data.message });
+                });
         }
     };
     return (

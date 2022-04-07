@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsFillEyeSlashFill, BsFillEyeFill } from 'react-icons/bs';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
+import axios from 'axios';
 import * as Styled from './styled';
+import { url } from '../../api';
 
 const inputList = [
     {
@@ -27,11 +28,24 @@ function LoginContainer() {
         formState: { errors },
         setError,
     } = useForm();
-    const onValid = (data) => {
-        // 아이디 없는경우
-        setError('password', { message: '존재하지 않는 계정입니다.' });
-        // 비밀번호가 일치하지 않을경우
-        setError('password', { message: '비밀번호가 틀렸습니다.' });
+    const navigate = useNavigate();
+    const onValid = async (data) => {
+        console.log(data);
+        // axios({
+        //     method: 'post',
+        //     url: `${url}/login`,
+        //     data: formData,
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data',
+        //     },
+        // })
+        //     .then((response) => {
+        //         navigate('/');
+        //         console.log(response);
+        //     })
+        //     .catch((error) => {
+        //         setError('password', { message: error.response.data.message });
+        //     });
     };
     const [visible, setVisible] = useState(false);
     return (
