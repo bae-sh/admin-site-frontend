@@ -47,21 +47,36 @@ export const Container = styled.section`
         border-radius: 6px;
     }
 
+    .back_btn,
     .submit_btn {
         height: 44px;
         border-radius: 30px;
         background: lightgray;
         line-height: 44px;
-        font-size: 16px;
+        font-size: 17px;
         letter-spacing: -0.5px;
         border: none;
         width: 20%;
-        margin: 0 40% 30px 40%;
+        margin: 0 20px;
+        padding: 0;
     }
 
+    .back_btn:hover,
     .submit_btn:hover {
         background: black;
         color: white;
+    }
+
+    .btn_container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+
+    .back_btn {
+        text-align: center;
+        font-weight: 440;
     }
 
     @media screen and (max-width: 1023px) {

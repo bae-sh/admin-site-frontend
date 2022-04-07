@@ -56,7 +56,18 @@ function AnnouncementUploadContent() {
                     rows={15}
                     cols={15}
                 />
-                <input type='submit' className='submit_btn' />
+                <div className='btn_container'>
+                    <input type='submit' value='올리기' className='submit_btn' />
+                    <span
+                        className='back_btn'
+                        aria-hidden='true'
+                        onClick={() => {
+                            navigate(-1);
+                        }}
+                    >
+                        취소
+                    </span>
+                </div>
             </form>
         </Styled.Container>
     );
