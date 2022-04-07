@@ -1,3 +1,6 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-case-declarations */
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable indent */
@@ -22,10 +25,13 @@ function AnnouncementList() {
                 }
                 break;
             default:
+                const sortedData = data.data.sort((a, b) =>
+                    b.lastModifiedAt.localeCompare(a.lastModifiedAt),
+                );
                 return (
                     <>
                         <Styled.FlexContainer>
-                            {data.data.map((item) => {
+                            {sortedData.map((item) => {
                                 const date = item.lastModifiedAt.split(/T|-|[.]/);
                                 return (
                                     <li className='item_card' key={item.id}>
