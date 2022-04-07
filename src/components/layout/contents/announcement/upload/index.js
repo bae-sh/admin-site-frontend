@@ -1,8 +1,65 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable operator-linebreak */
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import * as Styled from './styled';
+import { postAnnouncement } from '../../../../../api';
 
 function AnnouncementUploadContent() {
-    return <Styled.Container>업로드 페이지</Styled.Container>;
+    const { register, handleSubmit } = useForm();
+    const navigate = useNavigate();
+
+    const mutation = useMutation((formData) => postAnnouncement(formData), {
+        onSuccess: navigate('/announcement'),
+    });
+
+    const onSubmit = (data) => {
+        const formData = new FormData();
+        data.image.length &&
+            Object.values(data.image).map((file) => formData.append('images', file));
+        formData.append('title', data.title);
+        formData.append('content', data.content);
+        mutation.mutate(formData);
+    };
+
+    const onError = (error) => {
+        if (error.content && error.title) {
+            alert(`${error.content.message}\n${error.title.message}`);
+        } else if (error.content) {
+            alert(error.content.message);
+        } else {
+            alert(error.title.message);
+        }
+    };
+
+    return (
+        <Styled.Container>
+            <form encType='multipart/form-data' onSubmit={handleSubmit(onSubmit, onError)}>
+                <input
+                    {...register('title', { required: '제목을 입력해주세요.' })}
+                    placeholder='제목을 입력해주세요.'
+                    className='title_input'
+                />
+                <input
+                    type='file'
+                    multiple
+                    accept='image/png, image/jpeg, image/jpg'
+                    {...register('image')}
+                    className='image_input'
+                />
+                <textarea
+                    {...register('content', { required: '내용을 입력해주세요.' })}
+                    placeholder='내용을 입력해주세요.'
+                    className='content_input'
+                    rows={15}
+                    cols={15}
+                />
+                <input type='submit' className='submit_btn' />
+            </form>
+        </Styled.Container>
+    );
 }
 
 export default AnnouncementUploadContent;

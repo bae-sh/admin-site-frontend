@@ -12,8 +12,9 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["react"],
+    "plugins": ["react", "eslint-plugin-prettier"],
     "rules": {
+        "object-curly-newline": 0,
         "no-unused-vars": "warn",
         "no-use-before-define": 1,
         "indent": ["error", 4],
@@ -24,6 +25,7 @@
         "import/prefer-default-export": "off",
         "jsx-quotes": [2, "prefer-single"],
         "no-console": 0,
+        "no-alert": 0,
         "jsx-a11y/no-noninteractive-element-interactions": [
             "error",
             {
@@ -37,7 +39,7 @@
                 ]
             }
         ],
-        "react/jsx-props-no-spreading": ["warn"],
+        "react/jsx-props-no-spreading": 0,
         "react/prop-types": 0
     }
 }
