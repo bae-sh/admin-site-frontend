@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { userIdState } from '../../atoms';
 import * as Styled from './styled';
-import { url } from '../../api';
+import { url } from '../../url';
 
 const inputList = [
     {

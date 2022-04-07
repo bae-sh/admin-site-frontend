@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { url } from '../../api';
+import { url } from '../../url';
 import { modalVisibleState } from '../../atoms';
 import * as PageStyled from '../pageStyled';
 

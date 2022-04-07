@@ -10,7 +10,7 @@ import * as Styled from './styled';
 import * as PageStyled from '../pageStyled';
 import { modalVisibleState } from '../../atoms';
 import CalendarComponent from '../../components/calendar';
-import { url } from '../../api';
+import { url } from '../../url';
 
 const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -24,23 +24,23 @@ function Calendar() {
         // eslint-disable-next-line implicit-arrow-linebreak
         num ? setdate(date.clone().add(30, 'day')) : setdate(date.clone().subtract(30, 'day'));
     const onValid = (data) => {
-        const startDate = data.startDate.split('-');
-        const body = {
-            title: data.title,
-            startDate: { year: startDate[0], month: startDate[1], dayOfMonth: startDate[2] },
-        };
-        console.log(body);
-        // axios({
-        //     method: 'post',
-        //     url: `${url}/calendar`,
-        //     data,
-        // })
-        //     .then((response) => {
-        //         console.log(response.data.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        if (data.title === '') {
+            alert('제목을 입력하세요.');
+        } else if (data.startDate === '') {
+            alert('날짜를 선택하세요.');
+        } else {
+            axios({
+                method: 'post',
+                url: `${url}/calendar`,
+                data,
+            })
+                .then((response) => {
+                    console.log(response.data.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     };
 
     return (

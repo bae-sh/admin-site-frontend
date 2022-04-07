@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import axios from 'axios';
-import { url } from '../../api';
+import { url } from '../../url';
 import * as Styled from './styled';
 
 const inputList = [

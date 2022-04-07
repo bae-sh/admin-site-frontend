@@ -1,5 +1,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-linebreak */
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { fetchCalendarData } from '../../api';
 import * as Styled from './styled';
@@ -22,9 +24,11 @@ const toDoList = [
         title: '2022 1학기 종강',
     },
 ];
-
 function CalendarComponent({ date }) {
     // const { isLoading, data } = useQuery('calendarDatas', fetchCalendarData);
+    // useEffect(() => {
+    //     toDoList=
+    // }, [date]);
     const today = date;
     const startWeek = today.clone().startOf('month').week();
 
