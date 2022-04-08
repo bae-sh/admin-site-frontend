@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-confusing-arrow */
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { GoChevronLeft, GoChevronRight, GoPlus } from 'react-icons/go';
@@ -19,9 +21,7 @@ function Calendar() {
     const [date, setdate] = useState(() => moment());
     const [toggleAddBox, setToggleAddBox] = useState(false);
     const { register, handleSubmit } = useForm();
-    // eslint-disable-next-line no-confusing-arrow
     const jumpToMonth = (num) =>
-        // eslint-disable-next-line implicit-arrow-linebreak
         num ? setdate(date.clone().add(30, 'day')) : setdate(date.clone().subtract(30, 'day'));
     const onValid = (data) => {
         if (data.title === '') {
@@ -33,16 +33,23 @@ function Calendar() {
                 method: 'post',
                 url: `${url}/calendar`,
                 data,
+                headers: {
+                    Authorization:
+                        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
+                },
             })
                 .then((response) => {
-                    console.log(response.data.data);
+                    alert('일정이 추가되었습니다.');
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log(error.response);
                 });
         }
     };
 
+    // useEffect(() => {
+
+    // }, [date]);
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>

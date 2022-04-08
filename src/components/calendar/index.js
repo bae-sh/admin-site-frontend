@@ -1,34 +1,43 @@
+/* eslint-disable prefer-const */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-linebreak */
 import axios from 'axios';
-import { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import { fetchCalendarData } from '../../api';
+import { useEffect, useState } from 'react';
+import { url } from '../../url';
 import * as Styled from './styled';
 
-const toDoList = [
-    {
-        startDate: {
-            year: '2022',
-            month: '4',
-            dayOfMonth: '12',
-        },
-        title: '어드민 개강총회',
-    },
-    {
-        startDate: {
-            year: '2022',
-            month: '4',
-            dayOfMonth: '30',
-        },
-        title: '2022 1학기 종강',
-    },
-];
 function CalendarComponent({ date }) {
-    // const { isLoading, data } = useQuery('calendarDatas', fetchCalendarData);
-    // useEffect(() => {
-    //     toDoList=
-    // }, [date]);
+    const [toDoList, setToDoList] = useState([]);
+    useEffect(() => {
+        const year = date.format('Y');
+        const month = date.format('M');
+        axios({
+            method: 'get',
+            url: `${url}/calendar?year=${year}&month=${month}`,
+            headers: {
+                Authorization:
+                    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
+            },
+        })
+            .then((response) => {
+                let newToDoList = response.data.data.map((item) => {
+                    let day = item.startDate.split('-')[2];
+                    return {
+                        startDate: {
+                            year,
+                            month,
+                            dayOfMonth: String(Number(day)),
+                        },
+                        title: item.title,
+                    };
+                });
+                setToDoList(newToDoList);
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [date]);
     const today = date;
     const startWeek = today.clone().startOf('month').week();
 

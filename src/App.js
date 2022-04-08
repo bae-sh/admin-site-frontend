@@ -4,10 +4,13 @@ import Router from './Router';
 import { userIdState } from './atoms';
 
 function App() {
-    const user = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user'));
     const setUserIdState = useSetRecoilState(userIdState);
     useEffect(() => {
-        if (user) {
+        console.log(user, Date.now());
+        if (user.expired < Date.now()) {
+            localStorage.clear();
+        } else if (user) {
             setUserIdState(user);
         }
     }, []);

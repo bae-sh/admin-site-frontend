@@ -33,16 +33,17 @@ function LoginContainer() {
     const navigate = useNavigate();
     const setUserState = useSetRecoilState(userIdState);
     const onValid = async (data) => {
-        axios({
+        await axios({
             method: 'post',
             url: `${url}/login`,
             data,
         })
             .then((response) => {
                 navigate('/');
-                console.log(response.data.data);
-                setUserState(response.data.data);
-                localStorage.setItem('user', data);
+                const newData = { ...response.data.data, expire: Date.now() + 600000 };
+                console.log(newData);
+                setUserState(newData);
+                localStorage.setItem('user', JSON.stringify(newData));
             })
             .catch((error) => {
                 setError('password', { message: error.response.data.message });
