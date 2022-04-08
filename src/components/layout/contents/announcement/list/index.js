@@ -25,13 +25,10 @@ function AnnouncementList() {
                 }
                 break;
             default:
-                const sortedData = data.data.sort((a, b) =>
-                    b.lastModifiedAt.localeCompare(a.lastModifiedAt),
-                );
                 return (
                     <>
                         <Styled.FlexContainer>
-                            {sortedData.map((item) => {
+                            {data.data.map((item) => {
                                 const date = item.lastModifiedAt.split(/T|-|[.]/);
                                 return (
                                     <li className='item_card' key={item.id}>
