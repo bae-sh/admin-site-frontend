@@ -17,8 +17,8 @@ async function getAnnouncementDetail(id) {
 }
 
 export function useAnnouncementDetail(id) {
-    return useQuery(['announcement', id.id], () => getAnnouncementDetail(id.id), {
-        enabled: !!id.id,
+    return useQuery(['announcement', id], () => getAnnouncementDetail(id), {
+        enabled: !!id,
     });
 }
 
@@ -26,7 +26,16 @@ export async function postAnnouncement(formData) {
     const { data } = await axios.post(`${URL}/announcement`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: 'Bearer Token',
+            Authorization: 'Bearer token',
+        },
+    });
+    return data;
+}
+
+export async function deleteAnnouncement(id) {
+    const { data } = await axios.delete(`${URL}/announcement/${id}`, {
+        headers: {
+            Authorization: 'Bearer token',
         },
     });
     return data;

@@ -5,6 +5,29 @@ export const Container = styled.section`
     border-radius: 16px;
     box-shadow: 0px 0px 15px lightgray;
     text-align: center;
+    position: relative;
+
+    .btn_container {
+        position: absolute;
+        top: 40px;
+        right: 50px;
+        font-size: 25px;
+    }
+
+    .delete_btn {
+        margin-left: 20px;
+    }
+
+    .delete_btn,
+    .modify_btn {
+        cursor: pointer;
+    }
+
+    .delete_btn:hover,
+    .modify_btn:hover {
+        text-decoration: underline;
+        font-weight: 600;
+    }
 
     .detail_title {
         margin-top: 100px;
@@ -79,6 +102,22 @@ export const Container = styled.section`
             line-height: 44px;
             font-size: 15px;
             margin-bottom: 30px;
+        }
+
+        .btn_container {
+            top: 20px;
+            right: 20px;
+            font-size: 16px;
+        }
+
+        .delete_btn {
+            margin-left: 10px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .btn_container {
+            font-size: 12px;
         }
     }
 `;
