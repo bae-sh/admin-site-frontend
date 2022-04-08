@@ -35,7 +35,6 @@ function AnnouncementList() {
                                 const date = item.lastModifiedAt.split(/T|-|[.]/);
                                 return (
                                     <li className='item_card' key={item.id}>
-                                        {console.log(item.title.length)}
                                         <div className='wrap_container'>
                                             <div className='announcement_title'>
                                                 <Link to={`/announcement/${item.id}`}>
@@ -80,7 +79,7 @@ function AnnouncementList() {
                     </>
                 );
         }
-    }, [status]);
+    }, [status, data]);
 
     return <Styled.Container>{renderByStatus()}</Styled.Container>;
 }

@@ -1,18 +1,23 @@
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable operator-linebreak */
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as Styled from './styled';
 import { postAnnouncement } from '../../../../../api';
 
 function AnnouncementUploadContent() {
+    const queryClient = useQueryClient();
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
 
     const mutation = useMutation((formData) => postAnnouncement(formData), {
-        onSuccess: navigate('/announcement'),
+        onSuccess: () => {
+            queryClient.invalidateQueries('announcements');
+            navigate('/announcement');
+        },
     });
 
     const onSubmit = (data) => {
