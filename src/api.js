@@ -1,12 +1,15 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-alert */
 import axios from 'axios';
 import { url } from './url';
+
+const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
 
 export function fetchCalendarData() {
     return fetch(`${url}/calendar`).then((response) => response.json());
 }
 
-export async function addToDo(data, setToggleAddBox) {
+export async function addToDo(data, setToggleAddBox, setChangeTodo) {
     if (data.title === '') {
         alert('제목을 입력하세요.');
     } else if (data.startDate === '') {
@@ -17,13 +20,13 @@ export async function addToDo(data, setToggleAddBox) {
             url: `${url}/calendar`,
             data,
             headers: {
-                Authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
+                Authorization: `Bearer ${token}`,
             },
         })
             .then(() => {
                 alert('일정이 추가되었습니다.');
                 setToggleAddBox(false);
+                setChangeTodo((prev) => prev + 1);
             })
             .catch((error) => {
                 console.log(error.response);
@@ -37,8 +40,7 @@ export async function fetchToDoList(date, setToDoList) {
         method: 'get',
         url: `${url}/calendar?year=${year}`,
         headers: {
-            Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
+            Authorization: `Bearer ${token}`,
         },
     })
         .then((response) => {
@@ -62,17 +64,19 @@ export async function fetchToDoList(date, setToDoList) {
         });
 }
 
-export async function deleteToDo(e) {
+export async function deleteToDo(e, setChangeTodo) {
     if (window.confirm(`${e.target.innerHTML}를 삭제하시겠습니까?`)) {
         await axios({
             method: 'delete',
             url: `${url}/calendar/${e.target.id}`,
             headers: {
-                Authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
+                Authorization: `Bearer ${token}`,
             },
         })
-            .then(alert('삭제되었습니다.'))
+            .then(() => {
+                alert('삭제되었습니다.');
+                setChangeTodo((prev) => prev + 1);
+            })
             .catch((error) => {
                 console.log(error);
             });

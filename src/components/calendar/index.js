@@ -9,17 +9,16 @@ const DeleteBtn = styled.button`
     background-color: white;
     border: none;
 `;
-function CalendarComponent({ date }) {
+function CalendarComponent({ date, changeTodo, setChangeTodo }) {
     const [toDoList, setToDoList] = useState([]);
     const today = date;
     const startWeek = today.clone().startOf('month').week();
     const endWeek =
         today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
     const calendar = [];
-
     useEffect(() => {
         fetchToDoList(date, setToDoList);
-    }, [date]);
+    }, [date, changeTodo]);
 
     for (let week = startWeek; week <= endWeek; week += 1) {
         calendar.push(
@@ -43,7 +42,9 @@ function CalendarComponent({ date }) {
                                 <DeleteBtn
                                     className='toDo'
                                     type='button'
-                                    onClick={deleteToDo}
+                                    onClick={(e) => {
+                                        deleteToDo(e, setChangeTodo);
+                                    }}
                                     id={item.id}
                                     key={item.id}
                                 >

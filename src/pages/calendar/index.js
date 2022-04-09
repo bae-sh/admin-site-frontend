@@ -21,6 +21,7 @@ function Calendar() {
     const modalVisible = useRecoilValue(modalVisibleState);
     const [date, setdate] = useState(() => moment());
     const [toggleAddBox, setToggleAddBox] = useState(false);
+    const [changeTodo, setChangeTodo] = useState(0);
     const { register, handleSubmit } = useForm();
     const jumpToMonth = (num) =>
         num ? setdate(date.clone().add(30, 'day')) : setdate(date.clone().subtract(30, 'day'));
@@ -58,7 +59,7 @@ function Calendar() {
                             <Styled.AddBox>
                                 <form
                                     onSubmit={handleSubmit((data) =>
-                                        addToDo(data, setToggleAddBox),
+                                        addToDo(data, setToggleAddBox, setChangeTodo),
                                     )}
                                 >
                                     <span>제목</span>
@@ -85,7 +86,11 @@ function Calendar() {
                         {days.map((day) => (
                             <Styled.Day key={day}>{day}</Styled.Day>
                         ))}
-                        <CalendarComponent date={date} />
+                        <CalendarComponent
+                            date={date}
+                            changeTodo={changeTodo}
+                            setChangeTodo={setChangeTodo}
+                        />
                     </Styled.CalendarBody>
                 </Styled.Container>
             </div>
