@@ -1,9 +1,7 @@
-/* eslint-disable max-len */
-/* eslint-disable prefer-const */
-/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-linebreak */
+/* eslint-disable implicit-arrow-linebreak */
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Styled from './styled';
 import { deleteToDo, fetchToDoList } from '../../api';
 
@@ -56,4 +54,4 @@ function CalendarComponent({ date }) {
     return calendar;
 }
 
-export default CalendarComponent;
+export default React.memo(CalendarComponent);

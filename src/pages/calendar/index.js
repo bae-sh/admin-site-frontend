@@ -22,15 +22,6 @@ function Calendar() {
     const { register, handleSubmit } = useForm();
     const jumpToMonth = (num) =>
         num ? setdate(date.clone().add(30, 'day')) : setdate(date.clone().subtract(30, 'day'));
-    const onValid = (data) => {
-        if (data.title === '') {
-            alert('제목을 입력하세요.');
-        } else if (data.startDate === '') {
-            alert('날짜를 선택하세요.');
-        } else {
-            addToDo(data);
-        }
-    };
 
     return (
         <PageStyled.Container modalVisible={modalVisible}>
@@ -63,7 +54,7 @@ function Calendar() {
                     <Styled.CalendarBody>
                         {toggleAddBox && (
                             <Styled.AddBox>
-                                <form onSubmit={handleSubmit(onValid)}>
+                                <form onSubmit={handleSubmit(addToDo)}>
                                     <span>제목</span>
                                     <input {...register('title')} />
                                     <div>
