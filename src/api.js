@@ -14,7 +14,7 @@ export async function addToDo(data, setToggleAddBox, setChangeTodo) {
         alert('제목을 입력하세요.');
     } else if (data.startDate === '') {
         alert('날짜를 선택하세요.');
-    } else {
+    } else if (token) {
         await axios({
             method: 'post',
             url: `${url}/calendar`,
@@ -31,6 +31,8 @@ export async function addToDo(data, setToggleAddBox, setChangeTodo) {
             .catch((error) => {
                 console.log(error.response);
             });
+    } else {
+        alert('권한이 없습니다.');
     }
 }
 
@@ -65,21 +67,23 @@ export async function fetchToDoList(date, setToDoList) {
 }
 
 export async function deleteToDo(e, setChangeTodo) {
-    if (window.confirm(`${e.target.innerHTML}를 삭제하시겠습니까?`)) {
-        await axios({
-            method: 'delete',
-            url: `${url}/calendar/${e.target.id}`,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then(() => {
-                alert('삭제되었습니다.');
-                setChangeTodo((prev) => prev + 1);
+    if (token) {
+        if (window.confirm(`${e.target.innerHTML}를 삭제하시겠습니까?`)) {
+            await axios({
+                method: 'delete',
+                url: `${url}/calendar/${e.target.id}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             })
-            .catch((error) => {
-                console.log(error);
-            });
+                .then(() => {
+                    alert('삭제되었습니다.');
+                    setChangeTodo((prev) => prev + 1);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
 }
 
