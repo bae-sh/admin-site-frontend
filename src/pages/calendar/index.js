@@ -1,18 +1,17 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { GoChevronLeft, GoChevronRight, GoPlus } from 'react-icons/go';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import * as Styled from './styled';
 import * as PageStyled from '../pageStyled';
 import { modalVisibleState } from '../../atoms';
 import CalendarComponent from '../../components/calendar';
-import { url } from '../../url';
+import { addToDo } from '../../api';
 
 const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -29,27 +28,10 @@ function Calendar() {
         } else if (data.startDate === '') {
             alert('날짜를 선택하세요.');
         } else {
-            axios({
-                method: 'post',
-                url: `${url}/calendar`,
-                data,
-                headers: {
-                    Authorization:
-                        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
-                },
-            })
-                .then((response) => {
-                    alert('일정이 추가되었습니다.');
-                })
-                .catch((error) => {
-                    console.log(error.response);
-                });
+            addToDo(data);
         }
     };
 
-    // useEffect(() => {
-
-    // }, [date]);
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>

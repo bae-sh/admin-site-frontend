@@ -8,6 +8,7 @@ export const userIdState = atom({
         phoneNumber: '',
         name: '',
         studentNumber: '',
+        expire: '',
     },
 });
 
