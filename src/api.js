@@ -33,10 +33,9 @@ export async function addToDo(data, setToggleAddBox) {
 
 export async function fetchToDoList(date, setToDoList) {
     const year = date.format('Y');
-    const month = date.format('M');
     await axios({
         method: 'get',
-        url: `${url}/calendar?year=${year}&month=${month}`,
+        url: `${url}/calendar?year=${year}`,
         headers: {
             Authorization:
                 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
@@ -44,11 +43,12 @@ export async function fetchToDoList(date, setToDoList) {
     })
         .then((response) => {
             const newToDoList = response.data.data.map((item) => {
+                const month = item.startDate.split('-')[1];
                 const day = item.startDate.split('-')[2];
                 return {
                     startDate: {
                         year,
-                        month,
+                        month: String(Number(month)),
                         dayOfMonth: String(Number(day)),
                     },
                     title: item.title,
