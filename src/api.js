@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import axios from 'axios';
 import { url } from './url';
 
@@ -20,7 +21,7 @@ export async function addToDo(data, setToggleAddBox) {
                     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
             },
         })
-            .then((response) => {
+            .then(() => {
                 alert('일정이 추가되었습니다.');
                 setToggleAddBox(false);
             })
@@ -71,9 +72,7 @@ export async function deleteToDo(e) {
                     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
             },
         })
-            .then((response) => {
-                alert('삭제되었습니다.');
-            })
+            .then(alert('삭제되었습니다.'))
             .catch((error) => {
                 console.log(error);
             });

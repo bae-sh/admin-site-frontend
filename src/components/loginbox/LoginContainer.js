@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { Link, useNavigate } from 'react-router-dom';
 import { BsFillEyeSlashFill, BsFillEyeFill } from 'react-icons/bs';
 import { useState } from 'react';
