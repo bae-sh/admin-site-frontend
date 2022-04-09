@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { url } from './url';
 
-const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+let token = JSON.parse(localStorage.getItem('user'))?.tokens?.accessToken;
 
 export function fetchCalendarData() {
     return fetch(`${url}/calendar`).then((response) => response.json());
@@ -95,8 +95,8 @@ export async function fetchLogin(data, navigate, setUserState, setError) {
     })
         .then((response) => {
             navigate('/');
+            token = response.data.data.tokens.accessToken;
             const newData = { ...response.data.data, expire: Date.now() + 600000 };
-            console.log(newData);
             setUserState(newData);
             localStorage.setItem('user', JSON.stringify(newData));
         })
