@@ -10,7 +10,14 @@ function App() {
         if (user) {
             if (user.expire < Date.now()) {
                 localStorage.clear();
-                setUserIdState('');
+                setUserIdState({
+                    userId: '',
+                    email: '',
+                    phoneNumber: '',
+                    name: '',
+                    studentNumber: '',
+                    expire: '',
+                });
             } else {
                 setUserIdState(user);
             }
