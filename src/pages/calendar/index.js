@@ -1,3 +1,4 @@
+/* eslint-disable function-paren-newline */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
 import React, { useState } from 'react';
@@ -54,7 +55,11 @@ function Calendar() {
                     <Styled.CalendarBody>
                         {toggleAddBox && (
                             <Styled.AddBox>
-                                <form onSubmit={handleSubmit(addToDo)}>
+                                <form
+                                    onSubmit={handleSubmit((data) =>
+                                        addToDo(data, setToggleAddBox),
+                                    )}
+                                >
                                     <span>제목</span>
                                     <input {...register('title')} />
                                     <div>
@@ -67,6 +72,12 @@ function Calendar() {
                                     </div>
 
                                     <button type='submit'>저장</button>
+                                    <button
+                                        type='button'
+                                        onClick={() => setToggleAddBox((prev) => !prev)}
+                                    >
+                                        취소
+                                    </button>
                                 </form>
                             </Styled.AddBox>
                         )}

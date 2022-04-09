@@ -5,7 +5,7 @@ export function fetchCalendarData() {
     return fetch(`${url}/calendar`).then((response) => response.json());
 }
 
-export async function addToDo(data) {
+export async function addToDo(data, setToggleAddBox) {
     if (data.title === '') {
         alert('제목을 입력하세요.');
     } else if (data.startDate === '') {
@@ -22,6 +22,7 @@ export async function addToDo(data) {
         })
             .then((response) => {
                 alert('일정이 추가되었습니다.');
+                setToggleAddBox(false);
             })
             .catch((error) => {
                 console.log(error.response);
@@ -71,7 +72,7 @@ export async function deleteToDo(e) {
             },
         })
             .then((response) => {
-                console.log(response);
+                alert('삭제되었습니다.');
             })
             .catch((error) => {
                 console.log(error);

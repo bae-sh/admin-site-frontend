@@ -103,6 +103,7 @@ export const AddBox = styled.div`
         font-weight: 400;
         border-radius: 4px;
         width: 45px;
+        margin-right: 10px;
         cursor: pointer;
     }
 `;
