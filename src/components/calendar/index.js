@@ -40,11 +40,15 @@ function CalendarComponent({ date }) {
                         <Styled.DayBox key={current.format('D')} prev={prev || next}>
                             <div className='day'>{current.format('D')}</div>
                             {titles.map((item) => (
-                                <div className='toDo' key={item.id}>
-                                    <DeleteBtn type='button' onClick={deleteToDo} id={item.id}>
-                                        {item.title}
-                                    </DeleteBtn>
-                                </div>
+                                <DeleteBtn
+                                    className='toDo'
+                                    type='button'
+                                    onClick={deleteToDo}
+                                    id={item.id}
+                                    key={item.id}
+                                >
+                                    {item.title}
+                                </DeleteBtn>
                             ))}
                         </Styled.DayBox>
                     );

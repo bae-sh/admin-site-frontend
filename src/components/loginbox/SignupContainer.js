@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
 /* eslint-disable operator-linebreak */
 import { Link, useNavigate } from 'react-router-dom';

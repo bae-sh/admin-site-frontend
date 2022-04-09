@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import axios from 'axios';
 import { url } from './url';
 
@@ -5,7 +6,7 @@ export function fetchCalendarData() {
     return fetch(`${url}/calendar`).then((response) => response.json());
 }
 
-export async function addToDo(data) {
+export async function addToDo(data, setToggleAddBox) {
     if (data.title === '') {
         alert('제목을 입력하세요.');
     } else if (data.startDate === '') {
@@ -20,8 +21,9 @@ export async function addToDo(data) {
                     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
             },
         })
-            .then((response) => {
+            .then(() => {
                 alert('일정이 추가되었습니다.');
+                setToggleAddBox(false);
             })
             .catch((error) => {
                 console.log(error.response);
@@ -70,9 +72,7 @@ export async function deleteToDo(e) {
                     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJybGF0anJ1ZDEyMzIiLCJ1c2VySWQiOiJybGF0anJ1ZDEyMzIiLCJlbWFpbCI6InJsYXRqcnVkMTExQGdtYWlsLmNvbSIsIm5hbWUiOiLquYDshJzqsr0iLCJyb2xlIjoi7ZqM7JuQIiwiaWF0IjoxNjQ5NDA3MTgyLCJleHAiOjE2NDk0OTM1ODJ9.Cw4UJWRodHiDhOeaN-8pg3Bboa8dppDKzVoaWgaL1VY',
             },
         })
-            .then((response) => {
-                console.log(response);
-            })
+            .then(alert('삭제되었습니다.'))
             .catch((error) => {
                 console.log(error);
             });
