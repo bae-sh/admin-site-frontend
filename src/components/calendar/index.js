@@ -1,41 +1,26 @@
-/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-linebreak */
-import { useQuery } from 'react-query';
-import { fetchCalendarData } from '../../api';
+/* eslint-disable implicit-arrow-linebreak */
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import * as Styled from './styled';
+import { deleteToDo, fetchToDoList } from '../../api';
 
-const toDoList = [
-    {
-        startDate: {
-            year: '2022',
-            month: '4',
-            dayOfMonth: '12',
-        },
-        title: '어드민 개강총회',
-    },
-    {
-        startDate: {
-            year: '2022',
-            month: '4',
-            dayOfMonth: '30',
-        },
-        title: '2022 1학기 종강',
-    },
-];
-
+const DeleteBtn = styled.button`
+    background-color: white;
+    border: none;
+`;
 function CalendarComponent({ date }) {
-    // const { isLoading, data } = useQuery('calendarDatas', fetchCalendarData);
+    const [toDoList, setToDoList] = useState([]);
     const today = date;
     const startWeek = today.clone().startOf('month').week();
-
     const endWeek =
         today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
-
     const calendar = [];
 
-    const onClick = () => {
-        // delete post
-    };
+    useEffect(() => {
+        fetchToDoList(date, setToDoList);
+    }, [date]);
+
     for (let week = startWeek; week <= endWeek; week += 1) {
         calendar.push(
             Array(7)
@@ -55,7 +40,11 @@ function CalendarComponent({ date }) {
                         <Styled.DayBox key={current.format('D')} prev={prev || next}>
                             <div className='day'>{current.format('D')}</div>
                             {titles.map((item) => (
-                                <div className='toDo'>{item.title}</div>
+                                <div className='toDo' key={item.id}>
+                                    <DeleteBtn type='button' onClick={deleteToDo} id={item.id}>
+                                        {item.title}
+                                    </DeleteBtn>
+                                </div>
                             ))}
                         </Styled.DayBox>
                     );
@@ -65,4 +54,4 @@ function CalendarComponent({ date }) {
     return calendar;
 }
 
-export default CalendarComponent;
+export default React.memo(CalendarComponent);

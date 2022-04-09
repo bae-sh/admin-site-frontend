@@ -1,9 +1,11 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable operator-linebreak */
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import * as Styled from './styled';
+import { fetchSignup } from '../../api';
 
 const inputList = [
     {
@@ -47,11 +49,12 @@ function SignupContainer() {
         formState: { errors },
         setError,
     } = useForm();
+    const navigate = useNavigate();
     const onValid = (data) => {
         if (data.password !== data.password2) {
             setError('password2', { message: '비밀번호가 일치하지 않습니다.' });
         } else {
-            console.log('post 부분');
+            fetchSignup(data, navigate, setError);
         }
     };
     return (

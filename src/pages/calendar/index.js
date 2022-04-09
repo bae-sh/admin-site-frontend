@@ -1,3 +1,5 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-confusing-arrow */
 import React, { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -9,6 +11,7 @@ import * as Styled from './styled';
 import * as PageStyled from '../pageStyled';
 import { modalVisibleState } from '../../atoms';
 import CalendarComponent from '../../components/calendar';
+import { addToDo } from '../../api';
 
 const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -17,13 +20,8 @@ function Calendar() {
     const [date, setdate] = useState(() => moment());
     const [toggleAddBox, setToggleAddBox] = useState(false);
     const { register, handleSubmit } = useForm();
-    // eslint-disable-next-line no-confusing-arrow
     const jumpToMonth = (num) =>
-        // eslint-disable-next-line implicit-arrow-linebreak
         num ? setdate(date.clone().add(30, 'day')) : setdate(date.clone().subtract(30, 'day'));
-    const onValid = (data) => {
-        // console.log("post 하는부분");
-    };
 
     return (
         <PageStyled.Container modalVisible={modalVisible}>
@@ -56,7 +54,7 @@ function Calendar() {
                     <Styled.CalendarBody>
                         {toggleAddBox && (
                             <Styled.AddBox>
-                                <form onSubmit={handleSubmit(onValid)}>
+                                <form onSubmit={handleSubmit(addToDo)}>
                                     <span>제목</span>
                                     <input {...register('title')} />
                                     <div>
