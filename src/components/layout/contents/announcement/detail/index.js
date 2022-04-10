@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-case-declarations */
 /* eslint-disable react/jsx-one-expression-per-line */
@@ -39,7 +40,7 @@ function AnnouncementDetailContent(id) {
                                 className='modify_btn'
                                 aria-hidden='true'
                                 onClick={() => {
-                                    console.log('수정');
+                                    navigate(`/announcement/modify/${id.id}`);
                                 }}
                             >
                                 수정
@@ -48,7 +49,11 @@ function AnnouncementDetailContent(id) {
                                 className='delete_btn'
                                 aria-hidden='true'
                                 onClick={() => {
-                                    deleteMutation.mutate(id.id);
+                                    deleteMutation.mutate(id.id, {
+                                        onSuccess: () => {
+                                            navigate('/announcement');
+                                        },
+                                    });
                                 }}
                             >
                                 삭제
@@ -72,7 +77,7 @@ function AnnouncementDetailContent(id) {
                                 className='back_btn'
                                 aria-hidden='true'
                                 onClick={() => {
-                                    navigate(-1);
+                                    navigate('/announcement');
                                 }}
                             >
                                 목록 보기

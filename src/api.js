@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { URL } from './url';
@@ -17,7 +18,7 @@ async function getAnnouncementDetail(id) {
 }
 
 export function useAnnouncementDetail(id) {
-    return useQuery(['announcement', id], () => getAnnouncementDetail(id), {
+    return useQuery(['announcement', { id: id }], () => getAnnouncementDetail(id), {
         enabled: !!id,
     });
 }
@@ -35,6 +36,16 @@ export async function postAnnouncement(formData) {
 export async function deleteAnnouncement(id) {
     const { data } = await axios.delete(`${URL}/announcement/${id}`, {
         headers: {
+            Authorization: 'Bearer token',
+        },
+    });
+    return data;
+}
+
+export async function modifyAnnouncement(formData, id) {
+    const { data } = await axios.put(`${URL}/announcement/${id}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer token',
         },
     });
