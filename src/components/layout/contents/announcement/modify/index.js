@@ -11,8 +11,21 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+
+import Prism from 'prismjs';
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+
 import * as Styled from './styled';
-import { useAnnouncementDetail, modifyAnnouncement } from '../../../../../api';
+import { useAnnouncementDetail, modifyAnnouncement, uploadImage } from '../../../../../api';
 
 function AnnouncementUploadContent(id) {
     const queryClient = useQueryClient();
@@ -20,12 +33,31 @@ function AnnouncementUploadContent(id) {
     const { register, handleSubmit } = useForm({
         defaultValues: {
             title: data.data.title,
-            content: data.data.content,
         },
     });
     const navigate = useNavigate();
 
-    const mutation = useMutation(
+    const editorRef = React.useRef();
+    React.useEffect(() => {
+        if (editorRef.current) {
+            editorRef.current.getInstance().removeHook('addImageBlobHook');
+            editorRef.current.getInstance().addHook('addImageBlobHook', (blob, callback) => {
+                (async () => {
+                    const formData = new FormData();
+                    formData.append('image', blob);
+
+                    const url = await uploadImage(formData);
+                    callback(url.data.fileUrl, 'alt text');
+                })();
+
+                return false;
+            });
+        }
+
+        return () => {};
+    }, [editorRef]);
+
+    const modifyMutation = useMutation(
         (formData) => {
             modifyAnnouncement(formData, id.id);
         },
@@ -41,15 +73,15 @@ function AnnouncementUploadContent(id) {
 
     const onSubmit = (value) => {
         const formData = new FormData();
-        value.image.length &&
-            Object.values(value.image).map((file) => formData.append('images', file));
-        data.data.image.length &&
-            Object.values(data.data.image).map((file) =>
+        value.file.length &&
+            Object.values(value.file).map((file) => formData.append('files', file));
+        data.data.files.length &&
+            Object.values(data.data.files).map((file) =>
                 formData.append('deleteFileUrls', file.fileUrl),
             );
         formData.append('title', value.title);
-        formData.append('content', value.content);
-        mutation.mutate(formData, {
+        formData.append('content', editorRef.current.getInstance().getMarkdown());
+        modifyMutation.mutate(formData, {
             onSuccess: () => {
                 navigate(`/announcement/${id.id}`, { replace: true });
             },
@@ -57,11 +89,7 @@ function AnnouncementUploadContent(id) {
     };
 
     const onError = (err) => {
-        if (err.content && err.title) {
-            alert(`${err.content.message}\n${err.title.message}`);
-        } else if (err.content) {
-            alert(err.content.message);
-        } else {
+        if (err.title) {
             alert(err.title.message);
         }
     };
@@ -90,17 +118,23 @@ function AnnouncementUploadContent(id) {
                             <input
                                 type='file'
                                 multiple
-                                accept='image/png, image/jpeg, image/jpg'
-                                {...register('image')}
-                                className='image_input'
+                                accept='파일 확장자'
+                                {...register('file')}
+                                className='file_input'
                             />
-                            <textarea
-                                {...register('content', { required: '내용을 입력해주세요.' })}
-                                placeholder='내용을 입력해주세요.'
-                                className='content_input'
-                                rows={15}
-                                cols={15}
-                            />
+                            <div className='content_input'>
+                                <Editor
+                                    placeholder='내용을 입력해주세요.'
+                                    initialValue={data.data.content}
+                                    previewStyle='tab'
+                                    plugins={[
+                                        colorSyntax,
+                                        [codeSyntaxHighlight, { highlighter: Prism }],
+                                    ]}
+                                    ref={editorRef}
+                                    height='500px'
+                                />
+                            </div>
                             <div className='btn_container'>
                                 <input type='submit' value='수정' className='submit_btn' />
                                 <span

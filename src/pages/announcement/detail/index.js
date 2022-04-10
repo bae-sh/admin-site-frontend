@@ -5,7 +5,7 @@ import { modalVisibleState } from '../../../atoms';
 import * as PageStyled from '../../pageStyled';
 import Title from '../../../components/layout/title';
 import AnnouncementDetailContent from '../../../components/layout/contents/announcement/detail';
-import Comment from '../../../components/layout/comment';
+// import Comment from '../../../components/layout/comment';
 
 function AnnouncementDetail() {
     const { id } = useParams();
@@ -15,7 +15,7 @@ function AnnouncementDetail() {
             <div className='inner'>
                 <Title title='📋 공지사항' description='' />
                 <AnnouncementDetailContent id={id} />
-                <Comment id={id} kind='announcement' />
+                {/* <Comment id={id} kind='announcement' /> */}
             </div>
         </PageStyled.Container>
     );

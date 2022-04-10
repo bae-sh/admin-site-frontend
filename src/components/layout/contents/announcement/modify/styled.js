@@ -36,15 +36,8 @@ export const Container = styled.section`
         border-radius: 16px;
     }
 
-    .image_input {
-        margin-left: 10%;
-    }
-
-    .file_icon {
-        margin-left: 10%;
-        padding: 5px;
-        border: 1.5px solid black;
-        border-radius: 6px;
+    .file_input {
+        margin-left: 12%;
     }
 
     .back_btn,
@@ -59,6 +52,7 @@ export const Container = styled.section`
         width: 20%;
         margin: 0 20px;
         padding: 0;
+        cursor: pointer;
     }
 
     .back_btn:hover,

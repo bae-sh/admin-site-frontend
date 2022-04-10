@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-case-declarations */
@@ -7,8 +8,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
+
+import ReactMarkdown from 'react-markdown';
+
 import * as Styled from './styled';
-import { useAnnouncementDetail, deleteAnnouncement } from '../../../../../api';
+import { useAnnouncementDetail, deleteAnnouncement, downloadFile } from '../../../../../api';
 
 function AnnouncementDetailContent(id) {
     const queryClient = useQueryClient();
@@ -17,7 +21,6 @@ function AnnouncementDetailContent(id) {
     const deleteMutation = useMutation((deleteID) => deleteAnnouncement(deleteID), {
         onSuccess: () => {
             queryClient.invalidateQueries('announcements');
-            navigate('/announcement');
         },
     });
 
@@ -64,15 +67,19 @@ function AnnouncementDetailContent(id) {
                             <div className='detail_title2'>{data.data.title}</div>
                         </div>
                         <div className='detail_content'>
-                            {data.data.image.map((item) => (
-                                <img
-                                    className='item_img'
-                                    key={item.fileUrl}
-                                    alt={item.fileName}
-                                    src={item.fileUrl}
-                                />
-                            ))}
-                            <div className='content'>{data.data.content}</div>
+                            <div className='download_file_btn_container'>
+                                {data.data.files.map((item) => (
+                                    <span
+                                        className='download_file_btn'
+                                        aria-hidden='true'
+                                        key={item.fileUrl}
+                                        onClick={() => downloadFile(item.fileUrl, item.fileName)}
+                                    >
+                                        {item.fileName}
+                                    </span>
+                                ))}
+                            </div>
+                            <ReactMarkdown className='content'>{data.data.content}</ReactMarkdown>
                             <span
                                 className='back_btn'
                                 aria-hidden='true'

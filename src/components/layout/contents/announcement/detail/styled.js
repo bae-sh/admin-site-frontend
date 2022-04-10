@@ -19,12 +19,14 @@ export const Container = styled.section`
     }
 
     .delete_btn,
-    .modify_btn {
+    .modify_btn,
+    .download_file_btn {
         cursor: pointer;
     }
 
     .delete_btn:hover,
-    .modify_btn:hover {
+    .modify_btn:hover,
+    .download_file_btn:hover {
         text-decoration: underline;
         font-weight: 600;
     }
@@ -64,11 +66,21 @@ export const Container = styled.section`
         font-size: 20px;
         letter-spacing: -0.5px;
         margin-bottom: 40px;
+        cursor: pointer;
     }
 
     .back_btn:hover {
         background: black;
         color: white;
+    }
+
+    .content img {
+        width: 100%;
+    }
+
+    .download_file_btn_container {
+        display: flex;
+        flex-direction: column;
     }
 
     @media screen and (max-width: 1023px) {
@@ -112,6 +124,10 @@ export const Container = styled.section`
 
         .delete_btn {
             margin-left: 10px;
+        }
+
+        .download_file_btn {
+            font-size: 14px;
         }
     }
 

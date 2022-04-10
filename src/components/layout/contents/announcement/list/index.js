@@ -49,11 +49,23 @@ function AnnouncementList() {
                                                 <span className='announcement_date'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]}`}</span>
                                                 <span className='announcement_author_name'>{`작성자 ${item.authorName}`}</span>
                                             </div>
-                                            {item.image[0] ? (
+                                            {item.content.includes(
+                                                'https://d260rb3auh0wa7.cloudfront.net/image/',
+                                            ) ? (
                                                 <img
                                                     className='item_img'
-                                                    alt={item.image[0].fileName}
-                                                    src={item.image[0].fileUrl}
+                                                    alt='image_alt'
+                                                    src={item.content.substring(
+                                                        item.content.indexOf(
+                                                            'https://d260rb3auh0wa7.cloudfront.net/image/',
+                                                        ),
+                                                        item.content.indexOf(
+                                                            ')',
+                                                            item.content.indexOf(
+                                                                'https://d260rb3auh0wa7.cloudfront.net/image/',
+                                                            ),
+                                                        ),
+                                                    )}
                                                 />
                                             ) : (
                                                 <img

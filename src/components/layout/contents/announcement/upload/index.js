@@ -5,36 +5,67 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+
+import Prism from 'prismjs';
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+
 import * as Styled from './styled';
-import { postAnnouncement } from '../../../../../api';
+import { postAnnouncement, uploadImage } from '../../../../../api';
 
 function AnnouncementUploadContent() {
     const queryClient = useQueryClient();
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
 
-    const mutation = useMutation((formData) => postAnnouncement(formData), {
+    const editorRef = React.useRef();
+    React.useEffect(() => {
+        if (editorRef.current) {
+            editorRef.current.getInstance().removeHook('addImageBlobHook');
+            editorRef.current.getInstance().addHook('addImageBlobHook', (blob, callback) => {
+                (async () => {
+                    const formData = new FormData();
+                    formData.append('image', blob);
+
+                    const url = await uploadImage(formData);
+                    callback(url.data.fileUrl, 'alt text');
+                })();
+
+                return false;
+            });
+        }
+
+        return () => {};
+    }, [editorRef]);
+
+    const uploadMutation = useMutation((formData) => postAnnouncement(formData), {
         onSuccess: () => {
             queryClient.invalidateQueries('announcements');
-            navigate('/announcement');
         },
     });
 
     const onSubmit = (data) => {
         const formData = new FormData();
-        data.image.length &&
-            Object.values(data.image).map((file) => formData.append('images', file));
+        data.file.length && Object.values(data.file).map((file) => formData.append('files', file));
         formData.append('title', data.title);
-        formData.append('content', data.content);
-        mutation.mutate(formData);
+        formData.append('content', editorRef.current.getInstance().getMarkdown());
+        uploadMutation.mutate(formData, {
+            onSuccess: () => {
+                navigate('/announcement');
+            },
+        });
     };
 
     const onError = (error) => {
-        if (error.content && error.title) {
-            alert(`${error.content.message}\n${error.title.message}`);
-        } else if (error.content) {
-            alert(error.content.message);
-        } else {
+        if (error.title) {
             alert(error.title.message);
         }
     };
@@ -50,17 +81,19 @@ function AnnouncementUploadContent() {
                 <input
                     type='file'
                     multiple
-                    accept='image/png, image/jpeg, image/jpg'
-                    {...register('image')}
-                    className='image_input'
+                    accept='파일 확장자'
+                    {...register('file')}
+                    className='file_input'
                 />
-                <textarea
-                    {...register('content', { required: '내용을 입력해주세요.' })}
-                    placeholder='내용을 입력해주세요.'
-                    className='content_input'
-                    rows={15}
-                    cols={15}
-                />
+                <div className='content_input'>
+                    <Editor
+                        placeholder='내용을 입력해주세요.'
+                        previewStyle='tab'
+                        plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
+                        ref={editorRef}
+                        height='500px'
+                    />
+                </div>
                 <div className='btn_container'>
                     <input type='submit' value='올리기' className='submit_btn' />
                     <span
