@@ -6,13 +6,13 @@ import AnnouncementDetail from './pages/announcement/detail';
 import AnnouncementUpload from './pages/announcement/upload';
 import Gallery from './pages/gallery';
 import QnA from './pages/qna';
+import QnADetail from './pages/qna/detail';
 import Calendar from './pages/calendar';
 import Member from './pages/member';
 import Header from './components/layout/header';
 import Login from './pages/login';
 import Modal from './components/modal';
 import Signup from './pages/signup';
-import QnaView from './components/qna/QnaView';
 
 function Router() {
     return (
@@ -26,11 +26,11 @@ function Router() {
                 <Route path='/announcement/upload' element={<AnnouncementUpload />} />
                 <Route path='/gallery' element={<Gallery />} />
                 <Route path='/qna' element={<QnA />} />
+                <Route path='/qna/:id' element={<QnADetail />} />
                 <Route path='/calendar' element={<Calendar />} />
                 <Route path='/member' element={<Member />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/signup' element={<Signup />} />
-                <Route path='/qnaView/:id' element={<QnaView />} />
             </Routes>
         </BrowserRouter>
     );
