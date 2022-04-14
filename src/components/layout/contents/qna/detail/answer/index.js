@@ -1,15 +1,14 @@
 import React from 'react';
 import * as Styled from './styled';
-import QnAAnswerListContent from './list';
+import QnAAnswerListItemContent from './listItem';
 
 function QnAAnswerContent(props) {
     const { answers } = props;
     return (
         <Styled.Container>
-            <div>
-                <h1>Answer!!</h1>
-            </div>
-            <QnAAnswerListContent answers={answers} />
+            {answers.map((item) => (
+                <QnAAnswerListItemContent item={item} key={item.id} />
+            ))}
         </Styled.Container>
     );
 }

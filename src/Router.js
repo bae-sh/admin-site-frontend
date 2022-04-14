@@ -7,6 +7,7 @@ import AnnouncementUpload from './pages/announcement/upload';
 import Gallery from './pages/gallery';
 import QnA from './pages/qna';
 import QnADetail from './pages/qna/detail';
+import QnAUPload from './pages/qna/upload';
 import Calendar from './pages/calendar';
 import Member from './pages/member';
 import Header from './components/layout/header';
@@ -27,6 +28,7 @@ function Router() {
                 <Route path='/gallery' element={<Gallery />} />
                 <Route path='/qna' element={<QnA />} />
                 <Route path='/qna/:id' element={<QnADetail />} />
+                <Route path='/qna/upload' element={<QnAUPload />} />
                 <Route path='/calendar' element={<Calendar />} />
                 <Route path='/member' element={<Member />} />
                 <Route path='/login' element={<Login />} />

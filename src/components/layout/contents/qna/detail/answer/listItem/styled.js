@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-
     margin: 30px 0;
     border-radius: 16px;
     box-shadow: 0px 0px 15px lightgray;
@@ -31,5 +30,4 @@ export const Container = styled.div`
         font-size: 20px;
         margin: 200px 40px;
     }
-
 `;

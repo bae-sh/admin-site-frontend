@@ -13,7 +13,7 @@ function QnADetail() {
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
-                <Title title='📋 Q&A 게시판' description='질문. 대답.' />
+                <Title title='📋 Q&A 게시판' description='' />
                 <QnADetailContent id={id} />
             </div>
         </PageStyled.Container>

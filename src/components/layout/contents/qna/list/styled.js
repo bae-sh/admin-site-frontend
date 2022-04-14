@@ -3,15 +3,16 @@ import styled from 'styled-components';
 export const Container = styled.div``;
 
 export const FlexContainer = styled.ul`
+
     .item_card {
         width: 100%;
-        //높이 반응형 요구
+        margin: 30px 0;
         height: 65px;
         display: inline-flex;
         background: #ffffff;
         border: 0.846575px solid #edeef2;
         box-sizing: border-box;
-        border-radius: 13.5452px;
+        border-radius: 13px;
         box-shadow: 0 1px 1px gray;
     }
 

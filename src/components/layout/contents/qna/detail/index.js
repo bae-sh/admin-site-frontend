@@ -1,105 +1,97 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor, Viewer } from '@toast-ui/react-editor';
 import QnAQuestionContent from './question';
 import QnAAnswerContent from './answer';
-
-const test = {
-    data: {
-        id: 2,
-        authorId: 'rlatjrud1232',
-        authorName: '김서경',
-        title: '알고리즘 질문점',
-        content: '백준 1234번 문제 모르겠어',
-        createAt: '2022-04-07T16:03:42.214525',
-        lastModifiedAt: '2022-04-07T16:03:42.214525',
-        images: [
-            {
-                fileName: '치킨사진.png',
-                fileUrl:
-                    'https://d260rb3auh0wa7.cloudfront.net/qna/questionc34f06a4-a2d2-42b6-b12a-7bca0de3f58c',
-            },
-            {
-                fileName: '리트리버.png',
-                fileUrl:
-                    'https://d260rb3auh0wa7.cloudfront.net/qna/question2e5ffbaf-84c8-4636-b836-f1349db44ae1',
-            },
-        ],
-        answers: [
-            {
-                id: 5,
-                authorId: 'rlatjrud1232',
-                authorName: '김서경',
-                content: '이 문제는 이겁니다~',
-                images: [
-                    {
-                        fileName: '치킨사진.png',
-                        fileUrl:
-                            'https://d260rb3auh0wa7.cloudfront.net/qna/answerba37a492-c9ed-4b8c-a89e-e7d565ae328d',
-                    },
-                    {
-                        fileName: '피자.png',
-                        fileUrl:
-                            'https://d260rb3auh0wa7.cloudfront.net/qna/answer7cb36f01-8786-42bb-9aae-ff4801e243ec',
-                    },
-                ],
-            },
-            {
-                id: 8,
-                authorId: 'rlatjrud1232',
-                authorName: '김서경',
-                content: '이 문제는 이겁니다~',
-                images: [
-                    {
-                        fileName: '치킨사진.png',
-                        fileUrl:
-                            'https://d260rb3auh0wa7.cloudfront.net/qna/answerc5b45d80-7b32-4caf-81d6-20a01ae42563',
-                    },
-                    {
-                        fileName: '피자.png',
-                        fileUrl:
-                            'https://d260rb3auh0wa7.cloudfront.net/qna/answerbb2fcd14-5c52-4217-a28c-7ecfade8836f',
-                    },
-                ],
-            },
-            {
-                id: 11,
-                authorId: 'rlatjrud1232',
-                authorName: '김서경',
-                content: '이 문제는 이겁니다~',
-                images: [
-                    {
-                        fileName: '치킨사진.png',
-                        fileUrl:
-                            'https://d260rb3auh0wa7.cloudfront.net/qna/answerac01d5f2-a359-41cf-b70e-f3b871e8bae6',
-                    },
-                    {
-                        fileName: '피자.png',
-                        fileUrl:
-                            'https://d260rb3auh0wa7.cloudfront.net/qna/answer96590785-ce54-4b9e-9a57-6156b4918176',
-                    },
-                ],
-            },
-        ],
-    },
-    message: '질문 조회 성공',
-};
+import * as Styled from './styled';
+import { useQnADetail } from '../../../../../api';
 
 function QnADetailContent({ id }) {
+    const navigate = useNavigate();
+    const [onUpload, setOnUpload] = useState(false);
+    const {
+        status, data, error, isFetching,
+    } = useQnADetail(id);
     console.log(id);
+    console.log(data);
+
+    const answerUploadHandler = () => {
+        console.log('Answer is uploaded!!');
+    };
+
+    if (status === 'loading') {
+        return <span>Loading...</span>;
+    }
+
+    if (status === 'error') {
+        return (
+            <span>
+                Error:
+                {error.message}
+            </span>
+        );
+    }
+
     return (
-        <div>
-            <h1>{id}</h1>
+        <Styled.Container>
+            {/* rest 연산자 생각 */}
             <QnAQuestionContent
-                id={test.data.id}
-                authorId={test.data.authorId}
-                authorName={test.data.authorName}
-                title={test.data.title}
-                content={test.data.content}
-                date={test.data.lastModifiedAt}
-                images={test.data.images}
+                id={data.id}
+                authorId={data.authorId}
+                authorName={data.authorName}
+                title={data.title}
+                content={data.content}
+                date={data.lastModifiedAt}
+                images={data.images}
             />
-            <QnAAnswerContent answers={test.data.answers} />
-        </div>
+            {!onUpload ? (
+                <>
+                    <QnAAnswerContent answers={data.answers} />
+                    <span
+                        className='answer_upload_btn'
+                        aria-hidden='true'
+                        onClick={() => {
+                            setOnUpload(!onUpload);
+                        }}
+                    >
+                        답변 등록
+                    </span>
+                    <span
+                        className='back_btn'
+                        aria-hidden='true'
+                        onClick={() => {
+                            navigate(-1);
+                        }}
+                    >
+                        목록 보기
+                    </span>
+                </>
+            ) : (
+                <>
+                    <Editor placeholder='답변을 등록해주세요.' />
+                    <span
+                        className='answer_confrim_btn'
+                        aria-hidden='true'
+                        onClick={() => {
+                            setOnUpload(!onUpload);
+                            answerUploadHandler();
+                        }}
+                    >
+                        확인
+                    </span>
+                    <span
+                        className='answer_cancel_btn'
+                        onClick={() => {
+                            setOnUpload(!onUpload);
+                        }}
+                        aria-hidden='true'
+                    >
+                        취소
+                    </span>
+                </>
+            )}
+        </Styled.Container>
     );
 }
 
