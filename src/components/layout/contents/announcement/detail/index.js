@@ -17,8 +17,9 @@ import { Viewer } from '@toast-ui/react-editor';
 import * as Styled from './styled';
 import { useAnnouncementDetail, deleteAnnouncement, downloadFile } from '../../../../../api';
 
+const authList = ['임원', '회장', '관리자'];
+
 function AnnouncementDetailContent(id) {
-    const { role } = JSON.parse(localStorage.getItem('user'));
     const fileId = React.useRef(0);
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -28,6 +29,13 @@ function AnnouncementDetailContent(id) {
             queryClient.invalidateQueries('announcements');
         },
     });
+
+    const [role, setRole] = React.useState('');
+    React.useEffect(() => {
+        if (localStorage.getItem('user')) {
+            setRole(JSON.parse(localStorage.getItem('user')).role);
+        }
+    }, []);
 
     const renderByStatus = React.useCallback(() => {
         switch (status) {
@@ -42,7 +50,7 @@ function AnnouncementDetailContent(id) {
                 const date = data.data.lastModifiedAt.split(/T|-|[.]/);
                 return (
                     <>
-                        {role !== '회원' && (
+                        {authList.includes(role) && (
                             <div className='btn_container'>
                                 <span
                                     className='modify_btn'
