@@ -94,6 +94,7 @@ export async function fetchLogin(data, navigate, setUserState, setError) {
         data,
     })
         .then((response) => {
+            console.log(response);
             navigate('/');
             token = response.data.data.tokens.accessToken;
             const newData = { ...response.data.data, expire: Date.now() + 600000 };
@@ -102,6 +103,7 @@ export async function fetchLogin(data, navigate, setUserState, setError) {
         })
         .catch((error) => {
             setError('password', { message: error.response.data.message });
+            console.log(error);
         });
 }
 
@@ -120,11 +122,13 @@ export async function fetchSignup(data, navigate, setError) {
         },
     })
         .then((response) => {
+            console.log(response);
             navigate('/');
             alert('Admin 가입을 환영합니다!');
             console.log(response);
         })
         .catch((error) => {
             setError('password2', { message: error.response.data.message });
+            console.log(error);
         });
 }
