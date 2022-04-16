@@ -55,7 +55,7 @@ function AnnouncementUploadContent(id) {
             editorRef.current.getInstance().addHook('addImageBlobHook', (blob, callback) => {
                 (async () => {
                     const formData = new FormData();
-                    formData.append('image', blob);
+                    formData.append('files', blob);
 
                     const url = await uploadFiles(formData);
                     callback(url.data[0].fileUrl, `alt ${url.data[0].fileName}`);
