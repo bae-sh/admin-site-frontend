@@ -145,3 +145,10 @@ export const ErrorMsg = styled.span`
     padding-top: 20px;
     font-size: 14px;
 `;
+
+export const EyeIcon = styled.span`
+    position: absolute;
+    font-size: 22px;
+    margin-top: 14px;
+    margin-left: -35px;
+`;

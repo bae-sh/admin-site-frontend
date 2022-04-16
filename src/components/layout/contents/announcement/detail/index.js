@@ -18,6 +18,7 @@ import * as Styled from './styled';
 import { useAnnouncementDetail, deleteAnnouncement, downloadFile } from '../../../../../api';
 
 function AnnouncementDetailContent(id) {
+    const { role } = JSON.parse(localStorage.getItem('user'));
     const fileId = React.useRef(0);
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -41,31 +42,32 @@ function AnnouncementDetailContent(id) {
                 const date = data.data.lastModifiedAt.split(/T|-|[.]/);
                 return (
                     <>
-                        {/* todo: 관리자일 때만 보이게 */}
-                        <div className='btn_container'>
-                            <span
-                                className='modify_btn'
-                                aria-hidden='true'
-                                onClick={() => {
-                                    navigate(`/announcement/modify/${id.id}`);
-                                }}
-                            >
-                                수정
-                            </span>
-                            <span
-                                className='delete_btn'
-                                aria-hidden='true'
-                                onClick={() => {
-                                    deleteMutation.mutate(id.id, {
-                                        onSuccess: () => {
-                                            navigate('/announcement');
-                                        },
-                                    });
-                                }}
-                            >
-                                삭제
-                            </span>
-                        </div>
+                        {role === '관리자' && (
+                            <div className='btn_container'>
+                                <span
+                                    className='modify_btn'
+                                    aria-hidden='true'
+                                    onClick={() => {
+                                        navigate(`/announcement/modify/${id.id}`);
+                                    }}
+                                >
+                                    수정
+                                </span>
+                                <span
+                                    className='delete_btn'
+                                    aria-hidden='true'
+                                    onClick={() => {
+                                        deleteMutation.mutate(id.id, {
+                                            onSuccess: () => {
+                                                navigate('/announcement');
+                                            },
+                                        });
+                                    }}
+                                >
+                                    삭제
+                                </span>
+                            </div>
+                        )}
                         <div className='detail_title'>
                             <div className='detail_title1'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]} | ${data.data.authorName}`}</div>
                             <div className='detail_title2'>{data.data.title}</div>
