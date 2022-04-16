@@ -13,86 +13,87 @@ function QnADetailContent({ id }) {
     const {
         status, data, error, isFetching,
     } = useQnADetail(id);
-    console.log(id);
-    console.log(data);
 
     const answerUploadHandler = () => {
         console.log('Answer is uploaded!!');
     };
 
-    if (status === 'loading') {
-        return <span>Loading...</span>;
-    }
+    const render = React.useCallback(() => {
+        if (status === 'loading') {
+            return <span>Loading...</span>;
+        }
 
-    if (status === 'error') {
+        if (status === 'error') {
+            return (
+                <span>
+                    Error:
+                    {error.message}
+                </span>
+            );
+        }
+        const { answers, ...question } = data.data;
+        console.log(localStorage.getItem('user'));
         return (
-            <span>
-                Error:
-                {error.message}
-            </span>
+            <Styled.Container>
+                <QnAQuestionContent
+                    id={question.id}
+                    authorName={question.authorName}
+                    title={question.title}
+                    content={question.content}
+                    date={question.lastModifiedAt}
+                    files={question.files}
+                />
+                {!onUpload ? (
+                    <>
+                        <QnAAnswerContent answers={answers} />
+                        <span
+                            className='answer_upload_btn'
+                            aria-hidden='true'
+                            onClick={() => {
+                                setOnUpload(!onUpload);
+                            }}
+                        >
+                            답변 등록
+                        </span>
+                        <span
+                            className='back_btn'
+                            aria-hidden='true'
+                            onClick={() => {
+                                navigate(-1);
+                            }}
+                        >
+                            목록 보기
+                        </span>
+                    </>
+                ) : (
+                    <>
+                        <Editor placeholder='답변을 등록해주세요.' />
+                        <span
+                            className='answer_confrim_btn'
+                            aria-hidden='true'
+                            onClick={() => {
+                                setOnUpload(!onUpload);
+                                answerUploadHandler();
+                            }}
+                        >
+                            확인
+                        </span>
+                        <span
+                            className='answer_cancel_btn'
+                            onClick={() => {
+                                setOnUpload(!onUpload);
+                            }}
+                            aria-hidden='true'
+                        >
+                            취소
+                        </span>
+                    </>
+                )}
+            </Styled.Container>
         );
-    }
+    }, [status, isFetching]);
 
-    return (
-        <Styled.Container>
-            {/* rest 연산자 생각 */}
-            <QnAQuestionContent
-                id={data.id}
-                authorId={data.authorId}
-                authorName={data.authorName}
-                title={data.title}
-                content={data.content}
-                date={data.lastModifiedAt}
-                images={data.images}
-            />
-            {!onUpload ? (
-                <>
-                    <QnAAnswerContent answers={data.answers} />
-                    <span
-                        className='answer_upload_btn'
-                        aria-hidden='true'
-                        onClick={() => {
-                            setOnUpload(!onUpload);
-                        }}
-                    >
-                        답변 등록
-                    </span>
-                    <span
-                        className='back_btn'
-                        aria-hidden='true'
-                        onClick={() => {
-                            navigate(-1);
-                        }}
-                    >
-                        목록 보기
-                    </span>
-                </>
-            ) : (
-                <>
-                    <Editor placeholder='답변을 등록해주세요.' />
-                    <span
-                        className='answer_confrim_btn'
-                        aria-hidden='true'
-                        onClick={() => {
-                            setOnUpload(!onUpload);
-                            answerUploadHandler();
-                        }}
-                    >
-                        확인
-                    </span>
-                    <span
-                        className='answer_cancel_btn'
-                        onClick={() => {
-                            setOnUpload(!onUpload);
-                        }}
-                        aria-hidden='true'
-                    >
-                        취소
-                    </span>
-                </>
-            )}
-        </Styled.Container>
-    );
+    return <>{render()}</>;
 }
 
 export default QnADetailContent;
