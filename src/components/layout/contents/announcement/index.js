@@ -9,13 +9,21 @@ const addItem = {
     id: 'add_announcement',
 };
 
+const authList = ['임원', '회장', '관리자'];
+
 function AnnouncementContent() {
     const [toggleAddBtn, setToggleAddBtn] = React.useState(false);
-    const { role } = JSON.parse(localStorage.getItem('user'));
+    const [role, setRole] = React.useState('');
+
+    React.useEffect(() => {
+        if (localStorage.getItem('user')) {
+            setRole(JSON.parse(localStorage.getItem('user')).role);
+        }
+    }, []);
 
     return (
         <Styled.Container>
-            {role !== '회원' && (
+            {authList.includes(role) && (
                 <div className='add_post'>
                     <ul className='add_list'>
                         {!toggleAddBtn ? (
