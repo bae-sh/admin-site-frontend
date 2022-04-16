@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-return-assign */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-unused-expressions */
@@ -6,6 +8,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { BsTrash } from 'react-icons/bs';
 
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
@@ -20,7 +23,7 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import * as Styled from './styled';
-import { postAnnouncement, uploadFiles } from '../../../../../api';
+import { postAnnouncement, uploadFiles, deleteFile } from '../../../../../api';
 import FileUploadModal from '../../../fileuploadmodal';
 
 function AnnouncementUploadContent() {
@@ -29,7 +32,9 @@ function AnnouncementUploadContent() {
     const navigate = useNavigate();
     const [fileUploadModalVisible, setFileUploadModalVisible] = React.useState(false);
     const [newlyAddedFiles, setNewlyAddedFiles] = React.useState([]);
-    // console.log(newlyAddedFiles);
+    const [files, setFiles] = React.useState([]);
+    const fileId = React.useRef(0);
+
     const editorRef = React.useRef();
     React.useEffect(() => {
         if (editorRef.current) {
@@ -50,6 +55,14 @@ function AnnouncementUploadContent() {
         return () => {};
     }, [editorRef]);
 
+    React.useEffect(() => {
+        let temp = files;
+        newlyAddedFiles.map((file) => {
+            temp = [...temp, file];
+        });
+        setFiles(temp);
+    }, [newlyAddedFiles]);
+
     const uploadMutation = useMutation((submitData) => postAnnouncement(submitData), {
         onSuccess: () => {
             queryClient.invalidateQueries('announcements');
@@ -60,9 +73,8 @@ function AnnouncementUploadContent() {
         const submitData = {
             title: data.title,
             content: editorRef.current.getInstance().getMarkdown(),
-            files: newlyAddedFiles,
+            files,
         };
-        // newlyAddedFiles.length && submitData.files = newlyAddedFiles;
         uploadMutation.mutate(submitData, {
             onSuccess: () => {
                 navigate('/announcement');
@@ -75,6 +87,20 @@ function AnnouncementUploadContent() {
             alert(error.title.message);
         }
     };
+
+    const handleDeleteFile = React.useCallback(
+        (file) => {
+            setFiles(files.filter((val) => file !== val));
+            files.map((val) => {
+                if (file === val) {
+                    deleteFile({
+                        deleteFileUrls: [val],
+                    });
+                }
+            });
+        },
+        [files],
+    );
 
     return (
         <Styled.Container>
@@ -90,13 +116,6 @@ function AnnouncementUploadContent() {
                     placeholder='제목을 입력해주세요.'
                     className='title_input'
                 />
-                {/* <input
-                    type='file'
-                    multiple
-                    accept='파일 확장자'
-                    {...register('file')}
-                    className='file_input'
-                /> */}
                 <span
                     className='add_file_btn'
                     aria-hidden='true'
@@ -106,6 +125,22 @@ function AnnouncementUploadContent() {
                 >
                     파일 첨부
                 </span>
+                <div className='uploaded_file_container'>
+                    {files.map((file) => {
+                        const { fileName } = file;
+                        fileId.current += 1;
+                        return (
+                            <div className='uploaded_file' key={fileId.current}>
+                                <span>{fileName}</span>
+                                <BsTrash
+                                    onClick={() => {
+                                        handleDeleteFile(file);
+                                    }}
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
                 <div className='content_input'>
                     <Editor
                         placeholder='내용을 입력해주세요.'

@@ -101,24 +101,14 @@ function FileUploadModal({ setFileUploadModalVisible, setNewlyAddedFiles }) {
 
     const handleDeleteFile = React.useCallback(
         (id) => {
-            // setFiles(files.filter((file) => file.id !== id));
+            setFiles(files.filter((file) => file.id !== id));
             files.map((file) => {
                 if (file.id === id) {
-                    console.log(file);
-                    // deleteFile({
-                    //     deleteFileUrls: [
-                    //         {
-                    //             fileName: file.fileName,
-                    //             fileUrl: file.fileUrl,
-                    //         },
-                    //     ],
-                    // });
                     deleteFile({
                         deleteFileUrls: [
                             {
-                                fileName: '스크린샷 2022-04-16 오전 12.22.54.png',
-                                fileUrl:
-                                    'https://d260rb3auh0wa7.cloudfront.net/file/dc262af3-fef6-49ac-9fbb-bf4ce3afa27e',
+                                fileName: file.fileName,
+                                fileUrl: file.fileUrl,
                             },
                         ],
                     });
@@ -164,7 +154,7 @@ function FileUploadModal({ setFileUploadModalVisible, setNewlyAddedFiles }) {
                         <RiFileAddLine size={30} />
                         <div>마우스로 업로드 할 컨텐츠 드래그 또는 클릭하여 파일 선택</div>
                     </label>
-                    <div className='uploaded_file_container'>
+                    <div>
                         {files.length > 0 &&
                             files.map((file) => {
                                 const { id, fileName } = file;

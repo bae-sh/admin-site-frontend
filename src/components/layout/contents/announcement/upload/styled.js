@@ -40,6 +40,10 @@ export const Container = styled.section`
         margin-left: 12%;
     }
 
+    .uploaded_file_container {
+        margin: 15px 11% 0 11%;
+    }
+
     .back_btn,
     .submit_btn {
         height: 44px;
@@ -87,6 +91,17 @@ export const Container = styled.section`
     .back_btn {
         text-align: center;
         font-weight: 440;
+    }
+
+    .uploaded_file {
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .uploaded_file svg {
+        cursor: pointer;
+        margin-left: 10px;
     }
 
     @media screen and (max-width: 1023px) {

@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/destructuring-assignment */
@@ -9,12 +12,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 
-import ReactMarkdown from 'react-markdown';
+import { Viewer } from '@toast-ui/react-editor';
 
 import * as Styled from './styled';
 import { useAnnouncementDetail, deleteAnnouncement, downloadFile } from '../../../../../api';
 
 function AnnouncementDetailContent(id) {
+    const fileId = React.useRef(0);
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const { status, data, error, isFetching } = useAnnouncementDetail(id.id);
@@ -68,18 +72,25 @@ function AnnouncementDetailContent(id) {
                         </div>
                         <div className='detail_content'>
                             <div className='download_file_btn_container'>
-                                {data.data.files.map((item) => (
-                                    <span
-                                        className='download_file_btn'
-                                        aria-hidden='true'
-                                        key={item.fileUrl}
-                                        onClick={() => downloadFile(item.fileUrl, item.fileName)}
-                                    >
-                                        {item.fileName}
-                                    </span>
-                                ))}
+                                {data.data.files.map((item) => {
+                                    fileId.current += 1;
+                                    return (
+                                        <span
+                                            className='download_file_btn'
+                                            aria-hidden='true'
+                                            key={fileId.current}
+                                            onClick={() =>
+                                                downloadFile(item.fileUrl, item.fileName)
+                                            }
+                                        >
+                                            {item.fileName}
+                                        </span>
+                                    );
+                                })}
                             </div>
-                            <ReactMarkdown className='content'>{data.data.content}</ReactMarkdown>
+                            <div className='content'>
+                                <Viewer initialValue={data.data.content} />
+                            </div>
                             <span
                                 className='back_btn'
                                 aria-hidden='true'

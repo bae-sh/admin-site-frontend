@@ -36,11 +36,10 @@ export async function uploadFiles(files) {
 }
 
 export async function deleteFile(file) {
-    console.log(file);
-    const { data } = await axios.delete(`${URL}/file`, file, {
+    const { data } = await axios.post(`${URL}/file/delete`, file, {
         headers: {
             Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6ImFkbWluIiwibmFtZSI6Iuq0gOumrOyekCIsInJvbGUiOiLqtIDrpqzsnpAiLCJpYXQiOjE2NTAwNDE2MjAsImV4cCI6MTY1MDEyODAyMH0.a5I4xXDRqzf1zOG5Wk5QTHnhzStV2y4antexMh2jPQI',
+                'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6ImFkbWluIiwibmFtZSI6Iuq0gOumrOyekCIsInJvbGUiOiLqtIDrpqzsnpAiLCJpYXQiOjE2NTAwMzExMDMsImV4cCI6MTY1MDExNzUwM30.annKT5eMMLb5HGSXDsvoXUTihAM_OlY4tRePdgy-BNc',
         },
     });
     return data;
@@ -66,10 +65,9 @@ export async function deleteAnnouncement(id) {
     return data;
 }
 
-export async function modifyAnnouncement(formData, id) {
-    const { data } = await axios.put(`${URL}/announcement/${id}`, formData, {
+export async function modifyAnnouncement(submitData, id) {
+    const { data } = await axios.put(`${URL}/announcement/${id}`, submitData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
             Authorization:
                 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6ImFkbWluIiwibmFtZSI6Iuq0gOumrOyekCIsInJvbGUiOiLqtIDrpqzsnpAiLCJpYXQiOjE2NTAwMzExMDMsImV4cCI6MTY1MDExNzUwM30.annKT5eMMLb5HGSXDsvoXUTihAM_OlY4tRePdgy-BNc',
         },

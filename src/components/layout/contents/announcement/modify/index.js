@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-shadow */
 /* eslint-disable arrow-body-style */
 /* eslint-disable function-paren-newline */
 /* eslint-disable react/jsx-one-expression-per-line */
@@ -11,6 +14,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { BsTrash } from 'react-icons/bs';
 
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
@@ -26,10 +30,17 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import * as Styled from './styled';
 import { useAnnouncementDetail, modifyAnnouncement, uploadFiles } from '../../../../../api';
+import FileUploadModal from '../../../fileuploadmodal';
 
 function AnnouncementUploadContent(id) {
     const queryClient = useQueryClient();
     const { status, data, error, isFetching } = useAnnouncementDetail(id.id);
+    const [fileUploadModalVisible, setFileUploadModalVisible] = React.useState(false);
+    const [newlyAddedFiles, setNewlyAddedFiles] = React.useState([]);
+    const [addedFiles, setAddedFiles] = React.useState([]);
+    const [deleteFileUrls, setDeleteFileUrls] = React.useState([]);
+    const [files, setFiles] = React.useState(data.data.files);
+    const fileId = React.useRef(0);
     const { register, handleSubmit } = useForm({
         defaultValues: {
             title: data.data.title,
@@ -57,6 +68,17 @@ function AnnouncementUploadContent(id) {
         return () => {};
     }, [editorRef]);
 
+    React.useEffect(() => {
+        let temp = files;
+        let temp2 = addedFiles;
+        newlyAddedFiles.map((file) => {
+            temp = [...temp, file];
+            temp2 = addedFiles ? [...temp2, file] : file;
+        });
+        setFiles(temp);
+        setAddedFiles(temp2);
+    }, [newlyAddedFiles]);
+
     const modifyMutation = useMutation(
         (formData) => {
             modifyAnnouncement(formData, id.id);
@@ -72,18 +94,16 @@ function AnnouncementUploadContent(id) {
     );
 
     const onSubmit = (value) => {
-        const formData = new FormData();
-        value.file.length &&
-            Object.values(value.file).map((file) => formData.append('files', file));
-        data.data.files.length &&
-            Object.values(data.data.files).map((file) =>
-                formData.append('deleteFileUrls', file.fileUrl),
-            );
-        formData.append('title', value.title);
-        formData.append('content', editorRef.current.getInstance().getMarkdown());
-        modifyMutation.mutate(formData, {
+        const submitData = {
+            title: value.title,
+            content: editorRef.current.getInstance().getMarkdown(),
+            files: addedFiles,
+            deleteFileUrls,
+        };
+        modifyMutation.mutate(submitData, {
             onSuccess: () => {
-                navigate(`/announcement/${id.id}`, { replace: true });
+                // navigate(`/announcement/${id.id}`, { replace: true });
+                navigate('/announcement', { replace: true });
             },
         });
     };
@@ -93,6 +113,19 @@ function AnnouncementUploadContent(id) {
             alert(err.title.message);
         }
     };
+
+    const handleDeleteFile = React.useCallback(
+        (file) => {
+            setFiles(files.filter((val) => file !== val));
+            setAddedFiles(addedFiles.filter((val) => file !== val));
+            data.data.files.map((val) => {
+                if (file === val) {
+                    setDeleteFileUrls([...deleteFileUrls, val]);
+                }
+            });
+        },
+        [files],
+    );
 
     const renderByStatus = React.useCallback(() => {
         switch (status) {
@@ -106,6 +139,12 @@ function AnnouncementUploadContent(id) {
             default:
                 return (
                     <>
+                        {fileUploadModalVisible && (
+                            <FileUploadModal
+                                setFileUploadModalVisible={setFileUploadModalVisible}
+                                setNewlyAddedFiles={setNewlyAddedFiles}
+                            />
+                        )}
                         <form
                             encType='multipart/form-data'
                             onSubmit={handleSubmit(onSubmit, onError)}
@@ -115,13 +154,31 @@ function AnnouncementUploadContent(id) {
                                 placeholder='제목을 입력해주세요.'
                                 className='title_input'
                             />
-                            <input
-                                type='file'
-                                multiple
-                                accept='파일 확장자'
-                                {...register('file')}
-                                className='file_input'
-                            />
+                            <span
+                                className='add_file_btn'
+                                aria-hidden='true'
+                                onClick={() => {
+                                    setFileUploadModalVisible(!fileUploadModalVisible);
+                                }}
+                            >
+                                파일 첨부
+                            </span>
+                            <div className='uploaded_file_container'>
+                                {files.map((file) => {
+                                    fileId.current += 1;
+                                    const { fileName } = file;
+                                    return (
+                                        <div className='uploaded_file' key={fileId.current}>
+                                            <span>{fileName}</span>
+                                            <BsTrash
+                                                onClick={() => {
+                                                    handleDeleteFile(file);
+                                                }}
+                                            />
+                                        </div>
+                                    );
+                                })}
+                            </div>
                             <div className='content_input'>
                                 <Editor
                                     placeholder='내용을 입력해주세요.'
@@ -152,7 +209,7 @@ function AnnouncementUploadContent(id) {
                     </>
                 );
         }
-    }, [status, isFetching]);
+    }, [status, isFetching, fileUploadModalVisible, files]);
 
     return <Styled.Container>{renderByStatus()}</Styled.Container>;
 }

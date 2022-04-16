@@ -55,8 +55,24 @@ export const Container = styled.section`
         cursor: pointer;
     }
 
+    .add_file_btn {
+        height: 40px;
+        border-radius: 6px;
+        background: lightgray;
+        line-height: 40px;
+        font-size: 20px;
+        letter-spacing: -0.5px;
+        border: none;
+        width: 15%;
+        margin: 0 11%;
+        text-align: center;
+        font-weight: 440;
+        cursor: pointer;
+    }
+
     .back_btn:hover,
-    .submit_btn:hover {
+    .submit_btn:hover,
+    .add_file_btn:hover {
         background: black;
         color: white;
     }
@@ -73,6 +89,21 @@ export const Container = styled.section`
         font-weight: 440;
     }
 
+    .uploaded_file_container {
+        margin: 15px 11% 0 11%;
+    }
+
+    .uploaded_file {
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .uploaded_file svg {
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
     @media screen and (max-width: 1023px) {
         padding-top: 20px;
         margin-bottom: 40px;
@@ -85,9 +116,31 @@ export const Container = styled.section`
         }
 
         .content_input {
+            margin: 7px 10% 50px 10%;
             font-size: 15px;
             padding: 8px;
             border-radius: 10px;
+        }
+
+        .add_file_btn {
+            height: 32px;
+            line-height: 32px;
+            font-size: 16px;
+            width: 17%;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .content_input {
+            margin: 0 10% 50px 10%;
+        }
+
+        .add_file_btn {
+            height: 28px;
+            line-height: 28px;
+            font-size: 13px;
+            width: 22%;
+            margin: 0 12%;
         }
     }
 `;
