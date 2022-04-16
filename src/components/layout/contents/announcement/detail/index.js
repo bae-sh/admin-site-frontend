@@ -42,7 +42,7 @@ function AnnouncementDetailContent(id) {
                 const date = data.data.lastModifiedAt.split(/T|-|[.]/);
                 return (
                     <>
-                        {role === '관리자' && (
+                        {role !== '회원' && (
                             <div className='btn_container'>
                                 <span
                                     className='modify_btn'

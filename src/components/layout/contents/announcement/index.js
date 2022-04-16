@@ -15,7 +15,7 @@ function AnnouncementContent() {
 
     return (
         <Styled.Container>
-            {role === '관리자' && (
+            {role !== '회원' && (
                 <div className='add_post'>
                     <ul className='add_list'>
                         {!toggleAddBtn ? (
