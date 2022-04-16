@@ -1,6 +1,90 @@
 /* eslint-disable no-alert */
+/* eslint-disable object-shorthand */
 import axios from 'axios';
+import { useQuery } from 'react-query';
+import fileDownload from 'js-file-download';
 import { url } from './url';
+
+async function getAnnouncements(page, size) {
+    const { data } = await axios.get(`${url}/announcement?page=${page}&size=${size}`);
+    return data;
+}
+
+export function useAnnouncements(page, size) {
+    return useQuery(['announcements', page, size], () => getAnnouncements(page, size));
+}
+
+async function getAnnouncementDetail(id) {
+    const { data } = await axios.get(`${url}/announcement/${id}`);
+    return data;
+}
+
+export function useAnnouncementDetail(id) {
+    return useQuery(['announcement', { id: id }], () => getAnnouncementDetail(id), {
+        enabled: !!id,
+    });
+}
+
+export async function uploadFiles(files) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.post(`${url}/file`, files, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteFile(file) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.post(`${url}/file/delete`, file, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function postAnnouncement(submitData) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.post(`${url}/announcement`, submitData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteAnnouncement(id) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.delete(`${url}/announcement/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyAnnouncement(submitData, id) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.put(`${url}/announcement/${id}`, submitData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function downloadFile(downloadUrl, fileName) {
+    axios
+        .get(downloadUrl, {
+            responseType: 'blob',
+        })
+        .then((res) => {
+            fileDownload(res.data, fileName);
+        });
+}
 
 export function fetchCalendarData() {
     return fetch(`${url}/calendar`).then((response) => response.json());
