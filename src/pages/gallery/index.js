@@ -4,8 +4,9 @@ import { useRecoilValue } from 'recoil';
 import { url } from '../../url';
 import { modalVisibleState } from '../../atoms';
 import * as PageStyled from '../pageStyled';
+import Title from '../../components/layout/title';
 
-function Board() {
+function Gallery() {
     const modalVisible = useRecoilValue(modalVisibleState);
     const onClick = () => {
         axios({
@@ -27,12 +28,11 @@ function Board() {
     };
     return (
         <PageStyled.Container modalVisible={modalVisible}>
-            <div className='inner'>Board</div>
-            <button type='button' onClick={onClick}>
-                btn
-            </button>
+            <div className='inner'>
+                <Title title='📷 갤러리' description='Admin 활동 사진' />
+            </div>
         </PageStyled.Container>
     );
 }
 
-export default Board;
+export default Gallery;
