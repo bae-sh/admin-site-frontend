@@ -29,7 +29,7 @@ export function useAnnouncementDetail(id) {
 }
 
 export async function uploadFiles(files) {
-    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
     const { data } = await axios.post(`${url}/file`, files, {
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -40,7 +40,7 @@ export async function uploadFiles(files) {
 }
 
 export async function deleteFile(file) {
-    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
     const { data } = await axios.post(`${url}/file/delete`, file, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ export async function deleteFile(file) {
 }
 
 export async function postAnnouncement(submitData) {
-    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
     const { data } = await axios.post(`${url}/announcement`, submitData, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ export async function postAnnouncement(submitData) {
 }
 
 export async function deleteAnnouncement(id) {
-    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
     const { data } = await axios.delete(`${url}/announcement/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ export async function deleteAnnouncement(id) {
 }
 
 export async function modifyAnnouncement(submitData, id) {
-    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
     const { data } = await axios.put(`${url}/announcement/${id}`, submitData, {
         headers: {
             Authorization: `Bearer ${token}`,
