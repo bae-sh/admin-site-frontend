@@ -25,13 +25,15 @@ function Header() {
                 <Nav className='headerNav' />
                 <div className='headerRight'>
                     <div className='user' aria-hidden='true'>
-                        <Link to='/login'>
-                            {isLoggined.userId === '' ? (
+                        {isLoggined.userId === '' ? (
+                            <Link to='/login'>
                                 <Styled.Login>로그인</Styled.Login>
-                            ) : (
+                            </Link>
+                        ) : (
+                            <Link to='/mypage'>
                                 <FaUserAlt size={20} />
-                            )}
-                        </Link>
+                            </Link>
+                        )}
                     </div>
                     <div
                         className='hamburger'
