@@ -30,3 +30,56 @@ export const SubHeader = styled.div`
         }
     }
 `;
+
+export const Body = styled.div`
+    margin: 30px 10px;
+    padding: 10px;
+`;
+export const Content = styled.div`
+    border: 1px solid black;
+    margin-top: 20px;
+    height: 50vh;
+    padding: 20px;
+`;
+export const ContentHeader = styled.div`
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+`;
+
+export const ModalTitle = styled.h1`
+    font-size: 32px;
+    font-weight: 400;
+`;
+export const ModalBody = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 60px;
+    font-size: 24px;
+    font-weight: 350;
+    div {
+        width: 70%;
+        margin: 10px 0;
+    }
+`;
+export const CloseBtn = styled.div`
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 40px;
+`;
+export const PermissionBtn = styled.button`
+    background-color: white;
+    width: 60px;
+    padding: 5px;
+    border-radius: 4px;
+    margin-right: 20px;
+    border: 1px solid #111;
+    cursor: pointer;
+`;
