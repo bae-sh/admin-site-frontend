@@ -40,10 +40,16 @@ export const Content = styled.div`
     margin-top: 20px;
     height: 50vh;
     padding: 20px;
+    overflow: scroll;
+`;
+export const ContentBox = styled.div`
+    height: 40vh;
+    overflow: scroll;
 `;
 export const ContentHeader = styled.div`
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
     font-size: 20px;
     font-weight: 400;
     padding: 10px 0px;

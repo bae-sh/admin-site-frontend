@@ -1,16 +1,20 @@
 import * as Styled from './styled';
 
-function StudentList({ type, setModalIsOpen }) {
+function StudentList({ type, setModalIsOpen, item, setSelectNumber, idx }) {
+    console.log(item);
     return (
-        <Styled.ContentBox>
-            <Styled.ContentList>
-                <span>배성현</span>
-                <span>201802100</span>
-                <Styled.StudentInfoBtn onClick={() => setModalIsOpen(type)}>
-                    보기
-                </Styled.StudentInfoBtn>
-            </Styled.ContentList>
-        </Styled.ContentBox>
+        <Styled.ContentList>
+            <span>{item?.name}</span>
+            <span>{item?.studentNumber}</span>
+            <Styled.StudentInfoBtn
+                onClick={() => {
+                    setSelectNumber(idx);
+                    setModalIsOpen(type);
+                }}
+            >
+                보기
+            </Styled.StudentInfoBtn>
+        </Styled.ContentList>
     );
 }
 

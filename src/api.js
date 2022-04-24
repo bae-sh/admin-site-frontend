@@ -216,3 +216,20 @@ export async function fetchSignup(data, navigate, setError) {
             console.log(error);
         });
 }
+
+export function fetchStudentList(setStudentList) {
+    axios({
+        method: 'get',
+        url: `${url}/members`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            console.log(11);
+            setStudentList(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}

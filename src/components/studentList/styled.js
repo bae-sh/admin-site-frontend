@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
-export const ContentBox = styled.div`
-    height: 40vh;
-    overflow: scroll;
-`;
 export const ContentList = styled.div`
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
     font-size: 15px;
     font-weight: 350;
     padding: 10px;
