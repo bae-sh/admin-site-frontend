@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import Modal from 'react-modal';
+import { GrFormClose } from 'react-icons/gr';
 import * as Styled from './styled';
 import * as PageStyled from '../pageStyled';
 import { modalVisibleState } from '../../atoms';
@@ -43,8 +45,33 @@ const StudentInfoBtn = styled.button`
     cursor: pointer;
     background-color: white;
 `;
+const ModalTitle = styled.h1`
+    font-size: 32px;
+    font-weight: 400;
+`;
+const ModalBody = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 60px;
+    font-size: 24px;
+    font-weight: 350;
+    div {
+        width: 70%;
+        margin: 10px 0;
+    }
+`;
+const CloseBtn = styled.div`
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 40px;
+`;
 function Admin() {
     const modalVisible = useRecoilValue(modalVisibleState);
+    const [modalIsOpen, setModalIsOpen] = useState(true);
+    Modal.setAppElement('#root');
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
@@ -66,11 +93,37 @@ function Admin() {
                                 <ContentList>
                                     <span>배성현</span>
                                     <span>201802100</span>
-                                    <StudentInfoBtn>보기</StudentInfoBtn>
+                                    <StudentInfoBtn onClick={() => setModalIsOpen(true)}>
+                                        보기
+                                    </StudentInfoBtn>
                                 </ContentList>
                             </ContentBox>
                         </Content>
                     </Body>
+                    <Modal
+                        isOpen={modalIsOpen}
+                        style={{
+                            content: {
+                                width: '600px',
+                                height: '550px',
+                                margin: 'auto',
+                                padding: '60px',
+                            },
+                        }}
+                    >
+                        <ModalTitle>회원정보</ModalTitle>
+                        <ModalBody>
+                            <div>이름 : 배성현</div>
+                            <div>학번 : 201802100</div>
+                            <div>ID : b5460881</div>
+                            <div>이메일 : hyeon1293@gmail.com</div>
+                            <div>전화번호 : 010-9160-1798</div>
+                            <div>권한 : 관리자</div>
+                        </ModalBody>
+                        <CloseBtn>
+                            <GrFormClose onClick={() => setModalIsOpen(false)} />
+                        </CloseBtn>
+                    </Modal>
                 </Styled.Container>
             </div>
         </PageStyled.Container>
