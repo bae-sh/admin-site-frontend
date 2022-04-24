@@ -194,6 +194,7 @@ export async function fetchLogin(data, navigate, setUserState, setError) {
 export async function fetchSignup(data, navigate, setError) {
     const formData = new FormData();
     formData.append('name', data.name);
+    formData.append('phoneNumber', data.phoneNumber);
     formData.append('studentNumber', data.studentNumber);
     formData.append('userId', data.userId);
     formData.append('password', data.password);

@@ -22,6 +22,12 @@ const inputList = [
         errorMsg: '학번을 입력하세요.',
     },
     {
+        name: '휴대폰 번호',
+        id: 'phoneNumber',
+        placeholder: '휴대폰 번호를 입력하세요',
+        errorMsg: '휴대폰 번호를 입력하세요.',
+    },
+    {
         name: 'ID',
         id: 'userId',
         placeholder: 'ID를 입력하세요',
