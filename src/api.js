@@ -226,8 +226,55 @@ export function fetchStudentList(setStudentList) {
         },
     })
         .then((response) => {
-            console.log(11);
             setStudentList(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function fetchApplyList(setApplyList) {
+    axios({
+        method: 'get',
+        url: `${url}/levelup`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            setApplyList(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function fetchApprove(id) {
+    axios({
+        method: 'get',
+        url: `${url}/levelup/${id}/approve`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+export function fetchReject(id) {
+    axios({
+        method: 'get',
+        url: `${url}/levelup/${id}/reject`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            console.log(response);
         })
         .catch((error) => {
             console.log(error);

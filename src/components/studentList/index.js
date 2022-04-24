@@ -1,7 +1,6 @@
 import * as Styled from './styled';
 
 function StudentList({ type, setModalIsOpen, item, setSelectNumber, idx }) {
-    console.log(item);
     return (
         <Styled.ContentList>
             <span>{item?.name}</span>

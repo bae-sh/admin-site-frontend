@@ -7,17 +7,18 @@ import StudentList from '../../components/studentList';
 import * as Styled from './styled';
 import * as PageStyled from '../pageStyled';
 import { modalVisibleState } from '../../atoms';
-import { fetchStudentList } from '../../api';
+import { fetchApplyList, fetchApprove, fetchReject, fetchStudentList } from '../../api';
 
 function Admin() {
     const modalVisible = useRecoilValue(modalVisibleState);
     const [modalIsOpen, setModalIsOpen] = useState('none');
     const [studentList, setStudentList] = useState([]);
+    const [applyList, setApplyList] = useState([]);
     const [selectNumber, setSelectNumber] = useState(0);
     useEffect(() => {
         fetchStudentList(setStudentList);
+        fetchApplyList(setApplyList);
     }, []);
-    console.log(studentList);
     Modal.setAppElement('#root');
     return (
         <PageStyled.Container modalVisible={modalVisible}>
@@ -60,7 +61,18 @@ function Admin() {
                                 <span>학번</span>
                                 <span>정보</span>
                             </Styled.ContentHeader>
-                            <StudentList type='apply' setModalIsOpen={setModalIsOpen} />
+                            <Styled.ContentBox>
+                                {applyList.map((item, idx) => (
+                                    <StudentList
+                                        type='apply'
+                                        setModalIsOpen={setModalIsOpen}
+                                        setSelectNumber={setSelectNumber}
+                                        item={item}
+                                        idx={idx}
+                                        key={item.studentNumber}
+                                    />
+                                ))}
+                            </Styled.ContentBox>
                         </Styled.Content>
                     </Styled.Body>
                     <Modal
@@ -78,26 +90,39 @@ function Admin() {
                             <>
                                 <Styled.ModalTitle>회원정보</Styled.ModalTitle>
                                 <Styled.ModalBody>
-                                    <div>이름 : {`${studentList[selectNumber].name}`}</div>
-                                    <div>학번 : {`${studentList[selectNumber].studentNumber}`}</div>
-                                    <div>ID : {`${studentList[selectNumber].id}`}</div>
+                                    <div>이름 : {`${studentList[selectNumber]?.name}`}</div>
                                     <div>
-                                        전화번호 : {`${studentList[selectNumber].phoneNumber}`}
+                                        학번 : {`${studentList[selectNumber]?.studentNumber}`}
                                     </div>
-                                    <div>권한 : {`${studentList[selectNumber].role}`}</div>
+                                    <div>ID : {`${studentList[selectNumber]?.id}`}</div>
+                                    <div>
+                                        전화번호 : {`${studentList[selectNumber]?.phoneNumber}`}
+                                    </div>
+                                    <div>권한 : {`${studentList[selectNumber]?.role}`}</div>
                                 </Styled.ModalBody>
                             </>
                         ) : (
                             <>
                                 <Styled.ModalTitle>권한신청</Styled.ModalTitle>
                                 <Styled.ModalBody>
-                                    <div>이름 : 배성현</div>
-                                    <div>학번 : 201802100</div>
-                                    <div>현재권한 : 관리자</div>
-                                    <div>신청권한 : 관리자</div>
+                                    <div>이름 : {`${applyList[selectNumber]?.name}`}</div>
+                                    <div>학번 : {`${applyList[selectNumber]?.studentNumber}`}</div>
+                                    <div>아이디 : {`${applyList[selectNumber]?.userId}`}</div>
+                                    <div>현재권한 : {`${applyList[selectNumber]?.role}`}</div>
                                     <div>
-                                        <Styled.PermissionBtn>승인</Styled.PermissionBtn>
-                                        <Styled.PermissionBtn>거절</Styled.PermissionBtn>
+                                        신청권한 : {`${applyList[selectNumber]?.registerRoleType}`}
+                                    </div>
+                                    <div>
+                                        <Styled.PermissionBtn
+                                            onClick={() => fetchApprove(applyList[selectNumber].id)}
+                                        >
+                                            승인
+                                        </Styled.PermissionBtn>
+                                        <Styled.PermissionBtn
+                                            onClick={() => fetchReject(applyList[selectNumber].id)}
+                                        >
+                                            거절
+                                        </Styled.PermissionBtn>
                                     </div>
                                 </Styled.ModalBody>
                             </>
