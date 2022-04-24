@@ -68,9 +68,18 @@ const CloseBtn = styled.div`
     cursor: pointer;
     font-size: 40px;
 `;
+const PermissionBtn = styled.button`
+    background-color: white;
+    width: 60px;
+    padding: 5px;
+    border-radius: 4px;
+    margin-right: 20px;
+    border: 1px solid #111;
+    cursor: pointer;
+`;
 function Admin() {
     const modalVisible = useRecoilValue(modalVisibleState);
-    const [modalIsOpen, setModalIsOpen] = useState(true);
+    const [modalIsOpen, setModalIsOpen] = useState('2');
     Modal.setAppElement('#root');
     return (
         <PageStyled.Container modalVisible={modalVisible}>
@@ -93,7 +102,7 @@ function Admin() {
                                 <ContentList>
                                     <span>배성현</span>
                                     <span>201802100</span>
-                                    <StudentInfoBtn onClick={() => setModalIsOpen(true)}>
+                                    <StudentInfoBtn onClick={() => setModalIsOpen('info')}>
                                         보기
                                     </StudentInfoBtn>
                                 </ContentList>
@@ -101,7 +110,7 @@ function Admin() {
                         </Content>
                     </Body>
                     <Modal
-                        isOpen={modalIsOpen}
+                        isOpen={modalIsOpen !== 'none'}
                         style={{
                             content: {
                                 width: '600px',
@@ -111,17 +120,36 @@ function Admin() {
                             },
                         }}
                     >
-                        <ModalTitle>회원정보</ModalTitle>
-                        <ModalBody>
-                            <div>이름 : 배성현</div>
-                            <div>학번 : 201802100</div>
-                            <div>ID : b5460881</div>
-                            <div>이메일 : hyeon1293@gmail.com</div>
-                            <div>전화번호 : 010-9160-1798</div>
-                            <div>권한 : 관리자</div>
-                        </ModalBody>
+                        {modalIsOpen === 'info' ? (
+                            <>
+                                <ModalTitle>회원정보</ModalTitle>
+                                <ModalBody>
+                                    <div>이름 : 배성현</div>
+                                    <div>학번 : 201802100</div>
+                                    <div>ID : b5460881</div>
+                                    <div>이메일 : hyeon1293@gmail.com</div>
+                                    <div>전화번호 : 010-9160-1798</div>
+                                    <div>권한 : 관리자</div>
+                                </ModalBody>
+                            </>
+                        ) : (
+                            <>
+                                <ModalTitle>권한신청</ModalTitle>
+                                <ModalBody>
+                                    <div>이름 : 배성현</div>
+                                    <div>학번 : 201802100</div>
+                                    <div>현재권한 : 관리자</div>
+                                    <div>신청권한 : 관리자</div>
+                                    <div>
+                                        <PermissionBtn>승인</PermissionBtn>
+                                        <PermissionBtn>거절</PermissionBtn>
+                                    </div>
+                                </ModalBody>
+                            </>
+                        )}
+
                         <CloseBtn>
-                            <GrFormClose onClick={() => setModalIsOpen(false)} />
+                            <GrFormClose onClick={() => setModalIsOpen('none')} />
                         </CloseBtn>
                     </Modal>
                 </Styled.Container>
