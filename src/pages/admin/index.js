@@ -94,7 +94,7 @@ function Admin() {
                                     <div>
                                         학번 : {`${studentList[selectNumber]?.studentNumber}`}
                                     </div>
-                                    <div>ID : {`${studentList[selectNumber]?.id}`}</div>
+                                    <div>Id : {`${studentList[selectNumber]?.userId}`}</div>
                                     <div>
                                         전화번호 : {`${studentList[selectNumber]?.phoneNumber}`}
                                     </div>
@@ -114,12 +114,20 @@ function Admin() {
                                     </div>
                                     <div>
                                         <Styled.PermissionBtn
-                                            onClick={() => fetchApprove(applyList[selectNumber].id)}
+                                            onClick={async () => {
+                                                await fetchApprove(applyList[selectNumber].id);
+                                                await fetchApplyList(setApplyList);
+                                                setModalIsOpen('none');
+                                            }}
                                         >
                                             승인
                                         </Styled.PermissionBtn>
                                         <Styled.PermissionBtn
-                                            onClick={() => fetchReject(applyList[selectNumber].id)}
+                                            onClick={async () => {
+                                                await fetchReject(applyList[selectNumber].id);
+                                                await fetchApplyList(setApplyList);
+                                                setModalIsOpen('none');
+                                            }}
                                         >
                                             거절
                                         </Styled.PermissionBtn>

@@ -252,7 +252,7 @@ export function fetchApplyList(setApplyList) {
 
 export function fetchApprove(id) {
     axios({
-        method: 'get',
+        method: 'post',
         url: `${url}/levelup/${id}/approve`,
         headers: {
             Authorization: `Bearer ${token}`,
@@ -260,6 +260,7 @@ export function fetchApprove(id) {
     })
         .then((response) => {
             console.log(response);
+            alert('승인 되었습니다.');
         })
         .catch((error) => {
             console.log(error);
@@ -267,7 +268,7 @@ export function fetchApprove(id) {
 }
 export function fetchReject(id) {
     axios({
-        method: 'get',
+        method: 'post',
         url: `${url}/levelup/${id}/reject`,
         headers: {
             Authorization: `Bearer ${token}`,
@@ -275,6 +276,7 @@ export function fetchReject(id) {
     })
         .then((response) => {
             console.log(response);
+            alert('거절 되었습니다.');
         })
         .catch((error) => {
             console.log(error);
