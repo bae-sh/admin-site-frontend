@@ -217,3 +217,68 @@ export async function fetchSignup(data, navigate, setError) {
             console.log(error);
         });
 }
+
+export function fetchStudentList(setStudentList) {
+    axios({
+        method: 'get',
+        url: `${url}/members`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            setStudentList(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function fetchApplyList(setApplyList) {
+    axios({
+        method: 'get',
+        url: `${url}/levelups`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            setApplyList(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function fetchApprove(id, setApplyList) {
+    axios({
+        method: 'post',
+        url: `${url}/levelups/${id}/approve`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            fetchApplyList(setApplyList);
+            alert('승인 되었습니다.');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+export function fetchReject(id, setApplyList) {
+    axios({
+        method: 'post',
+        url: `${url}/levelups/${id}/reject`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            fetchApplyList(setApplyList);
+            alert('거절 되었습니다.');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
