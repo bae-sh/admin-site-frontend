@@ -237,13 +237,12 @@ export function fetchStudentList(setStudentList) {
 export function fetchApplyList(setApplyList) {
     axios({
         method: 'get',
-        url: `${url}/levelup`,
+        url: `${url}/levelups`,
         headers: {
             Authorization: `Bearer ${token}`,
         },
     })
         .then((response) => {
-            console.log(response);
             setApplyList(response.data.data);
         })
         .catch((error) => {
@@ -251,32 +250,32 @@ export function fetchApplyList(setApplyList) {
         });
 }
 
-export function fetchApprove(id) {
+export function fetchApprove(id, setApplyList) {
     axios({
         method: 'post',
-        url: `${url}/levelup/${id}/approve`,
+        url: `${url}/levelups/${id}/approve`,
         headers: {
             Authorization: `Bearer ${token}`,
         },
     })
         .then((response) => {
-            console.log(response);
+            fetchApplyList(setApplyList);
             alert('승인 되었습니다.');
         })
         .catch((error) => {
             console.log(error);
         });
 }
-export function fetchReject(id) {
+export function fetchReject(id, setApplyList) {
     axios({
         method: 'post',
-        url: `${url}/levelup/${id}/reject`,
+        url: `${url}/levelups/${id}/reject`,
         headers: {
             Authorization: `Bearer ${token}`,
         },
     })
         .then((response) => {
-            console.log(response);
+            fetchApplyList(setApplyList);
             alert('거절 되었습니다.');
         })
         .catch((error) => {

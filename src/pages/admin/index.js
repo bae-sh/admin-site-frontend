@@ -15,10 +15,12 @@ function Admin() {
     const [studentList, setStudentList] = useState([]);
     const [applyList, setApplyList] = useState([]);
     const [selectNumber, setSelectNumber] = useState(0);
+
     useEffect(() => {
         fetchStudentList(setStudentList);
         fetchApplyList(setApplyList);
     }, []);
+
     Modal.setAppElement('#root');
     return (
         <PageStyled.Container modalVisible={modalVisible}>
@@ -45,7 +47,7 @@ function Admin() {
                                         setSelectNumber={setSelectNumber}
                                         item={item}
                                         idx={idx}
-                                        key={item.studentNumber}
+                                        key={item.id}
                                     />
                                 ))}
                             </Styled.ContentBox>
@@ -69,7 +71,7 @@ function Admin() {
                                         setSelectNumber={setSelectNumber}
                                         item={item}
                                         idx={idx}
-                                        key={item.studentNumber}
+                                        key={item.id}
                                     />
                                 ))}
                             </Styled.ContentBox>
@@ -94,7 +96,7 @@ function Admin() {
                                     <div>
                                         학번 : {`${studentList[selectNumber]?.studentNumber}`}
                                     </div>
-                                    <div>Id : {`${studentList[selectNumber]?.userId}`}</div>
+                                    <div>Email : {`${studentList[selectNumber]?.email}`}</div>
                                     <div>
                                         전화번호 : {`${studentList[selectNumber]?.phoneNumber}`}
                                     </div>
@@ -107,7 +109,7 @@ function Admin() {
                                 <Styled.ModalBody>
                                     <div>이름 : {`${applyList[selectNumber]?.name}`}</div>
                                     <div>학번 : {`${applyList[selectNumber]?.studentNumber}`}</div>
-                                    <div>아이디 : {`${applyList[selectNumber]?.userId}`}</div>
+                                    <div>Email : {`${applyList[selectNumber]?.email}`}</div>
                                     <div>현재권한 : {`${applyList[selectNumber]?.role}`}</div>
                                     <div>
                                         신청권한 : {`${applyList[selectNumber]?.registerRoleType}`}
@@ -115,8 +117,10 @@ function Admin() {
                                     <div>
                                         <Styled.PermissionBtn
                                             onClick={async () => {
-                                                await fetchApprove(applyList[selectNumber].id);
-                                                await fetchApplyList(setApplyList);
+                                                await fetchApprove(
+                                                    applyList[selectNumber].id,
+                                                    setApplyList,
+                                                );
                                                 setModalIsOpen('none');
                                             }}
                                         >
@@ -124,8 +128,10 @@ function Admin() {
                                         </Styled.PermissionBtn>
                                         <Styled.PermissionBtn
                                             onClick={async () => {
-                                                await fetchReject(applyList[selectNumber].id);
-                                                await fetchApplyList(setApplyList);
+                                                await fetchReject(
+                                                    applyList[selectNumber].id,
+                                                    setApplyList,
+                                                );
                                                 setModalIsOpen('none');
                                             }}
                                         >
