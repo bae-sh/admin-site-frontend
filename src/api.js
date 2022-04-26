@@ -218,6 +218,14 @@ export async function fetchSignup(data, navigate, setError) {
         });
 }
 
+export async function getMyData() {
+    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.get(`${url}/member`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
 export function fetchStudentList(setStudentList) {
     axios({
         method: 'get',

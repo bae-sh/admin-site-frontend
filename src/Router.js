@@ -13,6 +13,7 @@ import Header from './components/layout/header';
 import Login from './pages/login';
 import Modal from './components/modal';
 import Signup from './pages/signup';
+import MyPage from './pages/mypage';
 import Admin from './pages/admin';
 
 function Router() {
@@ -32,6 +33,7 @@ function Router() {
                 <Route path='/member' element={<Member />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/signup' element={<Signup />} />
+                <Route path='/mypage' element={<MyPage />} />
                 <Route path='/admin' element={<Admin />} />
             </Routes>
         </BrowserRouter>
