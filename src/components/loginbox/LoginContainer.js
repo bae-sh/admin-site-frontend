@@ -10,10 +10,10 @@ import { fetchLogin } from '../../api';
 
 const inputList = [
     {
-        name: 'ID',
-        id: 'userId',
-        placeholder: 'ID를 입력하세요',
-        errorMsg: 'ID를 입력하세요',
+        name: 'Email',
+        id: 'email',
+        placeholder: 'Email를 입력하세요',
+        errorMsg: 'Email를 입력하세요',
     },
     {
         name: 'Password',

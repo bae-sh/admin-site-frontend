@@ -90,7 +90,7 @@ export async function downloadFile(downloadUrl, fileName) {
 }
 
 export function fetchCalendarData() {
-    return fetch(`${url}/calendar`).then((response) => response.json());
+    return fetch(`${url}/calendars`).then((response) => response.json());
 }
 
 export async function addToDo(data, setToggleAddBox, setChangeTodo) {
@@ -101,7 +101,7 @@ export async function addToDo(data, setToggleAddBox, setChangeTodo) {
     } else if (token) {
         await axios({
             method: 'post',
-            url: `${url}/calendar`,
+            url: `${url}/calendars`,
             data,
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -124,7 +124,7 @@ export async function fetchToDoList(date, setToDoList) {
     const year = date.format('Y');
     await axios({
         method: 'get',
-        url: `${url}/calendar?year=${year}`,
+        url: `${url}/calendars?year=${year}`,
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -155,7 +155,7 @@ export async function deleteToDo(e, setChangeTodo) {
         if (window.confirm(`${e.target.innerHTML}를 삭제하시겠습니까?`)) {
             await axios({
                 method: 'delete',
-                url: `${url}/calendar/${e.target.id}`,
+                url: `${url}/calendars/${e.target.id}`,
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -194,8 +194,9 @@ export async function fetchLogin(data, navigate, setUserState, setError) {
 export async function fetchSignup(data, navigate, setError) {
     const formData = new FormData();
     formData.append('name', data.name);
+    formData.append('phoneNumber', data.phoneNumber);
     formData.append('studentNumber', data.studentNumber);
-    formData.append('userId', data.userId);
+    formData.append('email', data.email);
     formData.append('password', data.password);
     await axios({
         method: 'post',
@@ -225,4 +226,67 @@ export async function getMyData() {
         },
     });
     return data;
+export function fetchStudentList(setStudentList) {
+    axios({
+        method: 'get',
+        url: `${url}/members`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            setStudentList(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function fetchApplyList(setApplyList) {
+    axios({
+        method: 'get',
+        url: `${url}/levelups`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            setApplyList(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function fetchApprove(id, setApplyList) {
+    axios({
+        method: 'post',
+        url: `${url}/levelups/${id}/approve`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            fetchApplyList(setApplyList);
+            alert('승인 되었습니다.');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+export function fetchReject(id, setApplyList) {
+    axios({
+        method: 'post',
+        url: `${url}/levelups/${id}/reject`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            fetchApplyList(setApplyList);
+            alert('거절 되었습니다.');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
