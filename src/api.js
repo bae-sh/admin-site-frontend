@@ -196,7 +196,7 @@ export async function fetchSignup(data, navigate, setError) {
     formData.append('name', data.name);
     formData.append('phoneNumber', data.phoneNumber);
     formData.append('studentNumber', data.studentNumber);
-    formData.append('userId', data.userId);
+    formData.append('email', data.email);
     formData.append('password', data.password);
     await axios({
         method: 'post',
