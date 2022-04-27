@@ -218,14 +218,22 @@ export async function fetchSignup(data, navigate, setError) {
         });
 }
 
-export async function getMyData() {
-    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
-    const { data } = await axios.get(`${url}/member`, {
+export async function getMyData(setMyData) {
+    axios({
+        method: 'get',
+        url: `${url}/members/me`,
         headers: {
             Authorization: `Bearer ${token}`,
         },
-    });
-    return data;
+    })
+        .then((response) => {
+            console.log(response);
+            setMyData(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 export function fetchStudentList(setStudentList) {
     axios({
         method: 'get',
