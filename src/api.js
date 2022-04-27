@@ -298,3 +298,22 @@ export function fetchReject(id, setApplyList) {
             console.log(error);
         });
 }
+
+export function putMyData(data, setError) {
+    axios({
+        method: 'PUT',
+        url: `${url}/members`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        data: data,
+    })
+        .then((response) => {
+            console.log(response);
+            alert('수정되었습니다.');
+        })
+        .catch((error) => {
+            setError('role', { message: error.response.data.message });
+            console.log(error);
+        });
+}
