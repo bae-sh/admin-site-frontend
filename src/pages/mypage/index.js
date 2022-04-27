@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getMyData, putMyData, resignMyData } from '../../api';
-import { modalVisibleState } from '../../atoms';
+import { modalVisibleState, userIdState } from '../../atoms';
 import * as PageStyled from '../pageStyled';
 
 const listName = [
@@ -73,6 +73,7 @@ export const ErrorMsg = styled.span`
 function MyPage() {
     const modalVisible = useRecoilValue(modalVisibleState);
     const navigate = useNavigate();
+    const setUserState = useSetRecoilState(userIdState);
     const [myData, setMyData] = useState({
         email: '',
         name: '',
@@ -89,7 +90,7 @@ function MyPage() {
     } = useForm();
 
     useEffect(() => {
-        getMyData(setMyData);
+        getMyData(setMyData, navigate);
     }, []);
 
     useEffect(() => {
@@ -109,13 +110,13 @@ function MyPage() {
     };
     const logoutClick = () => {
         localStorage.clear();
+        setUserState({ userId: '' });
         alert('로그아웃 되었습니다.');
         navigate('/');
     };
     const resignClick = () => {
         if (window.confirm('정말 탈퇴 하시겠습니까?')) {
-            resignMyData(setError);
-            navigate('/');
+            resignMyData(setError, setUserState, navigate);
         }
     };
     return (
