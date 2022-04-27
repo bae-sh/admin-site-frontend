@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-   width: 100%;
+    width: 100%;
     padding-top: 30px;
     margin-bottom: 60px;
     border-radius: 16px;
@@ -38,10 +38,6 @@ export const Container = styled.section`
 
     .file_input {
         margin-left: 12%;
-    }
-
-    .uploaded_file_container {
-        margin: 15px 11% 0 11%;
     }
 
     .back_btn,
@@ -93,6 +89,10 @@ export const Container = styled.section`
         font-weight: 440;
     }
 
+    .uploaded_file_container {
+        margin: 15px 11% 0 11%;
+    }
+
     .uploaded_file {
         font-size: 15px;
         display: flex;
@@ -112,7 +112,7 @@ export const Container = styled.section`
             border-bottom: 1px solid black;
             width: 70%;
             margin: 30px 15%;
-            font-size: 24px;
+            font-size: 30px;
         }
 
         .content_input {

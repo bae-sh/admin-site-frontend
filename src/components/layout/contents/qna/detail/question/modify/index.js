@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BsTrash } from 'react-icons/bs';
 
 import Prism from 'prismjs';
@@ -16,19 +16,27 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
-import FileUploadModal from '../../../fileuploadmodal';
-import { uploadQuestion, uploadFiles, deleteFile } from '../../../../../api';
+import FileUploadModal from '../../../../../fileuploadmodal';
+import { uploadFiles, modifyQuestion } from '../../../../../../../api';
 import * as Styled from './styled';
 
-function QnAUPloadContent() {
+function QuestionModifyContent() {
     const queryClient = useQueryClient();
-    const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
     const [fileUploadModalVisible, setFileUploadModalVisible] = useState(false);
     const [newlyAddedFiles, setNewlyAddedFiles] = useState([]);
+    const [deleteFileUrls, setDeleteFileUrls] = useState([]);
     const editorRef = useRef();
-    const [files, setFiles] = useState([]);
-    const fileId = useRef(0);
+
+    const { state } = useLocation();
+    const [files, setFiles] = useState(state.files);
+    const fileId = useRef(state.files.length);
+
+    const { register, handleSubmit } = useForm({
+        defaultValues: {
+            title: state.title,
+        },
+    });
 
     useEffect(() => {
         if (editorRef.current) {
@@ -56,21 +64,30 @@ function QnAUPloadContent() {
         setFiles(temp);
     }, [newlyAddedFiles]);
 
-    const uploadMutation = useMutation((dataToSubmit) => uploadQuestion(dataToSubmit), {
-        onSuccess: () => {
-            queryClient.invalidateQueries('qnas');
+    const modifyMutation = useMutation(
+        (dataToSubmit) => {
+            modifyQuestion(dataToSubmit, state.id);
         },
-    });
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('qna', { id: state.id });
+            },
+        },
+    );
 
     const onSubmit = (data) => {
         const dataToSubmit = {
             title: data.title,
             content: editorRef.current.getInstance().getMarkdown(),
             files,
+            deleteFileUrls,
         };
-        uploadMutation.mutate(dataToSubmit, {
+        modifyMutation.mutate(dataToSubmit, {
             onSuccess: () => {
-                navigate(-1);
+                // setTimeout(function () {
+                //     navigate(-1, { replace: true });
+                // }, 2000);
+                navigate(-1, { replace: true });
             },
         });
     };
@@ -86,9 +103,7 @@ function QnAUPloadContent() {
             setFiles(files.filter((val) => file !== val));
             files.map((val) => {
                 if (file === val) {
-                    deleteFile({
-                        deleteFileUrls: [val],
-                    });
+                    setDeleteFileUrls([...deleteFileUrls, val]);
                 }
             });
         },
@@ -137,6 +152,7 @@ function QnAUPloadContent() {
                 <div className='content_input'>
                     <Editor
                         placeholder='내용을 입력해주세요'
+                        initialValue={state.content}
                         previewStyle='tab'
                         plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
                         ref={editorRef}
@@ -148,10 +164,10 @@ function QnAUPloadContent() {
                         className='back_btn'
                         aria-hidden='true'
                         onClick={() => {
-                            navigate(-1);
+                            navigate(`/qna/${state.id}`);
                         }}
                     >
-                        목록
+                        취소
                     </span>
                 </div>
             </form>
@@ -159,4 +175,4 @@ function QnAUPloadContent() {
     );
 }
 
-export default QnAUPloadContent;
+export default QuestionModifyContent;

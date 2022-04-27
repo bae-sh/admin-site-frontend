@@ -1,65 +1,123 @@
+/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable react/no-children-prop */
+/* eslint-disable react/button-has-type */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-case-declarations */
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable indent */
+/* eslint-disable consistent-return */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as Styled from './styled';
+import { useMutation, useQueryClient } from 'react-query';
 
-const temp = {
-    data: {
-        id: 3,
-        authorId: 'rlatjrud1232',
-        authorName: '김서경',
-        title: '귀여운 사진 보고가세요.',
-        content: '리트리버 너무 귀엽죠?',
-        createAt: '2022-03-28T03:51:15.31638',
-        lastModifiedAt: '2022-03-28T04:33:85.19723',
-        images: [
-            {
-                fileName: '치킨사진.png',
-                fileUrl:
-                    'https://d2uupwi4mli9pv.cloudfront.net/announcement/f49c15e9-fea6-4e7e-981d-7c9699166aa1',
-            },
-            {
-                fileName: '피자.png',
-                fileUrl:
-                    'https://d2uupwi4mli9pv.cloudfront.net/announcement/05040533-c440-4ee0-a092-46fe025b93e0',
-            },
-        ],
-    },
-    message: '공지사항 조회 성공',
-};
+import { Viewer } from '@toast-ui/react-editor';
+
+import * as Styled from './styled';
+import { useAnnouncementDetail, deleteAnnouncement, downloadFile } from '../../../../../api';
+
+const authList = ['임원', '회장', '관리자'];
 
 function AnnouncementDetailContent(id) {
+    const fileId = React.useRef(0);
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
-    const date = temp.data.lastModifiedAt.split(/T|-|[.]/);
-    console.log(id);
-    temp.data.images.map((item) => console.log(item.fileUrl));
-    return (
-        <Styled.Container>
-            <div className='detail_title'>
-                <div className='detail_title1'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]} | ${temp.data.authorName}`}</div>
-                <div className='detail_title2'>{temp.data.title}</div>
-            </div>
-            <div className='detail_content'>
-                {temp.data.images.map((item) => (
-                    <img
-                        className='item_img'
-                        key={item.fileUrl}
-                        alt={item.fileName}
-                        src={item.fileUrl}
-                    />
-                ))}
-                <div className='content'>{temp.data.content}</div>
-                <span
-                    className='back_btn'
-                    aria-hidden='true'
-                    onClick={() => {
-                        navigate(-1);
-                    }}
-                >
-                    목록 보기
-                </span>
-            </div>
-        </Styled.Container>
-    );
+    const { status, data, error, isFetching } = useAnnouncementDetail(id.id);
+    const deleteMutation = useMutation((deleteID) => deleteAnnouncement(deleteID), {
+        onSuccess: () => {
+            queryClient.invalidateQueries('announcements');
+        },
+    });
+
+    const [role, setRole] = React.useState('');
+    React.useEffect(() => {
+        if (localStorage.getItem('user')) {
+            setRole(JSON.parse(localStorage.getItem('user')).role);
+        }
+    }, []);
+
+    const renderByStatus = React.useCallback(() => {
+        switch (status) {
+            case 'loading':
+                return <div>Loading...</div>;
+            case 'error':
+                if (error instanceof Error) {
+                    return <div>Error: {error.message}</div>;
+                }
+                break;
+            default:
+                const date = data.data.lastModifiedAt.split(/T|-|[.]/);
+                return (
+                    <>
+                        {authList.includes(role) && (
+                            <div className='btn_container'>
+                                <span
+                                    className='modify_btn'
+                                    aria-hidden='true'
+                                    onClick={() => {
+                                        navigate(`/announcement/modify/${id.id}`);
+                                    }}
+                                >
+                                    수정
+                                </span>
+                                <span
+                                    className='delete_btn'
+                                    aria-hidden='true'
+                                    onClick={() => {
+                                        deleteMutation.mutate(id.id, {
+                                            onSuccess: () => {
+                                                navigate('/announcement');
+                                            },
+                                        });
+                                    }}
+                                >
+                                    삭제
+                                </span>
+                            </div>
+                        )}
+                        <div className='detail_title'>
+                            <div className='detail_title1'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]} | ${data.data.authorName}`}</div>
+                            <div className='detail_title2'>{data.data.title}</div>
+                        </div>
+                        <div className='detail_content'>
+                            <div className='download_file_btn_container'>
+                                {data.data.files.map((item) => {
+                                    fileId.current += 1;
+                                    return (
+                                        <span
+                                            className='download_file_btn'
+                                            aria-hidden='true'
+                                            key={fileId.current}
+                                            onClick={() =>
+                                                downloadFile(item.fileUrl, item.fileName)
+                                            }
+                                        >
+                                            {item.fileName}
+                                        </span>
+                                    );
+                                })}
+                            </div>
+                            <div className='content'>
+                                <Viewer initialValue={data.data.content} />
+                            </div>
+                            <span
+                                className='back_btn'
+                                aria-hidden='true'
+                                onClick={() => {
+                                    navigate('/announcement');
+                                }}
+                            >
+                                목록 보기
+                            </span>
+                        </div>
+                        {isFetching && <div>Background Updating...</div>}
+                    </>
+                );
+        }
+    }, [status, isFetching]);
+
+    return <Styled.Container>{renderByStatus()}</Styled.Container>;
 }
 
 export default AnnouncementDetailContent;

@@ -3,74 +3,58 @@ import styled from 'styled-components';
 export const Container = styled.div``;
 
 export const FlexContainer = styled.ul`
-
     .item_card {
-        width: 100%;
-        margin: 30px 0;
-        height: 65px;
-        display: inline-flex;
-        background: #ffffff;
-        border: 0.846575px solid #edeef2;
-        box-sizing: border-box;
-        border-radius: 13px;
-        box-shadow: 0 1px 1px gray;
+        text-align: center;
+        justify-content: center;
+        margin: 0 15px;
+        height: 8rem;
+        border-radius: 16px;
+        box-shadow: 0px 0px 15px lightgray;
+        margin-top: 36px;
+        flex: 1 1 30%;
+        position: relative;
     }
 
-    .qna_type {
-        width: 60px;
-        height: 40px;
-        justify-content: center;
-        text-align: center;
-        border: solid 2px;
-        border-radius: 6px;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 24px;
-        letter-spacing: -0.006em;
+    .item_card:hover {
+        box-shadow: 0px 0px 15px gray;
     }
-    .qna_type span{
-        margin: auto;
-        text-align: center;
+
+    .wrap_container {
+        width: 90%;
+        display: inline-flex;
+        margin: 30px;
+    }
+
+    .qna_content{
+        width: 80%;
+        text-align: left;
     }
 
     .qna_title {
         font-family: 'Nunito';
         font-style: normal;
         font-weight: 700;
-        font-size: 18px;
+        font-size: 30px;
         line-height: 20px;
-        letter-spacing: 0.0846575px;
     }
 
     .qna_date {
+        margin: 2rem 0 0 0;
         font-family: 'Nunito';
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
         line-height: 15px;
-        letter-spacing: 0.169315px;
         color: #83859c;
-    }
-
-    .qna_viewNum {
-        font-family: 'Nunito';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 15px;
-        letter-spacing: 0.169315px;
     }
 
     .qna_author_name {
+        padding: 28px 0 0 50px;
         font-family: 'Nunito';
         font-style: normal;
         font-weight: 400;
-        font-size: 18px;
+        font-size: 25px;
         line-height: 15px;
-        letter-spacing: 0.169315px;
         color: #83859c;
-        float: right;
     }
 `;

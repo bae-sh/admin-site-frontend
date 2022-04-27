@@ -21,19 +21,25 @@ function QnaList() {
                 </span>
             );
         }
+
         return (
             <Styled.Container>
                 <Styled.FlexContainer>
                     {data.data.map((item) => {
                         const date = item.lastModifiedAt.split(/T|-|[.]/);
                         return (
-                            <Link to={`/qna/${item.id}`} key={item.id}>
+                            <Link
+                                to={`/qna/${item.id}`}
+                                key={item.id}
+                            >
                                 <li className='item_card'>
-                                    <div className='qna_content'>
-                                        <div className='qna_title'>{item.title}</div>
-                                        <div className='qna_date'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]}`}</div>
+                                    <div className='wrap_container'>
+                                        <div className='qna_content'>
+                                            <div className='qna_title'>{item.title}</div>
+                                            <div className='qna_date'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]}`}</div>
+                                        </div>
+                                        <div className='qna_author_name'>{item.authorName}</div>
                                     </div>
-                                    <div className='qna_author_name'>{item.authorName}</div>
                                 </li>
                             </Link>
                         );

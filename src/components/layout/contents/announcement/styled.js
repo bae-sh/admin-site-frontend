@@ -26,6 +26,7 @@ export const Container = styled.section`
 
     .add_post {
         margin-top: 12px;
+        margin-right: 12px;
     }
 
     .add_post .add_list {
@@ -39,6 +40,7 @@ export const Container = styled.section`
     }
 
     .add_post .add_list .add_btn {
+        cursor: pointer;
         margin-top: 5px;
     }
 

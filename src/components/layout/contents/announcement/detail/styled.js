@@ -5,6 +5,31 @@ export const Container = styled.section`
     border-radius: 16px;
     box-shadow: 0px 0px 15px lightgray;
     text-align: center;
+    position: relative;
+
+    .btn_container {
+        position: absolute;
+        top: 40px;
+        right: 50px;
+        font-size: 25px;
+    }
+
+    .delete_btn {
+        margin-left: 20px;
+    }
+
+    .delete_btn,
+    .modify_btn,
+    .download_file_btn {
+        cursor: pointer;
+    }
+
+    .delete_btn:hover,
+    .modify_btn:hover,
+    .download_file_btn:hover {
+        text-decoration: underline;
+        font-weight: 600;
+    }
 
     .detail_title {
         margin-top: 100px;
@@ -41,11 +66,21 @@ export const Container = styled.section`
         font-size: 20px;
         letter-spacing: -0.5px;
         margin-bottom: 40px;
+        cursor: pointer;
     }
 
     .back_btn:hover {
         background: black;
         color: white;
+    }
+
+    .content img {
+        width: 100%;
+    }
+
+    .download_file_btn_container {
+        display: flex;
+        flex-direction: column;
     }
 
     @media screen and (max-width: 1023px) {
@@ -79,6 +114,26 @@ export const Container = styled.section`
             line-height: 44px;
             font-size: 15px;
             margin-bottom: 30px;
+        }
+
+        .btn_container {
+            top: 20px;
+            right: 20px;
+            font-size: 16px;
+        }
+
+        .delete_btn {
+            margin-left: 10px;
+        }
+
+        .download_file_btn {
+            font-size: 14px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .btn_container {
+            font-size: 12px;
         }
     }
 `;

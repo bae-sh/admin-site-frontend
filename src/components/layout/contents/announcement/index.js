@@ -9,38 +9,50 @@ const addItem = {
     id: 'add_announcement',
 };
 
+const authList = ['임원', '회장', '관리자'];
+
 function AnnouncementContent() {
     const [toggleAddBtn, setToggleAddBtn] = React.useState(false);
+    const [role, setRole] = React.useState('');
+
+    React.useEffect(() => {
+        if (localStorage.getItem('user')) {
+            setRole(JSON.parse(localStorage.getItem('user')).role);
+        }
+    }, []);
+
     return (
         <Styled.Container>
-            <div className='add_post'>
-                <ul className='add_list'>
-                    {!toggleAddBtn ? (
-                        <span
-                            className='add_btn'
-                            onClick={() => setToggleAddBtn(!toggleAddBtn)}
-                            aria-hidden='true'
-                        >
-                            <FaPlus size={35} />
-                        </span>
-                    ) : (
-                        <>
-                            <li key={addItem.id}>
-                                <span className='add_link'>
-                                    <Link to='/announcement/upload'>{addItem.name}</Link>
-                                </span>
-                            </li>
+            {authList.includes(role) && (
+                <div className='add_post'>
+                    <ul className='add_list'>
+                        {!toggleAddBtn ? (
                             <span
                                 className='add_btn'
                                 onClick={() => setToggleAddBtn(!toggleAddBtn)}
                                 aria-hidden='true'
                             >
-                                <FaTimes size={35} />
+                                <FaPlus size={35} />
                             </span>
-                        </>
-                    )}
-                </ul>
-            </div>
+                        ) : (
+                            <>
+                                <li key={addItem.id}>
+                                    <span className='add_link'>
+                                        <Link to='/announcement/upload'>{addItem.name}</Link>
+                                    </span>
+                                </li>
+                                <span
+                                    className='add_btn'
+                                    onClick={() => setToggleAddBtn(!toggleAddBtn)}
+                                    aria-hidden='true'
+                                >
+                                    <FaTimes size={35} />
+                                </span>
+                            </>
+                        )}
+                    </ul>
+                </div>
+            )}
             <AnnouncementList />
         </Styled.Container>
     );
