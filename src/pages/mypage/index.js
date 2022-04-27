@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { getMyData, putMyData } from '../../api';
+import { getMyData, putMyData, resignMyData } from '../../api';
 import { modalVisibleState } from '../../atoms';
 import * as PageStyled from '../pageStyled';
 
@@ -112,6 +112,12 @@ function MyPage() {
         alert('로그아웃 되었습니다.');
         navigate('/');
     };
+    const resignClick = () => {
+        if (window.confirm('정말 탈퇴 하시겠습니까?')) {
+            resignMyData(setError);
+            navigate('/');
+        }
+    };
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
@@ -133,7 +139,9 @@ function MyPage() {
                         ))}
                         <div>
                             <UpdateBtn type='submit'>수정하기</UpdateBtn>
-                            <UpdateBtn type='submit'>회원탈퇴</UpdateBtn>
+                            <UpdateBtn type='button' onClick={resignClick}>
+                                회원탈퇴
+                            </UpdateBtn>
                             <UpdateBtn type='button' onClick={logoutClick}>
                                 로그아웃
                             </UpdateBtn>

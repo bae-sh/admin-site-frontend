@@ -317,3 +317,22 @@ export function putMyData(data, setError) {
             console.log(error);
         });
 }
+
+export function resignMyData(setError) {
+    axios({
+        method: 'delete',
+        url: `${url}/members`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            localStorage.clear();
+            alert('회원 탈퇴 되었습니다.');
+        })
+        .catch((error) => {
+            setError('role', { message: error.response.data.message });
+            console.log(error);
+        });
+}
