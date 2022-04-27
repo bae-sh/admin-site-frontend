@@ -7,7 +7,6 @@ import fileDownload from 'js-file-download';
 import { url } from './url';
 
 let token = JSON.parse(localStorage.getItem('user'))?.tokens?.accessToken;
-
 async function getAnnouncements(page, size) {
     const { data } = await axios.get(`${url}/announcement?page=${page}&size=${size}`);
     return data;
@@ -181,7 +180,7 @@ export async function fetchLogin(data, navigate, setUserState, setError) {
             console.log(response);
             navigate('/');
             token = response.data.data.tokens.accessToken;
-            const newData = { ...response.data.data, expire: Date.now() + 600000 };
+            const newData = { ...response.data.data, expire: Date.now() + 1800000 };
             setUserState(newData);
             localStorage.setItem('user', JSON.stringify(newData));
         })
@@ -218,6 +217,23 @@ export async function fetchSignup(data, navigate, setError) {
         });
 }
 
+export async function getMyData(setMyData, navigate) {
+    axios({
+        method: 'get',
+        url: `${url}/members/me`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            setMyData(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+            navigate('/');
+        });
+}
 export function fetchStudentList(setStudentList) {
     axios({
         method: 'get',
@@ -279,6 +295,46 @@ export function fetchReject(id, setApplyList) {
             alert('거절 되었습니다.');
         })
         .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function putMyData(data, setError) {
+    axios({
+        method: 'PUT',
+        url: `${url}/members`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        data: data,
+    })
+        .then((response) => {
+            console.log(response);
+            alert('수정되었습니다.');
+        })
+        .catch((error) => {
+            setError('role', { message: error.response.data.message });
+            console.log(error);
+        });
+}
+
+export function resignMyData(setError, setUserState, navigate) {
+    axios({
+        method: 'delete',
+        url: `${url}/members`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            localStorage.clear();
+            setUserState({ userId: '' });
+            alert('회원 탈퇴 되었습니다.');
+            navigate('/');
+        })
+        .catch((error) => {
+            setError('role', { message: error.response.data.message });
             console.log(error);
         });
 }
