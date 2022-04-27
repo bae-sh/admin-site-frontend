@@ -4,7 +4,6 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import fileDownload from 'js-file-download';
-import { useNavigate } from 'react-router-dom';
 import { url } from './url';
 
 let token = JSON.parse(localStorage.getItem('user'))?.tokens?.accessToken;
@@ -181,7 +180,7 @@ export async function fetchLogin(data, navigate, setUserState, setError) {
             console.log(response);
             navigate('/');
             token = response.data.data.tokens.accessToken;
-            const newData = { ...response.data.data, expire: Date.now() + 3600000 };
+            const newData = { ...response.data.data, expire: Date.now() + 1800000 };
             setUserState(newData);
             localStorage.setItem('user', JSON.stringify(newData));
         })

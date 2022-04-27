@@ -108,12 +108,7 @@ function MyPage() {
             [e.target.id]: e.target.value,
         }));
     };
-    const logoutClick = () => {
-        localStorage.clear();
-        setUserState({ userId: '' });
-        alert('로그아웃 되었습니다.');
-        navigate('/');
-    };
+
     const resignClick = () => {
         if (window.confirm('정말 탈퇴 하시겠습니까?')) {
             resignMyData(setError, setUserState, navigate);
@@ -133,7 +128,7 @@ function MyPage() {
                                     value={myData[data.id]}
                                     onChange={onChange}
                                     id={data.id}
-                                    disabled={data.id === 'role'}
+                                    disabled={data.id === 'role' || data.id === 'email'}
                                 />
                                 <ErrorMsg>{errors[data.id]?.message}</ErrorMsg>
                             </InputList>
@@ -142,9 +137,6 @@ function MyPage() {
                             <UpdateBtn type='submit'>수정하기</UpdateBtn>
                             <UpdateBtn type='button' onClick={resignClick}>
                                 회원탈퇴
-                            </UpdateBtn>
-                            <UpdateBtn type='button' onClick={logoutClick}>
-                                로그아웃
                             </UpdateBtn>
                         </div>
                     </Container>
