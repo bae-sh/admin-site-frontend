@@ -17,6 +17,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
+import { FaCommentDots } from 'react-icons/fa';
 import FileUploadModal from '../../../fileuploadmodal';
 import QnAQuestionContent from './question';
 import QnAAnswerContent from './answer';
@@ -116,7 +117,8 @@ function QnADetailContent({ id }) {
                 files={question.files}
             />
             <QnAAnswerContent qId={id} answers={answers} />
-            <div>
+            <div className='editor-container'>
+                <div className='editor-title'><FaCommentDots />  답변하기!!</div>
                 {fileUploadModalVisible && (
                     <FileUploadModal
                         setFileUploadModalVisible={setFileUploadModalVisible}

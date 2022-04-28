@@ -8,9 +8,9 @@ export const Container = styled.div`
         background-color: white;
         text-align: center;
         justify-content: center;
-        margin: 0 15px;
+        border: 1px solid lightgray;
         border-radius: 16px;
-        box-shadow: 0px 0px 15px lightgray;
+        padding: 20px;
         margin-top: 36px;
     }
 
@@ -20,8 +20,10 @@ export const Container = styled.div`
     }
 
     .detail_title_container {
+        width: 100%;
         border-bottom: solid 1px gray;
         margin-bottom: 30px;
+        display: inline-flex;
     }
 
     .detail_title1 {
@@ -58,6 +60,12 @@ export const Container = styled.div`
 
     .btn_container {
         font-weight: 500;
+        float: right;
+        margin-left: 20rem;
+    }
+
+    .modify_btn{
+        margin-right: 10px;
     }
 
     .modify_btn,
@@ -69,11 +77,30 @@ export const Container = styled.div`
         background: lightgray;
         line-height: 40px;
         font-size: 20px;
+        cursor: pointer;
     }
 
     .modify_btn:hover,
     .delete_btn:hover {
         background: black;
         color: white;
+    }
+
+    .download_file_btn_container{
+        width: 100%;
+        padding: 15px;
+        display: inline-block;
+        border-top: 1px solid lightgray;
+        border-bottom: 1px solid lightgray;
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .download_file_btn{
+        font-size: 15px;
+        font-weight: 400;
+        border-bottom: 1px solid black;
+        margin: 10px;
+        cursor: pointer;
     }
 `;

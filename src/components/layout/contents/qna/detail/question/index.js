@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { useMutation, useQueryClient } from 'react-query';
 import { deleteQuestion, downloadFile } from '../../../../../../api';
+import { FaPaperclip } from 'react-icons/fa';
 import * as Styled from './styled';
 
 function QnAQuestionContent(props) {
@@ -27,13 +28,15 @@ function QnAQuestionContent(props) {
     return (
         <Styled.Container>
             <div className='detail_title_container'>
-                <div className='detail_title1'>
-                    <span className='q_marker'>Q</span>
-                    {title}
-                </div>
-                <div className='detail_title2'>
-                    <span className='detail_title2_author_infor'>{`${authorEmail} | ${authorName}`}</span>
-                    <span className='detail_title2_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
+                <div>
+                    <div className='detail_title1'>
+                        <span className='q_marker'>Q</span>
+                        {title}
+                    </div>
+                    <div className='detail_title2'>
+                        <span className='detail_title2_author_infor'>{`${authorEmail} | ${authorName}`}</span>
+                        <span className='detail_title2_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
+                    </div>
                 </div>
                 {userEmail === authorEmail && (
                     <div className='btn_container'>
@@ -64,6 +67,9 @@ function QnAQuestionContent(props) {
                     </div>
                 )}
             </div>
+            <div className='content'>
+                <ReactMarkdown>{content}</ReactMarkdown>
+            </div>
             <div className='download_file_btn_container'>
                 {files.map((item) => {
                     fileId.current += 1;
@@ -74,13 +80,10 @@ function QnAQuestionContent(props) {
                             key={fileId.current}
                             onClick={() => downloadFile(item.fileUrl, item.fileName)}
                         >
-                            {item.fileName}
+                            <FaPaperclip />  {item.fileName}
                         </span>
                     );
                 })}
-            </div>
-            <div className='content'>
-                <ReactMarkdown>{content}</ReactMarkdown>
             </div>
         </Styled.Container>
     );

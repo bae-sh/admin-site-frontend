@@ -15,6 +15,7 @@ export const Container = styled.div`
         font-size: 20px;
         letter-spacing: -0.5px;
         margin: 0 0 40px 40px;
+        font-weight: 400;
     }
 
     .add_btn:hover {

@@ -3,6 +3,20 @@ import styled from 'styled-components';
 export const Container = styled.div`
     text-align: center;
 
+    .editor-container{
+        width: 100%;
+        border: solid 1px lightgray;
+        border-radius: 16px;
+        margin-top: 40px;
+    }
+
+    .editor-title{
+        margin: 30px 0 0 30px;
+        text-align: left;
+        font-size: 30px;
+        font-weight: 700;
+    }
+
     .a_marker {
         margin-right: 30px;
     }
@@ -30,7 +44,7 @@ export const Container = styled.div`
     .content_input {
         width: 80%;
         min-height: 400px;
-        margin: 15px 10% 50px 10%;
+        margin: 15px 10% 20px 10%;
         font-size: 20px;
         resize: none;
         padding: 10px;
@@ -54,7 +68,7 @@ export const Container = styled.div`
         font-size: 17px;
         letter-spacing: -0.5px;
         border: none;
-        width: 20%;
+        width: 10%;
         margin: 0 20px;
         padding: 0;
         cursor: pointer;
