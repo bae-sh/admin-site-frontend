@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { BsTrash } from 'react-icons/bs';
 
 import Prism from 'prismjs';
@@ -17,10 +17,10 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import FileUploadModal from '../../../../../fileuploadmodal';
-import { uploadFiles, modifyQuestion } from '../../../../../../../api';
+import { uploadFiles, modifyAnswer } from '../../../../../../../api';
 import * as Styled from './styled';
 
-function QuestionModifyContent() {
+function AnswerModifyContent() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const [fileUploadModalVisible, setFileUploadModalVisible] = useState(false);
@@ -28,16 +28,13 @@ function QuestionModifyContent() {
     const [deleteFileUrls, setDeleteFileUrls] = useState([]);
     const editorRef = useRef();
 
+    const { qId, aId } = useParams();
     const { state } = useLocation();
     const [files, setFiles] = useState(state.files);
     const [newFiles, setNewFiles] = useState([]);
     const fileId = useRef(state.files.length);
 
-    const { register, handleSubmit } = useForm({
-        defaultValues: {
-            title: state.title,
-        },
-    });
+    const { handleSubmit } = useForm({});
 
     useEffect(() => {
         if (editorRef.current) {
@@ -69,25 +66,24 @@ function QuestionModifyContent() {
 
     const modifyMutation = useMutation(
         async (dataToSubmit) => {
-            await modifyQuestion(dataToSubmit, state.id);
+            await modifyAnswer(dataToSubmit, qId, aId);
         },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries('qna', { id: state.id });
+                queryClient.invalidateQueries('qna', { id: qId });
             },
         },
     );
 
-    const onSubmit = (data) => {
+    const onSubmit = () => {
         const dataToSubmit = {
-            title: data.title,
             content: editorRef.current.getInstance().getMarkdown(),
             files: newFiles,
             deleteFileUrls,
         };
         modifyMutation.mutate(dataToSubmit, {
             onSuccess: () => {
-                navigate(`/qna/${state.id}`);
+                navigate(`/qna/${qId}`);
             },
         });
     };
@@ -119,11 +115,6 @@ function QuestionModifyContent() {
                 />
             )}
             <form encType='multipart/form-data' onSubmit={handleSubmit(onSubmit, onError)}>
-                <input
-                    {...register('title', { required: '제목을 입력해주세요.' })}
-                    placeholder='제목을 입력해주세요.'
-                    className='title_input'
-                />
                 <span
                     className='add_file_btn'
                     aria-hidden='true'
@@ -164,7 +155,7 @@ function QuestionModifyContent() {
                         className='back_btn'
                         aria-hidden='true'
                         onClick={() => {
-                            navigate(`/qna/${state.id}`);
+                            navigate(`/qna/${qId}`);
                         }}
                     >
                         취소
@@ -175,4 +166,4 @@ function QuestionModifyContent() {
     );
 }
 
-export default QuestionModifyContent;
+export default AnswerModifyContent;

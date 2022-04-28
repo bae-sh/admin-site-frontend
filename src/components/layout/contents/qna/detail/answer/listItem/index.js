@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Viewer } from '@toast-ui/react-editor';
+import ReactMarkdown from 'react-markdown';
 import { useMutation, useQueryClient } from 'react-query';
 import * as Styled from './styled';
 import { deleteAnswer, downloadFile } from '../../../../../../../api';
@@ -10,11 +10,12 @@ function QnAAnswerListItemContent({ qId, item }) {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const lastDate = item.lastModifiedAt.split(/T|-|[.]/);
+
     const deleteMutation = useMutation(
-        (deleteQID, deleteAID) => deleteAnswer(deleteQID, deleteAID),
+        (ids) => deleteAnswer(ids[0], ids[1]),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries('qna');
+                queryClient.invalidateQueries('qna', { id: qId });
             },
         },
     );
@@ -44,7 +45,9 @@ function QnAAnswerListItemContent({ qId, item }) {
                                     className='modify_btn'
                                     aria-hidden='true'
                                     onClick={() => {
-                                        navigate(`/qna/${qId}/answer/modify/${item.id}`);
+                                        navigate(`/qna/modify/${qId}/answers/${item.id}`, {
+                                            state: item,
+                                        });
                                     }}
                                 >
                                     수정
@@ -53,7 +56,7 @@ function QnAAnswerListItemContent({ qId, item }) {
                                     className='delete_btn'
                                     aria-hidden='true'
                                     onClick={() => {
-                                        deleteMutation.mutate(item.id, {
+                                        deleteMutation.mutate([qId, item.id], {
                                             onSuccess: () => {
                                                 navigate(`/qna/${qId}`);
                                             },
@@ -82,7 +85,7 @@ function QnAAnswerListItemContent({ qId, item }) {
                     })}
                 </div>
                 <div className='content'>
-                    <Viewer initialValue={item.content} />
+                    <ReactMarkdown>{item.content}</ReactMarkdown>
                 </div>
             </div>
         </Styled.Container>

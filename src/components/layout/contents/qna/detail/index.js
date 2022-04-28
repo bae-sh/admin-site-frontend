@@ -32,7 +32,7 @@ function QnADetailContent({ id }) {
     const editorRef = useRef();
     const [files, setFiles] = useState([]);
     const fileId = useRef(0);
-    const { register, handleSubmit } = useForm();
+    const { handleSubmit } = useForm();
 
     useEffect(() => {
         if (editorRef.current) {
@@ -98,105 +98,82 @@ function QnADetailContent({ id }) {
         [files],
     );
 
-    const render = React.useCallback(() => {
-        console.log(fileUploadModalVisible);
-        switch (status) {
-            case 'loading':
-                return <span>Loading...</span>;
-            case 'error':
-                if (error instanceof Error) {
-                    return <div>Error: {error.message}</div>;
-                }
-                break;
+    if (status === 'loading') return <span>Loading...</span>;
+    if (status === 'error') return <div>Error: {error.message}</div>;
 
-            default:
-                const { answers, ...question } = data.data;
-                return (
-                    <Styled.Container>
-                        <QnAQuestionContent
-                            id={id}
-                            authorEmail={question.authorEmail}
-                            authorName={question.authorName}
-                            title={question.title}
-                            content={question.content}
-                            date={question.lastModifiedAt}
-                            files={question.files}
-                        />
-                        <QnAAnswerContent qId={id} answers={answers} />
-                        <div>
-                            {fileUploadModalVisible && (
-                                <FileUploadModal
-                                    setFileUploadModalVisible={setFileUploadModalVisible}
-                                    setNewlyAddedFiles={setNewlyAddedFiles}
-                                />
-                            )}
-                            <form
-                                encType='multipart/form-data'
-                                onSubmit={handleSubmit(onSubmit, onError)}
-                            >
-                                <input
-                                    {...register('title', { required: '제목을 입력해주세요.' })}
-                                    placeholder='제목을 입력해주세요.'
-                                    className='title_input'
-                                />
-                                <span
-                                    className='add_file_btn'
-                                    aria-hidden='true'
-                                    onClick={() => {
-                                        setFileUploadModalVisible(!fileUploadModalVisible);
-                                    }}
-                                >
-                                    파일 첨부
-                                </span>
-                                <div className='uploaded_file_container'>
-                                    {files.map((file) => {
-                                        const { fileName } = file;
-                                        console.log(fileName);
-                                        fileId.current += 1;
-                                        return (
-                                            <div className='uploaded_file' key={fileId.current}>
-                                                <span>{fileName}</span>
-                                                <BsTrash
-                                                    onClick={() => {
-                                                        handleDeleteFile(file);
-                                                    }}
-                                                />
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                                <div className='content_input'>
-                                    <Editor
-                                        placeholder='내용을 입력해주세요'
-                                        previewStyle='tab'
-                                        plugins={[
-                                            colorSyntax,
-                                            [codeSyntaxHighlight, { highlighter: Prism }],
-                                        ]}
-                                        ref={editorRef}
+    const { answers, ...question } = data.data;
+    console.log(data.data);
+
+    return (
+        <Styled.Container>
+            <QnAQuestionContent
+                id={id}
+                authorEmail={question.authorEmail}
+                authorName={question.authorName}
+                title={question.title}
+                content={question.content}
+                date={question.lastModifiedAt}
+                files={question.files}
+            />
+            <QnAAnswerContent qId={id} answers={answers} />
+            <div>
+                {fileUploadModalVisible && (
+                    <FileUploadModal
+                        setFileUploadModalVisible={setFileUploadModalVisible}
+                        setNewlyAddedFiles={setNewlyAddedFiles}
+                    />
+                )}
+                <form encType='multipart/form-data' onSubmit={handleSubmit(onSubmit, onError)}>
+                    <span
+                        className='add_file_btn'
+                        aria-hidden='true'
+                        onClick={() => {
+                            setFileUploadModalVisible(!fileUploadModalVisible);
+                        }}
+                    >
+                        파일 첨부
+                    </span>
+                    <div className='uploaded_file_container'>
+                        {files.map((file) => {
+                            const { fileName } = file;
+                            fileId.current += 1;
+                            return (
+                                <div className='uploaded_file' key={fileId.current}>
+                                    <span>{fileName}</span>
+                                    <BsTrash
+                                        onClick={() => {
+                                            handleDeleteFile(file);
+                                        }}
                                     />
                                 </div>
-                                <div className='btn_container'>
-                                    <input type='submit' className='submit_btn' value='답변 등록' />
-                                    <span
-                                        className='back_btn'
-                                        aria-hidden='true'
-                                        onClick={() => {
-                                            navigate('/qna');
-                                        }}
-                                    >
-                                        목록
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-                        {isFetching && <div>Background Updating...</div>}
-                    </Styled.Container>
-                );
-        }
-    }, [fileUploadModalVisible, data, status, isFetching]);
-
-    return <>{render()}</>;
+                            );
+                        })}
+                    </div>
+                    <div className='content_input'>
+                        <Editor
+                            placeholder='내용을 입력해주세요'
+                            previewStyle='tab'
+                            plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
+                            ref={editorRef}
+                        />
+                    </div>
+                    <div className='btn_container'>
+                        <input type='submit' className='submit_btn' value='답변 등록' />
+                        <span
+                            className='back_btn'
+                            aria-hidden='true'
+                            onClick={() => {
+                                navigate('/qna');
+                            }}
+                        >
+                            목록
+                        </span>
+                    </div>
+                </form>
+            </div>
+            {isFetching && <div>Background Updating…</div>}
+        </Styled.Container>
+    );
 }
 
 export default QnADetailContent;

@@ -40,6 +40,7 @@ export async function modifyQuestion(dataToSubmit, id) {
             Authorization: `Bearer ${token}`,
         },
     });
+    console.log(data);
     return data;
 }
 
@@ -136,7 +137,7 @@ export async function downloadFile(fileUrl, fileName) {
 
 export async function deleteFile(file) {
     const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
-    const { data } = await axios.post(`${url}/files/delete`, file, {
+    const { data } = await axios.post(`${url}/file/delete`, file, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

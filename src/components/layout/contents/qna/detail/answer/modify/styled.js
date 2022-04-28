@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-    text-align: center;
-
-    .a_marker {
-        margin-right: 30px;
-    }
+export const Container = styled.section`
+   width: 100%;
+    padding-top: 30px;
+    margin-bottom: 60px;
+    border-radius: 16px;
+    box-shadow: 0px 0px 15px lightgrey;
 
     form {
         display: flex;
         flex-flow: column wrap;
-        margin-top: 40px;
     }
     input {
         border: none;

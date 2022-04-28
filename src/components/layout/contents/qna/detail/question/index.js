@@ -1,11 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Viewer } from '@toast-ui/react-editor';
+import ReactMarkdown from 'react-markdown';
 import { useMutation, useQueryClient } from 'react-query';
 import { deleteQuestion, downloadFile } from '../../../../../../api';
 import * as Styled from './styled';
-
-import Test from './test';
 
 function QnAQuestionContent(props) {
     const fileId = React.useRef(0);
@@ -82,10 +80,7 @@ function QnAQuestionContent(props) {
                 })}
             </div>
             <div className='content'>
-                {console.log(content)}
-                <Viewer initialValue={content}/>
-                <div>그냥 값 : {content}</div>
-                <Test content={content} />
+                <ReactMarkdown>{content}</ReactMarkdown>
             </div>
         </Styled.Container>
     );
