@@ -40,7 +40,6 @@ export const Content = styled.div`
     margin-top: 20px;
     height: 50vh;
     padding: 20px;
-    overflow: scroll;
 `;
 export const ContentBox = styled.div`
     height: 40vh;
