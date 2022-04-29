@@ -29,12 +29,12 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import * as Styled from '../../modifyStyled';
-import { useAnnouncementDetail, modifyAnnouncement, uploadFiles } from '../../../../../api';
+import { useGalleryDetail, modifyGallery, uploadFiles } from '../../../../../api';
 import FileUploadModal from '../../../fileuploadmodal';
 
-function AnnouncementUploadContent(id) {
+function GalleryUploadContent(id) {
     const queryClient = useQueryClient();
-    const { status, data, error, isFetching } = useAnnouncementDetail(id.id);
+    const { status, data, error, isFetching } = useGalleryDetail(id.id);
     const [fileUploadModalVisible, setFileUploadModalVisible] = React.useState(false);
     const [newlyAddedFiles, setNewlyAddedFiles] = React.useState([]);
     const [addedFiles, setAddedFiles] = React.useState([]);
@@ -81,13 +81,13 @@ function AnnouncementUploadContent(id) {
 
     const modifyMutation = useMutation(
         (formData) => {
-            modifyAnnouncement(formData, id.id);
+            modifyGallery(formData, id.id);
         },
         {
             onSuccess: () => {
                 return (
-                    queryClient.invalidateQueries('announcements'),
-                    queryClient.invalidateQueries(['announcement', { id: id.id }])
+                    queryClient.invalidateQueries('galleries'),
+                    queryClient.invalidateQueries(['gallery', { id: id.id }])
                 );
             },
         },
@@ -102,8 +102,8 @@ function AnnouncementUploadContent(id) {
         };
         modifyMutation.mutate(submitData, {
             onSuccess: () => {
-                // navigate(`/announcement/${id.id}`, { replace: true });
-                navigate('/announcement', { replace: true });
+                // navigate(`/gallery/${id.id}`, { replace: true });
+                navigate('/gallery', { replace: true });
             },
         });
     };
@@ -198,7 +198,7 @@ function AnnouncementUploadContent(id) {
                                     className='back_btn'
                                     aria-hidden='true'
                                     onClick={() => {
-                                        navigate(`/announcement/${id.id}`);
+                                        navigate(`/gallery/${id.id}`);
                                     }}
                                 >
                                     취소
@@ -214,4 +214,4 @@ function AnnouncementUploadContent(id) {
     return <Styled.Container>{renderByStatus()}</Styled.Container>;
 }
 
-export default AnnouncementUploadContent;
+export default GalleryUploadContent;

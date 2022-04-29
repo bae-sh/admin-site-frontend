@@ -53,7 +53,8 @@ export const Container = styled.section`
 
     .detail_content .content {
         font-size: 20px;
-        margin: 200px 40px;
+        margin: 150px 10%;
+        text-align: left;
     }
 
     .back_btn {
@@ -105,7 +106,7 @@ export const Container = styled.section`
 
         .detail_content .content {
             font-size: 15px;
-            margin: 100px 15px;
+            margin: 100px 8%;
         }
 
         .back_btn {

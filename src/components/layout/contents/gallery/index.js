@@ -1,17 +1,17 @@
 import React from 'react';
 import { FaPlus, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import AnnouncementList from './list';
+import GalleryList from './list';
 import * as Styled from '../styled';
 
 const addItem = {
-    name: '공지 올리기',
-    id: 'add_announcement',
+    name: '사진 올리기',
+    id: 'add_gallery',
 };
 
 const authList = ['임원', '회장', '관리자'];
 
-function AnnouncementContent() {
+function GalleryContent() {
     const [toggleAddBtn, setToggleAddBtn] = React.useState(false);
     const [role, setRole] = React.useState('');
 
@@ -38,7 +38,7 @@ function AnnouncementContent() {
                             <>
                                 <li key={addItem.id}>
                                     <span className='add_link'>
-                                        <Link to='/announcement/upload'>{addItem.name}</Link>
+                                        <Link to='/gallery/upload'>{addItem.name}</Link>
                                     </span>
                                 </li>
                                 <span
@@ -53,9 +53,9 @@ function AnnouncementContent() {
                     </ul>
                 </div>
             )}
-            <AnnouncementList />
+            {role ? <GalleryList /> : <div>로그인이 필요합니다.</div>}
         </Styled.Container>
     );
 }
 
-export default AnnouncementContent;
+export default GalleryContent;

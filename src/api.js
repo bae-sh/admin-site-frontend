@@ -8,7 +8,7 @@ import { url } from './url';
 
 let token = JSON.parse(localStorage.getItem('user'))?.tokens?.accessToken;
 async function getAnnouncements(page, size) {
-    const { data } = await axios.get(`${url}/announcement?page=${page}&size=${size}`);
+    const { data } = await axios.get(`${url}/announcements?page=${page}&size=${size}`);
     return data;
 }
 
@@ -17,7 +17,7 @@ export function useAnnouncements(page, size) {
 }
 
 async function getAnnouncementDetail(id) {
-    const { data } = await axios.get(`${url}/announcement/${id}`);
+    const { data } = await axios.get(`${url}/announcements/${id}`);
     return data;
 }
 
@@ -27,8 +27,89 @@ export function useAnnouncementDetail(id) {
     });
 }
 
+export async function deleteAnnouncement(id) {
+    const { data } = await axios.delete(`${url}/announcements/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyAnnouncement(submitData, id) {
+    const { data } = await axios.put(`${url}/announcements/${id}`, submitData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function postAnnouncement(submitData) {
+    const { data } = await axios.post(`${url}/announcements`, submitData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+async function getGalleries(page, size) {
+    const { data } = await axios.get(`${url}/galleries?page=${page}&size=${size}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export function useGalleries(page, size) {
+    return useQuery(['galleries', page, size], () => getGalleries(page, size));
+}
+
+async function getGalleryDetail(id) {
+    const { data } = await axios.get(`${url}/galleries/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export function useGalleryDetail(id) {
+    return useQuery(['gallery', { id: id }], () => getGalleryDetail(id), {
+        enabled: !!id,
+    });
+}
+
+export async function deleteGallery(id) {
+    const { data } = await axios.delete(`${url}/galleries/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyGallery(submitData, id) {
+    const { data } = await axios.put(`${url}/galleries/${id}`, submitData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function postGallery(submitData) {
+    const { data } = await axios.post(`${url}/galleries`, submitData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
 export async function uploadFiles(files) {
-    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
     const { data } = await axios.post(`${url}/file`, files, {
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -39,38 +120,7 @@ export async function uploadFiles(files) {
 }
 
 export async function deleteFile(file) {
-    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
     const { data } = await axios.post(`${url}/file/delete`, file, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return data;
-}
-
-export async function postAnnouncement(submitData) {
-    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
-    const { data } = await axios.post(`${url}/announcement`, submitData, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return data;
-}
-
-export async function deleteAnnouncement(id) {
-    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
-    const { data } = await axios.delete(`${url}/announcement/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return data;
-}
-
-export async function modifyAnnouncement(submitData, id) {
-    token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
-    const { data } = await axios.put(`${url}/announcement/${id}`, submitData, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
