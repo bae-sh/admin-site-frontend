@@ -19,11 +19,15 @@ export const Container = styled.div`
         margin-right: 30px;
     }
 
-    .detail_title_container {
+    .wrap_container {
         width: 100%;
         border-bottom: solid 1px gray;
         margin-bottom: 30px;
         display: inline-flex;
+    }
+
+    .detail_title_container {
+        flex-grow: 3;
     }
 
     .detail_title1 {
@@ -60,8 +64,7 @@ export const Container = styled.div`
 
     .btn_container {
         font-weight: 500;
-        float: right;
-        margin-left: 20rem;
+        flex-grow: 1;
     }
 
     .modify_btn{
@@ -77,6 +80,7 @@ export const Container = styled.div`
         background: lightgray;
         line-height: 40px;
         font-size: 20px;
+        font-weight: 400;
         cursor: pointer;
     }
 
@@ -102,5 +106,32 @@ export const Container = styled.div`
         border-bottom: 1px solid black;
         margin: 10px;
         cursor: pointer;
+    }
+
+    .content{
+        text-align: left;
+    }
+
+    @media screen and (max-width: 1023px) {
+        .a_marker {
+            margin-right: 15px;
+        }
+        .detail_title1 {
+            font-size: 35px;
+        }
+        .detail_title2 {
+            margin: 15px 0 15px 0;
+            font-size: 12px;
+        }
+        .detail_title2_author_infor {
+            margin-right: 15px;
+        }
+        .modify_btn,
+        .delete_btn {
+            line-height: 30px;
+            width: 50px;
+            height: 30px;         
+            font-size: 13px;
+        }
     }
 `;

@@ -28,8 +28,8 @@ function QnAAnswerListItemContent({ qId, item }) {
     return (
         <Styled.Container>
             <div className='answer_container' key={item.id}>
-                <div className='detail_title_container'>
-                    <div>
+                <div className='wrap_container'>
+                    <div className='detail_title_container'>
                         <div className='detail_title1'>
                             <span className='a_marker'>A</span>
                         </div>

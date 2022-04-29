@@ -6,20 +6,13 @@ export const Container = styled.div`
     }
 
     .add_btn {
+        position: absolute;
+        transition: all 0.3s;
         display: inline-block;
-        height: 54px;
-        padding: 0 40px;
-        border-radius: 30px;
-        background: lightgray;
-        line-height: 54px;
-        font-size: 20px;
-        letter-spacing: -0.5px;
-        margin: 0 0 40px 40px;
-        font-weight: 400;
+        font-size: 40px;
     }
 
     .add_btn:hover {
-        background: black;
-        color: white;
+        font-size: 45px;
     }
 `;

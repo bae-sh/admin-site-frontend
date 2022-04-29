@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaRegEdit } from 'react-icons/fa';
 import QnaList from './list';
 import * as Styled from './styled';
 
@@ -9,7 +10,7 @@ function QnAContent() {
         <Styled.Container>
             <div className='btn_container'>
                 <span className='add_btn'>
-                    <Link to='/qna/upload'>질문 등록</Link>
+                    <Link to='/qna/upload'><FaRegEdit /></Link>
                 </span>
             </div>
             <QnaList />

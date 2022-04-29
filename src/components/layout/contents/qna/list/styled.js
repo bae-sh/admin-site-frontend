@@ -4,19 +4,20 @@ export const Container = styled.div``;
 
 export const FlexContainer = styled.ul`
     .item_card {
+        transition: all 0.3s;
         text-align: center;
         justify-content: center;
         margin: 0 15px;
         height: 8rem;
         border-radius: 16px;
-        box-shadow: 0px 0px 15px lightgray;
+        border: 2px solid lightgray;
         margin-top: 36px;
-        flex: 1 1 30%;
         position: relative;
     }
 
     .item_card:hover {
-        box-shadow: 0px 0px 15px gray;
+        border: 1px solid lightgray;
+        box-shadow: 3px 3px 3px 1px lightgray;
     }
 
     .wrap_container {
@@ -26,8 +27,8 @@ export const FlexContainer = styled.ul`
     }
 
     .qna_content{
-        width: 80%;
         text-align: left;
+        flex-grow: 3;
     }
 
     .qna_title {
@@ -49,12 +50,35 @@ export const FlexContainer = styled.ul`
     }
 
     .qna_author_name {
-        padding: 28px 0 0 50px;
         font-family: 'Nunito';
         font-style: normal;
         font-weight: 400;
         font-size: 25px;
         line-height: 15px;
         color: #83859c;
+        flex-grow: 1;
+    }
+
+    @media screen and (max-width: 1023px) {
+        .wrap_container{
+            margin: 15px;
+        }
+        .item_card{
+            height: 5rem;
+        }
+        .qna_title{
+            font-size: 20px;
+        }
+        .qna_date{
+            font-size: 7px;
+            margin-top: 1rem;
+        }
+        .qna_author_name{
+            font-size: 15px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        
     }
 `;

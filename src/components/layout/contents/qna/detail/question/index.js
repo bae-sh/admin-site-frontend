@@ -27,8 +27,8 @@ function QnAQuestionContent(props) {
     }, []);
     return (
         <Styled.Container>
-            <div className='detail_title_container'>
-                <div>
+            <div className='wrap_container'>
+                <div className='detail_title_container'>
                     <div className='detail_title1'>
                         <span className='q_marker'>Q</span>
                         {title}

@@ -9,11 +9,14 @@ export const Container = styled.div`
         margin-right: 30px;
     }
 
-    .detail_title_container {
+    .wrap_container {
         width: 100%;
         border-bottom: solid 1px gray;
         margin-bottom: 30px;
         display: inline-flex;
+    }
+    .detail_title_container {
+        flex-grow: 3;
     }
 
     .detail_title1 {
@@ -50,10 +53,9 @@ export const Container = styled.div`
 
     .btn_container {
         font-weight: 500;
-        float: right;
-        margin-left: 20rem;
+        flex-grow: 1;
     }
-    .modify_btn{
+    .modify_btn {
         margin-right: 10px;
     }
 
@@ -66,6 +68,7 @@ export const Container = styled.div`
         background: lightgray;
         line-height: 40px;
         font-size: 20px;
+        font-weight: 400;
         cursor: pointer;
     }
 
@@ -75,7 +78,7 @@ export const Container = styled.div`
         color: white;
     }
 
-    .download_file_btn_container{
+    .download_file_btn_container {
         width: 100%;
         padding: 15px;
         display: inline-block;
@@ -85,7 +88,7 @@ export const Container = styled.div`
         text-align: left;
     }
 
-    .download_file_btn{
+    .download_file_btn {
         font-size: 15px;
         font-weight: 400;
         border-bottom: 1px solid black;
@@ -94,6 +97,7 @@ export const Container = styled.div`
     }
 
     .content {
+        text-align: left;
         /* 요기에 markdown 스타일 넣으면 된다 지우야 */
         h1,
         h2,
@@ -111,6 +115,35 @@ export const Container = styled.div`
 
         h3 {
             font-size: 18px;
+        }
+    }
+
+    @media screen and (max-width: 1023px) {
+        .q_marker {
+            margin-right: 15px;
+        }
+        .detail_title1 {
+            font-size: 35px;
+        }
+        .detail_title2 {
+            margin: 15px 0 15px 0;
+            font-size: 12px;
+        }
+        .detail_title2_author_infor {
+            margin-right: 15px;
+        }
+        .modify_btn,
+        .delete_btn {
+            line-height: 30px;
+            width: 50px;
+            height: 30px;         
+            font-size: 13px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .detail_title2{
+            display: inline-block;
         }
     }
 `;

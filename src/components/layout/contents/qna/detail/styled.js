@@ -42,6 +42,7 @@ export const Container = styled.div`
     }
 
     .content_input {
+        text-align: left;
         width: 80%;
         min-height: 400px;
         margin: 15px 10% 20px 10%;
