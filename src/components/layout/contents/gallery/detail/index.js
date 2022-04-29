@@ -15,18 +15,18 @@ import { useMutation, useQueryClient } from 'react-query';
 import { Viewer } from '@toast-ui/react-editor';
 
 import * as Styled from '../../detailStyled';
-import { useAnnouncementDetail, deleteAnnouncement, downloadFile } from '../../../../../api';
+import { useGalleryDetail, deleteGallery, downloadFile } from '../../../../../api';
 
 const authList = ['임원', '회장', '관리자'];
 
-function AnnouncementDetailContent(id) {
+function GalleryDetailContent(id) {
     const fileId = React.useRef(0);
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-    const { status, data, error, isFetching } = useAnnouncementDetail(id.id);
-    const deleteMutation = useMutation((deleteID) => deleteAnnouncement(deleteID), {
+    const { status, data, error, isFetching } = useGalleryDetail(id.id);
+    const deleteMutation = useMutation((deleteID) => deleteGallery(deleteID), {
         onSuccess: () => {
-            queryClient.invalidateQueries('announcements');
+            queryClient.invalidateQueries('galleries');
         },
     });
 
@@ -56,7 +56,7 @@ function AnnouncementDetailContent(id) {
                                     className='modify_btn'
                                     aria-hidden='true'
                                     onClick={() => {
-                                        navigate(`/announcement/modify/${id.id}`);
+                                        navigate(`/gallery/modify/${id.id}`);
                                     }}
                                 >
                                     수정
@@ -67,7 +67,7 @@ function AnnouncementDetailContent(id) {
                                     onClick={() => {
                                         deleteMutation.mutate(id.id, {
                                             onSuccess: () => {
-                                                navigate('/announcement');
+                                                navigate('/gallery');
                                             },
                                         });
                                     }}
@@ -105,7 +105,7 @@ function AnnouncementDetailContent(id) {
                                 className='back_btn'
                                 aria-hidden='true'
                                 onClick={() => {
-                                    navigate('/announcement');
+                                    navigate('/gallery');
                                 }}
                             >
                                 목록 보기
@@ -120,4 +120,4 @@ function AnnouncementDetailContent(id) {
     return <Styled.Container>{renderByStatus()}</Styled.Container>;
 }
 
-export default AnnouncementDetailContent;
+export default GalleryDetailContent;

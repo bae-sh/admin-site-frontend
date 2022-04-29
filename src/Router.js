@@ -6,6 +6,9 @@ import AnnouncementDetail from './pages/announcement/detail';
 import AnnouncementModify from './pages/announcement/modify';
 import AnnouncementUpload from './pages/announcement/upload';
 import Gallery from './pages/gallery';
+import GalleryDetail from './pages/gallery/detail';
+import GalleryModify from './pages/gallery/modify';
+import GalleryUpload from './pages/gallery/upload';
 import QnA from './pages/qna';
 import Calendar from './pages/calendar';
 import Member from './pages/member';
@@ -27,6 +30,9 @@ function Router() {
                 <Route path='/announcement/modify/:id' element={<AnnouncementModify />} />
                 <Route path='/announcement/upload' element={<AnnouncementUpload />} />
                 <Route path='/gallery' element={<Gallery />} />
+                <Route path='/gallery/:id' element={<GalleryDetail />} />
+                <Route path='/gallery/modify/:id' element={<GalleryModify />} />
+                <Route path='/gallery/upload' element={<GalleryUpload />} />
                 <Route path='/qna' element={<QnA />} />
                 <Route path='/calendar' element={<Calendar />} />
                 <Route path='/member' element={<Member />} />

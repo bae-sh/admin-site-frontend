@@ -28,18 +28,17 @@ export function useAnnouncementDetail(id) {
     });
 }
 
-export async function uploadFiles(files) {
-    const { data } = await axios.post(`${url}/file`, files, {
+export async function deleteAnnouncement(id) {
+    const { data } = await axios.delete(`${url}/announcements/${id}`, {
         headers: {
-            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
         },
     });
     return data;
 }
 
-export async function deleteFile(file) {
-    const { data } = await axios.post(`${url}/file/delete`, file, {
+export async function modifyAnnouncement(submitData, id) {
+    const { data } = await axios.put(`${url}/announcements/${id}`, submitData, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -56,8 +55,8 @@ export async function postAnnouncement(submitData) {
     return data;
 }
 
-export async function deleteAnnouncement(id) {
-    const { data } = await axios.delete(`${url}/announcements/${id}`, {
+async function getGalleries(page, size) {
+    const { data } = await axios.get(`${url}/galleries?page=${page}&size=${size}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -65,8 +64,64 @@ export async function deleteAnnouncement(id) {
     return data;
 }
 
-export async function modifyAnnouncement(submitData, id) {
-    const { data } = await axios.put(`${url}/announcements/${id}`, submitData, {
+export function useGalleries(page, size) {
+    return useQuery(['galleries', page, size], () => getGalleries(page, size));
+}
+
+async function getGalleryDetail(id) {
+    const { data } = await axios.get(`${url}/galleries/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export function useGalleryDetail(id) {
+    return useQuery(['gallery', { id: id }], () => getGalleryDetail(id), {
+        enabled: !!id,
+    });
+}
+
+export async function deleteGallery(id) {
+    const { data } = await axios.delete(`${url}/galleries/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyGallery(submitData, id) {
+    const { data } = await axios.put(`${url}/galleries/${id}`, submitData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function postGallery(submitData) {
+    const { data } = await axios.post(`${url}/galleries`, submitData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function uploadFiles(files) {
+    const { data } = await axios.post(`${url}/file`, files, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteFile(file) {
+    const { data } = await axios.post(`${url}/file/delete`, file, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

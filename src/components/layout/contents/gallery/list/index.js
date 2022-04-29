@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom';
 import Logo from '../../../../../images/logo/admin_logo.png';
 import Paging from '../../../paging';
 import * as Styled from '../../listStyled';
-import { useAnnouncements } from '../../../../../api';
+import { useGalleries } from '../../../../../api';
 
-function AnnouncementList() {
+function GalleryList() {
     const [currentPage, setCurrentPage] = React.useState(0);
-    const { status, data, error } = useAnnouncements(currentPage, 6);
+    const { status, data, error } = useGalleries(currentPage, 6);
 
     const renderByStatus = React.useCallback(() => {
         switch (status) {
@@ -34,7 +34,7 @@ function AnnouncementList() {
                                     <li className='item_card' key={item.id}>
                                         <div className='wrap_container'>
                                             <div className='contents_title'>
-                                                <Link to={`/announcement/${item.id}`}>
+                                                <Link to={`/gallery/${item.id}`}>
                                                     {item.title.length > 10
                                                         ? `${item.title.substr(0, 10)}...`
                                                         : item.title}
@@ -93,4 +93,4 @@ function AnnouncementList() {
     return <div>{renderByStatus()}</div>;
 }
 
-export default AnnouncementList;
+export default GalleryList;

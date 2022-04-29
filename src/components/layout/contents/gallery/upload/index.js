@@ -23,10 +23,10 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import * as Styled from '../../uploadStyled';
-import { postAnnouncement, uploadFiles, deleteFile } from '../../../../../api';
+import { postGallery, uploadFiles, deleteFile } from '../../../../../api';
 import FileUploadModal from '../../../fileuploadmodal';
 
-function AnnouncementUploadContent() {
+function GalleryUploadContent() {
     const queryClient = useQueryClient();
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
@@ -63,9 +63,9 @@ function AnnouncementUploadContent() {
         setFiles(temp);
     }, [newlyAddedFiles]);
 
-    const uploadMutation = useMutation((submitData) => postAnnouncement(submitData), {
+    const uploadMutation = useMutation((submitData) => postGallery(submitData), {
         onSuccess: () => {
-            queryClient.invalidateQueries('announcements');
+            queryClient.invalidateQueries('galleries');
         },
     });
 
@@ -77,7 +77,7 @@ function AnnouncementUploadContent() {
         };
         uploadMutation.mutate(submitData, {
             onSuccess: () => {
-                navigate('/announcement');
+                navigate('/gallery');
             },
         });
     };
@@ -167,4 +167,4 @@ function AnnouncementUploadContent() {
     );
 }
 
-export default AnnouncementUploadContent;
+export default GalleryUploadContent;
