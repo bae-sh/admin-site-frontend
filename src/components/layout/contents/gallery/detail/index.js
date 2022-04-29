@@ -81,23 +81,25 @@ function GalleryDetailContent(id) {
                             <div className='detail_title2'>{data.data.title}</div>
                         </div>
                         <div className='detail_content'>
-                            <div className='download_file_btn_container'>
-                                {data.data.files.map((item) => {
-                                    fileId.current += 1;
-                                    return (
-                                        <span
-                                            className='download_file_btn'
-                                            aria-hidden='true'
-                                            key={fileId.current}
-                                            onClick={() =>
-                                                downloadFile(item.fileUrl, item.fileName)
-                                            }
-                                        >
-                                            {item.fileName}
-                                        </span>
-                                    );
-                                })}
-                            </div>
+                            {data.data.files.length !== 0 && (
+                                <div className='download_file_btn_container'>
+                                    {data.data.files.map((item) => {
+                                        fileId.current += 1;
+                                        return (
+                                            <span
+                                                className='download_file_btn'
+                                                aria-hidden='true'
+                                                key={fileId.current}
+                                                onClick={() =>
+                                                    downloadFile(item.fileUrl, item.fileName)
+                                                }
+                                            >
+                                                {item.fileName}
+                                            </span>
+                                        );
+                                    })}
+                                </div>
+                            )}
                             <div className='content'>
                                 <Viewer initialValue={data.data.content} />
                             </div>

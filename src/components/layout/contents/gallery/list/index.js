@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../../../../images/logo/admin_logo.png';
 import Paging from '../../../paging';
 import * as Styled from '../../listStyled';
-import { useGalleries } from '../../../../../api';
+import { useGalleries, removeMarkdown } from '../../../../../api';
 
 function GalleryList() {
     const [currentPage, setCurrentPage] = React.useState(0);
@@ -30,6 +30,7 @@ function GalleryList() {
                         <Styled.FlexContainer>
                             {data.data.map((item) => {
                                 const date = item.lastModifiedAt.split(/T|-|[.]/);
+                                const mdRemovedContent = removeMarkdown(item.content);
                                 return (
                                     <li className='item_card' key={item.id}>
                                         <div className='wrap_container'>
@@ -41,9 +42,9 @@ function GalleryList() {
                                                 </Link>
                                             </div>
                                             <div className='contents_main'>
-                                                {item.content.length > 20
-                                                    ? `${item.content.substr(0, 20)}...`
-                                                    : item.content}
+                                                {mdRemovedContent.length > 20
+                                                    ? `${mdRemovedContent.substr(0, 20)}...`
+                                                    : mdRemovedContent}
                                             </div>
                                             <div className='row_wrap'>
                                                 <span>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]}`}</span>

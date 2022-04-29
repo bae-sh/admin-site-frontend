@@ -7800,6 +7800,11 @@
   "resolved" "https://registry.npmjs.org/remove-accents/-/remove-accents-0.4.2.tgz"
   "version" "0.4.2"
 
+"remove-markdown@^0.5.0":
+  "integrity" "sha512-x917M80K97K5IN1L8lUvFehsfhR8cYjGQ/yAMRI9E7JIKivtl5Emo5iD13DhMr+VojzMCiYk8V2byNPwT/oapg=="
+  "resolved" "https://registry.npmjs.org/remove-markdown/-/remove-markdown-0.5.0.tgz"
+  "version" "0.5.0"
+
 "renderkid@^3.0.0":
   "integrity" "sha512-q/7VIQA8lmM1hF+jn+sFSPWGlMkSAeNYcPLmDQx2zzuiDfaLrOmumR8iaUKlenFgh0XRPIUeSPlH3A+AW3Z5pg=="
   "resolved" "https://registry.npmjs.org/renderkid/-/renderkid-3.0.0.tgz"
