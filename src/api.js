@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import fileDownload from 'js-file-download';
 import removeMd from 'remove-markdown';
+import { marked } from 'marked';
 import { url } from './url';
 
 let token = JSON.parse(localStorage.getItem('user'))?.tokens?.accessToken;
@@ -140,7 +141,8 @@ export async function downloadFile(downloadUrl, fileName) {
 }
 
 export function removeMarkdown(content) {
-    return removeMd(content, { gfm: false, useImgAltText: false });
+    return removeMd(marked.parse(content));
+    // return removeMd(content, { gfm: false, useImgAltText: false });
 }
 
 export function fetchCalendarData() {
