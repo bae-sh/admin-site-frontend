@@ -3,14 +3,14 @@ import styled from 'styled-components';
 export const Container = styled.div`
     text-align: center;
 
-    .editor-container{
+    .editor-container {
         width: 100%;
         border: solid 1px lightgray;
         border-radius: 16px;
         margin-top: 40px;
     }
 
-    .editor-title{
+    .editor-title {
         margin: 30px 0 0 30px;
         text-align: left;
         font-size: 30px;
@@ -44,7 +44,6 @@ export const Container = styled.div`
     .content_input {
         text-align: left;
         width: 80%;
-        min-height: 400px;
         margin: 15px 10% 20px 10%;
         font-size: 20px;
         resize: none;
@@ -124,6 +123,10 @@ export const Container = styled.div`
         padding-top: 20px;
         margin-bottom: 40px;
 
+        .editor-title {
+            font-size: 20px;
+        }
+
         .title_input {
             border-bottom: 1px solid black;
             width: 70%;
@@ -138,6 +141,14 @@ export const Container = styled.div`
             border-radius: 10px;
         }
 
+        .back_btn,
+        .submit_btn {
+            height: 35px;           
+            line-height: 35px;
+            font-size: 13px;
+            
+        }
+
         .add_file_btn {
             height: 32px;
             line-height: 32px;
@@ -147,8 +158,20 @@ export const Container = styled.div`
     }
 
     @media screen and (max-width: 767px) {
+        .editor-title {
+            font-size: 16px;
+        }
+
         .content_input {
             margin: 0 10% 50px 10%;
+        }
+
+        .back_btn,
+        .submit_btn {
+            width: 15%;
+            height: 27px;           
+            line-height: 27px;
+            font-size: 10px;
         }
 
         .add_file_btn {

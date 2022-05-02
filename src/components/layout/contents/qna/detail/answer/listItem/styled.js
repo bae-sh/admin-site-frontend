@@ -51,12 +51,6 @@ export const Container = styled.div`
         color: #83859c;
     }
 
-    .item_img {
-        width: 100%;
-        object-fit: cover;
-        padding-top: 30px;
-    }
-
     .detail_content .content {
         font-size: 20px;
         margin: 200px 40px;
@@ -108,7 +102,7 @@ export const Container = styled.div`
         cursor: pointer;
     }
 
-    .content{
+    .content {
         text-align: left;
     }
 
@@ -132,6 +126,12 @@ export const Container = styled.div`
             width: 50px;
             height: 30px;         
             font-size: 13px;
+        }
+        .content{
+            font-size: 12px;
+        }
+        .download_file_btn {
+            font-size: 12px;
         }
     }
 `;

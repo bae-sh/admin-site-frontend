@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
+import { Viewer } from '@toast-ui/react-editor';
 import { useMutation, useQueryClient } from 'react-query';
 import { FaPaperclip } from 'react-icons/fa';
 import * as Styled from './styled';
+import Comment from './comment';
 import { deleteAnswer, downloadFile } from '../../../../../../../api';
 
 function QnAAnswerListItemContent({ qId, item }) {
@@ -11,6 +12,7 @@ function QnAAnswerListItemContent({ qId, item }) {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const lastDate = item.lastModifiedAt.split(/T|-|[.]/);
+    const viewerRef = useRef();
 
     const deleteMutation = useMutation((ids) => deleteAnswer(ids[0], ids[1]), {
         onSuccess: () => {
@@ -24,6 +26,12 @@ function QnAAnswerListItemContent({ qId, item }) {
             setUserEmail(JSON.parse(localStorage.getItem('user')).email);
         }
     }, []);
+
+    const content = item.content;
+    useEffect(() => {
+        const instance = viewerRef.current.getInstance();
+        instance.setMarkdown(content);
+    }, [content]);
 
     return (
         <Styled.Container>
@@ -68,7 +76,7 @@ function QnAAnswerListItemContent({ qId, item }) {
                     )}
                 </div>
                 <div className='content'>
-                    <ReactMarkdown>{item.content}</ReactMarkdown>
+                    <Viewer ref={viewerRef} />
                 </div>
                 <div className='download_file_btn_container'>
                     {item.files.map((_item) => {
@@ -80,7 +88,7 @@ function QnAAnswerListItemContent({ qId, item }) {
                                 key={fileId.current}
                                 onClick={() => downloadFile(_item.fileUrl, _item.fileName)}
                             >
-                                <FaPaperclip />  {_item.fileName}
+                                <FaPaperclip /> {_item.fileName}
                             </span>
                         );
                     })}

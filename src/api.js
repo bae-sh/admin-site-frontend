@@ -40,7 +40,6 @@ export async function modifyQuestion(dataToSubmit, id) {
             Authorization: `Bearer ${token}`,
         },
     });
-    console.log(data);
     return data;
 }
 
@@ -261,7 +260,6 @@ export async function fetchLogin(data, navigate, setUserState, setError) {
         .then((response) => {
             navigate('/');
             const newData = { ...response.data.data, expire: Date.now() + 600000 };
-            console.log(newData);
             setUserState(newData);
             localStorage.setItem('user', JSON.stringify(newData));
         })

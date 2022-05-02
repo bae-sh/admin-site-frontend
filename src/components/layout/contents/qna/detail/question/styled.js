@@ -40,12 +40,6 @@ export const Container = styled.div`
         color: #83859c;
     }
 
-    .item_img {
-        width: 100%;
-        object-fit: cover;
-        padding-top: 30px;
-    }
-
     .detail_content .content {
         font-size: 20px;
         margin: 200px 40px;
@@ -98,24 +92,6 @@ export const Container = styled.div`
 
     .content {
         text-align: left;
-        /* 요기에 markdown 스타일 넣으면 된다 지우야 */
-        h1,
-        h2,
-        h3 {
-            font-weight: bold;
-        }
-
-        h1 {
-            font-size: 24px;
-        }
-
-        h2 {
-            font-size: 20px;
-        }
-
-        h3 {
-            font-size: 18px;
-        }
     }
 
     @media screen and (max-width: 1023px) {
@@ -136,14 +112,20 @@ export const Container = styled.div`
         .delete_btn {
             line-height: 30px;
             width: 50px;
-            height: 30px;         
+            height: 30px;
             font-size: 13px;
+        }
+        .content{
+            font-size: 12px;
+        }
+        .download_file_btn {
+            font-size: 12px;
         }
     }
 
     @media screen and (max-width: 767px) {
-        .detail_title2{
-            display: inline-block;
+        .detail_title2 {
+            flex-direction: column;
         }
     }
 `;
