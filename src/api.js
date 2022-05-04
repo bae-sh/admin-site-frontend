@@ -93,6 +93,70 @@ export async function deleteAnswer(qId, aId) {
     return data;
 }
 
+export async function uploadQuestionComment(dataToSubmit, qId) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.post(`${url}/qnas/${qId}/comments`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteQuestionComment(qId, cId) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.delete(`${url}/qnas/${qId}/comments/${cId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyQuestionComment(dataToSubmit, qId, cId) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.put(`${url}/qnas/${qId}/comments/${cId}`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function uploadAnswerComment(dataToSubmit, qId, aId) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.post(`${url}/qnas/${qId}/answers/${aId}/comments`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteAnswerComment(qId, aId, cId) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.delete(`${url}/qnas/${qId}/answers/${aId}/comments/${cId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyAnswerComment(dataToSubmit, qId, aId, cId) {
+    const token = JSON.parse(localStorage.getItem('user')).tokens.accessToken;
+    const { data } = await axios.put(
+        `${url}/qnas/${qId}/answers/${aId}/comments/${cId}`,
+        dataToSubmit,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        },
+    );
+    return data;
+}
+
 async function getAnnouncements(page, size) {
     const { data } = await axios.get(`${url}/announcement?page=${page}&size=${size}`);
     return data;

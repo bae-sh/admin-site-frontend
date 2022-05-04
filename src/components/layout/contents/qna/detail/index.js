@@ -115,6 +115,7 @@ function QnADetailContent({ id }) {
                 content={question.content}
                 date={question.lastModifiedAt}
                 files={question.files}
+                comments={question.comments}
             />
             <QnAAnswerContent qId={id} answers={answers} />
             <div className='editor-container'>

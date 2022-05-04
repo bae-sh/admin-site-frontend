@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
 import { useMutation, useQueryClient } from 'react-query';
 import { FaPaperclip } from 'react-icons/fa';
+import Comment from './comment';
 import * as Styled from './styled';
 import { deleteQuestion, downloadFile } from '../../../../../../api';
 
@@ -10,7 +11,7 @@ function QnAQuestionContent(props) {
     const fileId = React.useRef(0);
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-    const { id, authorEmail, authorName, title, content, date, files } = props;
+    const { id, authorEmail, authorName, title, content, date, files, comments } = props;
     const lastDate = date.split(/T|-|[.]/);
     const viewerRef = useRef();
 
@@ -87,11 +88,13 @@ function QnAQuestionContent(props) {
                             key={fileId.current}
                             onClick={() => downloadFile(item.fileUrl, item.fileName)}
                         >
-                            <FaPaperclip /> {item.fileName}
+                            <FaPaperclip />
+                            {item.fileName}
                         </span>
                     );
                 })}
             </div>
+            <Comment comments={comments} qId={id} />
         </Styled.Container>
     );
 }

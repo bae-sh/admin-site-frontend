@@ -10,7 +10,7 @@ export const Container = styled.div`
         justify-content: center;
         border: 1px solid lightgray;
         border-radius: 16px;
-        padding: 20px;
+        padding: 20px 20px 0 20px;
         margin-top: 36px;
     }
 
