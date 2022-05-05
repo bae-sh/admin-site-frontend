@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
 import { useMutation, useQueryClient } from 'react-query';
 import { FaPaperclip } from 'react-icons/fa';
-import Comment from '../comment';
+import Comments from '../comments';
 import * as Styled from './styled';
 import { deleteAnswer, downloadFile } from '../../../../../../../api';
 
@@ -93,7 +93,7 @@ function QnAAnswerListItemContent({ qId, item }) {
                         );
                     })}
                 </div>
-                <Comment comments={item.comments} qId={qId} aId={item.id} />
+                <Comments comments={item.comments} qId={qId} aId={item.id} />
             </div>
         </Styled.Container>
     );

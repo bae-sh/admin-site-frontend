@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
 import { useMutation, useQueryClient } from 'react-query';
 import { FaPaperclip } from 'react-icons/fa';
-import Comment from './comment';
+import Comments from './comments';
 import * as Styled from './styled';
 import { deleteQuestion, downloadFile } from '../../../../../../api';
 
@@ -94,7 +94,7 @@ function QnAQuestionContent(props) {
                     );
                 })}
             </div>
-            <Comment comments={comments} qId={id} />
+            <Comments comments={comments} qId={id} />
         </Styled.Container>
     );
 }

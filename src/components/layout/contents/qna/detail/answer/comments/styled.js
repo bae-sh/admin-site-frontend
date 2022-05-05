@@ -11,7 +11,7 @@ export const Container = styled.div`
 
     .wrap_container {
         width: 100%;
-        height: 60px;
+        overflow: auto;
         border-top: solid 0.7px gray;
         border-bottom: solid 0.7px gray;
         margin-bottom: 30px;
@@ -37,10 +37,10 @@ export const Container = styled.div`
     }
 
     .content {
-        margin-left: 10px;
         font-size: 15px;
         text-align: left;
         font-weight: 600;
+        margin: 20px 0 0 15px;
     }
 
     .btn_container {
@@ -54,7 +54,8 @@ export const Container = styled.div`
 
     .modify_btn,
     .delete_btn,
-    .comment_upload_btn {
+    .comment_upload_btn,
+    .modify_upload_btn {
         display: inline-block;
         width: 60px;
         height: 40px;
@@ -68,7 +69,8 @@ export const Container = styled.div`
 
     .modify_btn:hover,
     .delete_btn:hover,
-    .comment_upload_btn:hover {
+    .comment_upload_btn:hover,
+    .modify_upload_btn:hover {
         background: black;
         color: white;
     }
@@ -108,7 +110,8 @@ export const Container = styled.div`
         }
         .modify_btn,
         .delete_btn,
-        .comment_upload_btn {
+        .comment_upload_btn,
+        .modify_upload_btn {
             line-height: 30px;
             width: 50px;
             height: 30px;
