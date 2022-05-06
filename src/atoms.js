@@ -26,3 +26,8 @@ export const announcementTabIndexState = atom({
     key: 'announcementTabIndex',
     default: 0,
 });
+
+export const qnasPageState = atom({
+    key: 'qnasPage',
+    default: 0,
+});

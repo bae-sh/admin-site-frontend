@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { modalVisibleState } from '../../atoms';
+import { modalVisibleState, qnasPageState } from '../../atoms';
 import * as Styled from './styled';
 
 const navList = [
@@ -14,6 +14,8 @@ const navList = [
 
 function Nav() {
     const [modalVisible, setModalVisible] = useRecoilState(modalVisibleState);
+    const setQnasPage = useRecoilState(qnasPageState)[1];
+
     return (
         <Styled.Container modalVisible={modalVisible}>
             {navList.map((item) => (
@@ -23,6 +25,9 @@ function Nav() {
                         onClick={() => {
                             if (modalVisible) {
                                 setModalVisible(false);
+                            }
+                            if (item.name === 'Q&A') {
+                                setQnasPage(0);
                             }
                         }}
                         style={({ isActive }) => ({ fontWeight: isActive ? '900' : 'inherit' })}

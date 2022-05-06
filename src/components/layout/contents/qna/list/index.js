@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
+import { qnasPageState } from '../../../../../atoms';
 import * as Styled from './styled';
 import Paging from '../../../paging';
 import { useQnAs } from '../../../../../api';
 
 function QnaList() {
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useRecoilState(qnasPageState);
     const { status, data, error } = useQnAs(5, currentPage);
 
     const render = React.useCallback(() => {
@@ -28,10 +30,7 @@ function QnaList() {
                     {data.data.map((item) => {
                         const date = item.lastModifiedAt.split(/T|-|[.]/);
                         return (
-                            <Link
-                                to={`/qna/${item.id}`}
-                                key={item.id}
-                            >
+                            <Link to={`/qna/${item.id}`} key={item.id}>
                                 <li className='item_card'>
                                     <div className='wrap_container'>
                                         <div className='qna_content'>

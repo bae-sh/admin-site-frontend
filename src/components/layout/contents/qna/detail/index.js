@@ -103,7 +103,6 @@ function QnADetailContent({ id }) {
     if (status === 'error') return <div>Error: {error.message}</div>;
 
     const { answers, ...question } = data.data;
-    console.log(data.data);
 
     return (
         <Styled.Container>
