@@ -10,6 +10,10 @@ import GalleryDetail from './pages/gallery/detail';
 import GalleryModify from './pages/gallery/modify';
 import GalleryUpload from './pages/gallery/upload';
 import QnA from './pages/qna';
+import QnADetail from './pages/qna/detail';
+import QnAUPload from './pages/qna/upload';
+import QuestionModify from './pages/qna/modify/question';
+import AnswerModify from './pages/qna/modify/answer';
 import Calendar from './pages/calendar';
 import Member from './pages/member';
 import Header from './components/layout/header';
@@ -35,6 +39,10 @@ function Router() {
                 <Route path='/gallery/modify/:id' element={<GalleryModify />} />
                 <Route path='/gallery/upload' element={<GalleryUpload />} />
                 <Route path='/qna' element={<QnA />} />
+                <Route path='/qna/:id' element={<QnADetail />} />
+                <Route path='/qna/upload' element={<QnAUPload />} />
+                <Route path='/qna/modify/:id' element={<QuestionModify />} />
+                <Route path='/qna/modify/:qId/answers/:aId' element={<AnswerModify />} />
                 <Route path='/calendar' element={<Calendar />} />
                 <Route path='/member' element={<Member />} />
                 <Route path='/login' element={<Login />} />

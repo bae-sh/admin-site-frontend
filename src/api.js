@@ -9,6 +9,147 @@ import { marked } from 'marked';
 import { url } from './url';
 
 let token = JSON.parse(localStorage.getItem('user'))?.tokens?.accessToken;
+
+export async function getQnAs(size, page) {
+    const { data } = await axios.get(`${url}/qnas?size=${size}&page=${page}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export function useQnAs(size, page) {
+    return useQuery(['qnas', size, page], () => getQnAs(size, page));
+}
+
+async function getQnADetail(id) {
+    const { data } = await axios.get(`${url}/qnas/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export function useQnADetail(id) {
+    return useQuery(['qna', id], () => getQnADetail(id), {
+        enabled: !!id,
+    });
+}
+
+export async function modifyQuestion(dataToSubmit, id) {
+    const { data } = await axios.put(`${url}/qnas/${id}`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function uploadQuestion(dataToSubmit) {
+    const { data } = await axios.post(`${url}/qnas`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteQuestion(id) {
+    const { data } = await axios.delete(`${url}/qnas/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyAnswer(formData, qId, aId) {
+    const { data } = await axios.put(`${url}/qnas/${qId}/answers/${aId}`, formData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function uploadAnswer(dataToSubmit, qId) {
+    const { data } = await axios.post(`${url}/qnas/${qId}/answers`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteAnswer(qId, aId) {
+    const { data } = await axios.delete(`${url}/qnas/${qId}/answers/${aId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function uploadQuestionComment(dataToSubmit, qId) {
+    const { data } = await axios.post(`${url}/qnas/${qId}/comments`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteQuestionComment(qId, cId) {
+    const { data } = await axios.delete(`${url}/qnas/${qId}/comments/${cId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyQuestionComment(dataToSubmit, qId, cId) {
+    const { data } = await axios.put(`${url}/qnas/${qId}/comments/${cId}`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function uploadAnswerComment(dataToSubmit, qId, aId) {
+    const { data } = await axios.post(`${url}/qnas/${qId}/answers/${aId}/comments`, dataToSubmit, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function deleteAnswerComment(qId, aId, cId) {
+    const { data } = await axios.delete(`${url}/qnas/${qId}/answers/${aId}/comments/${cId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+export async function modifyAnswerComment(dataToSubmit, qId, aId, cId) {
+    const { data } = await axios.put(
+        `${url}/qnas/${qId}/answers/${aId}/comments/${cId}`,
+        dataToSubmit,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        },
+    );
+    return data;
+}
+
 async function getAnnouncements(page, size) {
     const { data } = await axios.get(`${url}/announcements?page=${page}&size=${size}`);
     return data;
@@ -24,7 +165,7 @@ async function getAnnouncementDetail(id) {
 }
 
 export function useAnnouncementDetail(id) {
-    return useQuery(['announcement', { id: id }], () => getAnnouncementDetail(id), {
+    return useQuery(['announcement', { id }], () => getAnnouncementDetail(id), {
         enabled: !!id,
     });
 }
@@ -121,6 +262,16 @@ export async function uploadFiles(files) {
     return data;
 }
 
+export async function downloadFile(fileUrl, fileName) {
+    axios
+        .get(fileUrl, {
+            responseType: 'blob',
+        })
+        .then((res) => {
+            fileDownload(res.data, fileName);
+        });
+}
+
 export async function deleteFile(file) {
     const { data } = await axios.post(`${url}/file/delete`, file, {
         headers: {
@@ -144,6 +295,7 @@ export function removeMarkdown(content) {
     return removeMd(marked.parse(content));
     // return removeMd(content, { gfm: false, useImgAltText: false });
 }
+
 
 export function fetchCalendarData() {
     return fetch(`${url}/calendars`).then((response) => response.json());

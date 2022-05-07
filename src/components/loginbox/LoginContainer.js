@@ -33,6 +33,7 @@ function LoginContainer() {
     const navigate = useNavigate();
     const setUserState = useSetRecoilState(userIdState);
     const onValid = (data) => {
+        console.log(data);
         fetchLogin(data, navigate, setUserState, setError);
     };
     const [visible, setVisible] = useState(false);

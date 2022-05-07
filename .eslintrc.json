@@ -14,6 +14,7 @@
     },
     "plugins": ["react", "eslint-plugin-prettier"],
     "rules": {
+        "linebreak-style": 0,
         "object-curly-newline": 0,
         "no-unused-vars": "warn",
         "no-use-before-define": 1,
