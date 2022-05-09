@@ -24,6 +24,7 @@ function AnnouncementDetailContent(id) {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const { status, data, error, isFetching } = useAnnouncementDetail(id.id);
+    const viewerRef = React.useRef(null);
     const deleteMutation = useMutation((deleteID) => deleteAnnouncement(deleteID), {
         onSuccess: () => {
             queryClient.invalidateQueries('announcements');
@@ -36,6 +37,11 @@ function AnnouncementDetailContent(id) {
             setRole(JSON.parse(localStorage.getItem('user')).role);
         }
     }, []);
+
+    React.useEffect(() => {
+        const instance = viewerRef?.current?.getInstance();
+        data?.data?.content && instance.setMarkdown(data.data.content);
+    }, [data?.data?.content]);
 
     const renderByStatus = React.useCallback(() => {
         switch (status) {
@@ -101,7 +107,7 @@ function AnnouncementDetailContent(id) {
                                 </div>
                             )}
                             <div className='content'>
-                                <Viewer initialValue={data.data.content} />
+                                <Viewer ref={viewerRef} />
                             </div>
                             <span
                                 className='back_btn'

@@ -1,7 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { modalVisibleState, qnasPageState } from '../../atoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+    modalVisibleState,
+    announcementPageState,
+    galleryPageState,
+    qnasPageState,
+} from '../../atoms';
 import * as Styled from './styled';
 
 const navList = [
@@ -14,7 +19,9 @@ const navList = [
 
 function Nav() {
     const [modalVisible, setModalVisible] = useRecoilState(modalVisibleState);
-    const setQnasPage = useRecoilState(qnasPageState)[1];
+    const setAnnouncementPage = useSetRecoilState(announcementPageState);
+    const setGalleryPage = useSetRecoilState(galleryPageState);
+    const setQnasPage = useSetRecoilState(qnasPageState);
 
     return (
         <Styled.Container modalVisible={modalVisible}>
@@ -26,7 +33,11 @@ function Nav() {
                             if (modalVisible) {
                                 setModalVisible(false);
                             }
-                            if (item.name === 'Q&A') {
+                            if (item.name === '공지사항') {
+                                setAnnouncementPage(0);
+                            } else if (item.name === '갤러리') {
+                                setGalleryPage(0);
+                            } else if (item.name === 'Q&A') {
                                 setQnasPage(0);
                             }
                         }}

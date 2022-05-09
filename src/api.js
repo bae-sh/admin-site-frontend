@@ -281,21 +281,10 @@ export async function deleteFile(file) {
     return data;
 }
 
-export async function downloadFile(downloadUrl, fileName) {
-    axios
-        .get(downloadUrl, {
-            responseType: 'blob',
-        })
-        .then((res) => {
-            fileDownload(res.data, fileName);
-        });
-}
-
 export function removeMarkdown(content) {
     return removeMd(marked.parse(content));
     // return removeMd(content, { gfm: false, useImgAltText: false });
 }
-
 
 export function fetchCalendarData() {
     return fetch(`${url}/calendars`).then((response) => response.json());
