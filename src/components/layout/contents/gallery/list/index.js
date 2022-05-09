@@ -5,14 +5,16 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable indent */
 import * as React from 'react';
+import { useRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
+import { galleryPageState } from '../../../../../atoms';
 import Logo from '../../../../../images/logo/admin_logo.png';
 import Paging from '../../../paging';
 import * as Styled from '../../listStyled';
 import { useGalleries, removeMarkdown } from '../../../../../api';
 
 function GalleryList() {
-    const [currentPage, setCurrentPage] = React.useState(0);
+    const [currentPage, setCurrentPage] = useRecoilState(galleryPageState);
     const { status, data, error } = useGalleries(currentPage, 6);
 
     const renderByStatus = React.useCallback(() => {

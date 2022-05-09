@@ -29,6 +29,7 @@ function QnAQuestionContent(props) {
     }, []);
 
     useEffect(() => {
+        console.log(viewerRef.current);
         const instance = viewerRef.current.getInstance();
         instance.setMarkdown(content);
     }, [content]);

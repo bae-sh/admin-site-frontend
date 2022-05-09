@@ -22,12 +22,17 @@ export const fileUploadModalVisibleState = atom({
     default: false,
 });
 
-export const announcementTabIndexState = atom({
-    key: 'announcementTabIndex',
+export const qnasPageState = atom({
+    key: 'qnasPage',
     default: 0,
 });
 
-export const qnasPageState = atom({
-    key: 'qnasPage',
+export const announcementPageState = atom({
+    key: 'announcementPage',
+    default: 0,
+});
+
+export const galleryPageState = atom({
+    key: 'galleryPage',
     default: 0,
 });
