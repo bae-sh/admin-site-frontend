@@ -536,3 +536,62 @@ export function resignMyData(setError, setUserState, navigate) {
             console.log(error);
         });
 }
+
+export function fetchMyApply(userId, setMyApply) {
+    axios({
+        method: 'get',
+        url: `${url}/levelups`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            const temp = response.data.data.find((item) => item.userId === userId);
+            if (temp) {
+                setMyApply(temp);
+                console.log(temp);
+            } else {
+                console.log('no apply');
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function applyRole(data, applyBtnUpdate) {
+    axios({
+        method: 'post',
+        url: `${url}/levelups`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        data: data.role,
+    })
+        .then((response) => {
+            console.log(response);
+            alert('신청되었습니다.');
+            applyBtnUpdate();
+        })
+        .catch((error) => {
+            console.log(error.response.data.message);
+        });
+}
+
+export function deleteApplyRole(id, setMyApply) {
+    axios({
+        method: 'delete',
+        url: `${url}/levelups/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            setMyApply({ id: '', userId: '', name: '', registerRoleType: '' });
+            alert('권한 신청내역이 삭제 되었습니다.');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
