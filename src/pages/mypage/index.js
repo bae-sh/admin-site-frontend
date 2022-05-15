@@ -4,7 +4,14 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { getMyData, putMyData, resignMyData } from '../../api';
+import {
+    deleteApplyRole,
+    fetchMyApply,
+    getMyData,
+    putMyData,
+    resignMyData,
+    applyRole,
+} from '../../api';
 import { modalVisibleState, userIdState } from '../../atoms';
 import * as PageStyled from '../pageStyled';
 
@@ -30,6 +37,20 @@ const listName = [
         errorMsg: '휴대폰 번호를 입력하세요.',
     },
     { name: '역할', id: 'role' },
+];
+const role = [
+    {
+        name: '관리자',
+        id: 'admin',
+    },
+    {
+        name: '임원',
+        id: 'excutive',
+    },
+    {
+        name: '회장',
+        id: 'president',
+    },
 ];
 export const Container = styled.div`
     width: 90%;
@@ -74,12 +95,20 @@ function MyPage() {
     const modalVisible = useRecoilValue(modalVisibleState);
     const navigate = useNavigate();
     const setUserState = useSetRecoilState(userIdState);
+    const [roleData, setRoleData] = useState({ role: '관리자' });
+
     const [myData, setMyData] = useState({
         email: '',
         name: '',
         phoneNumber: '',
         role: '',
         studentNumber: '',
+    });
+    const [myApply, setMyApply] = useState({
+        id: '',
+        userId: '',
+        name: '',
+        registerRoleType: '',
     });
     const {
         register,
@@ -95,7 +124,12 @@ function MyPage() {
 
     useEffect(() => {
         listName.map((data) => setValue(data.id, myData[data.id]));
+        applyBtnUpdate();
     }, [myData]);
+
+    const applyBtnUpdate = () => {
+        fetchMyApply(myData.email, setMyApply);
+    };
 
     const onValid = (data) => {
         const newData = data;
@@ -113,6 +147,20 @@ function MyPage() {
         if (window.confirm('정말 탈퇴 하시겠습니까?')) {
             resignMyData(setError, setUserState, navigate);
         }
+    };
+    const selectRole = (e) => {
+        setRoleData({ role: e.target.value });
+        console.log(e.target.value);
+    };
+    const applyRoleClick = () => {
+        const newData = {
+            id: myData.id,
+            role: roleData,
+        };
+        applyRole(newData, applyBtnUpdate);
+    };
+    const deleteApplyRoleClick = () => {
+        deleteApplyRole(myApply.id, setMyApply);
     };
     return (
         <PageStyled.Container modalVisible={modalVisible}>
@@ -138,6 +186,28 @@ function MyPage() {
                             <UpdateBtn type='button' onClick={resignClick}>
                                 회원탈퇴
                             </UpdateBtn>
+                            {myApply.id ? (
+                                <div>
+                                    신청한 권한 : {myApply.registerRoleType}
+                                    <UpdateBtn type='button' onClick={deleteApplyRoleClick}>
+                                        신청 취소
+                                    </UpdateBtn>
+                                </div>
+                            ) : (
+                                <div>
+                                    <select onChange={selectRole}>
+                                        {role.map((option) => (
+                                            <option key={option.id} value={option.name}>
+                                                {option.name}
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                    <UpdateBtn type='button' onClick={applyRoleClick}>
+                                        권한 신청
+                                    </UpdateBtn>
+                                </div>
+                            )}
                         </div>
                     </Container>
                 </form>
