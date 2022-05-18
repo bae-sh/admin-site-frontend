@@ -10,7 +10,7 @@ function Announcement() {
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
-                <Title title='📋 공지사항' description='가장 빠른 Admin 소식 확인하기' />
+                <Title title='📋 공지사항' description='가장 빠른 ADMIN 소식 업데이트' />
                 <AnnouncementContent />
             </div>
         </PageStyled.Container>

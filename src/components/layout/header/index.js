@@ -33,6 +33,9 @@ const NavBox = styled.div`
     border-radius: 2px;
     font-size: 16px;
     font-weight: 400;
+    .logout {
+        color: red;
+    }
     :hover {
         background-color: #e5e5e5;
     }
@@ -78,7 +81,7 @@ function Header() {
                                         <Link to='/mypage'>프로필</Link>
                                     </NavBox>
                                     <NavBox>
-                                        <Link to='/' onClick={logoutClick}>
+                                        <Link className='logout' to='/' onClick={logoutClick}>
                                             로그아웃
                                         </Link>
                                     </NavBox>

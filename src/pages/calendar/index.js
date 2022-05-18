@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { GoChevronLeft, GoChevronRight, GoPlus } from 'react-icons/go';
-import { AiOutlineCalendar } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import * as Styled from './styled';
@@ -32,8 +31,7 @@ function Calendar() {
                 <Styled.Container>
                     <Styled.CalendarHeader>
                         <Styled.HeaderLeft>
-                            <AiOutlineCalendar />
-                            <span>캘린더</span>
+                            <span>📅 캘린더</span>
                         </Styled.HeaderLeft>
 
                         <Styled.YearBox>

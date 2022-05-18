@@ -4,14 +4,22 @@ import { FaRegEdit } from 'react-icons/fa';
 import QnaList from './list';
 import * as Styled from './styled';
 
+const addItem = {
+    name: '질문하기',
+    id: 'add_qna',
+};
+
 function QnAContent() {
-    const [toggleAddBtn, setToggleAddBtn] = useState(false);
     return (
         <Styled.Container>
-            <div className='btn_container'>
-                <span className='add_btn'>
-                    <Link to='/qna/upload'><FaRegEdit /></Link>
-                </span>
+            <div className='add_post'>
+                <ul className='add_list'>
+                    <li key={addItem.id}>
+                        <Link to='/qna/upload'>
+                            <span className='add_link'>{addItem.name}</span>
+                        </Link>
+                    </li>
+                </ul>
             </div>
             <QnaList />
         </Styled.Container>

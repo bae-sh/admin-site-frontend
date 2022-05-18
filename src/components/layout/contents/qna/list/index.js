@@ -8,7 +8,7 @@ import { useQnAs } from '../../../../../api';
 
 function QnaList() {
     const [currentPage, setCurrentPage] = useRecoilState(qnasPageState);
-    const { status, data, error } = useQnAs(5, currentPage);
+    const { status, data, error } = useQnAs(7, currentPage);
 
     const render = React.useCallback(() => {
         if (status === 'loading') {

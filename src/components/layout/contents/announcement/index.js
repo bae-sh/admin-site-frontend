@@ -26,30 +26,11 @@ function AnnouncementContent() {
             {authList.includes(role) && (
                 <div className='add_post'>
                     <ul className='add_list'>
-                        {!toggleAddBtn ? (
-                            <span
-                                className='add_btn'
-                                onClick={() => setToggleAddBtn(!toggleAddBtn)}
-                                aria-hidden='true'
-                            >
-                                <FaPlus size={35} />
-                            </span>
-                        ) : (
-                            <>
-                                <li key={addItem.id}>
-                                    <span className='add_link'>
-                                        <Link to='/announcement/upload'>{addItem.name}</Link>
-                                    </span>
-                                </li>
-                                <span
-                                    className='add_btn'
-                                    onClick={() => setToggleAddBtn(!toggleAddBtn)}
-                                    aria-hidden='true'
-                                >
-                                    <FaTimes size={35} />
-                                </span>
-                            </>
-                        )}
+                        <li key={addItem.id}>
+                            <Link to='/announcement/upload'>
+                                <span className='add_link'>{addItem.name}</span>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             )}

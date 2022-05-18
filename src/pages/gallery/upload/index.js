@@ -10,7 +10,7 @@ function GalleryUpload() {
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
-                <Title title='📋 공지사항' description='' />
+                <Title title='📷 갤러리' description='' />
                 <GalleryUploadContent />
             </div>
         </PageStyled.Container>
