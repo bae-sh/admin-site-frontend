@@ -69,9 +69,16 @@ a {
   min-height: calc(100vh - 72px);
   /* justify-content: center; */
   /* align-items: center; */
-  max-width: 952px;
+  max-width: 1296px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 1439px) {
+  .inner{
+    max-width: 952px;
+  }
+}
+
 @media screen and (max-width: 1023px) {
   .inner{
     max-width: 630px;

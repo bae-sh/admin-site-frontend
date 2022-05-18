@@ -41,7 +41,9 @@ function Nav() {
                                 setQnasPage(0);
                             }
                         }}
-                        style={({ isActive }) => ({ fontWeight: isActive ? '900' : 'inherit' })}
+                        style={({ isActive }) => ({
+                            textDecoration: isActive ? 'underline' : 'inherit',
+                        })}
                     >
                         {item.name}
                     </NavLink>
