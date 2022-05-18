@@ -2,13 +2,19 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     .innerHeader {
-        border-bottom: 0.5px solid black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        border-bottom: 0.5px solid lightgray;
         min-height: 72px;
-        max-width: 952px;
+        max-width: 1296px;
         margin: 0 auto;
-        display: ${(props) => (!props.modalVisible ? 'flex' : 'none')};
+        display: flex;
         justify-content: space-between;
         align-items: center;
+        z-index: 1;
     }
 
     .headerRight {
@@ -27,6 +33,12 @@ export const Container = styled.div`
 
     .headerHamburgerArea {
         display: none;
+    }
+
+    @media screen and (max-width: 1439px) {
+        .innerHeader {
+            max-width: 952px;
+        }
     }
 
     /* 412 */
@@ -53,6 +65,10 @@ export const Container = styled.div`
         .hamburger {
             display: block;
         }
+
+        .headerNav {
+            display: none;
+        }
     }
 
     /* 364 */
@@ -74,6 +90,10 @@ export const Container = styled.div`
 export const Login = styled.span`
     border: 1px solid black;
     font-weight: 350;
-    padding: 5px 12px;
+    padding: 6px 12px;
     border-radius: 16px;
+    &:hover {
+        color: white;
+        background-color: black;
+    }
 `;

@@ -1,25 +1,29 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    display: none;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
 
     @media screen and (max-width: 1023px) {
         &.modal-enter {
-            transform: translateX(-100%);
+            transform: translateX(150%);
         }
         &.modal-enter-active {
             transition: transform 600ms;
-            transform: translateX(0);
+            transform: translateX(0%);
         }
         &.modal-exit {
-            transform: translateX(0);
+            transform: translateX(0%);
         }
         &.modal-exit-active {
+            transform: translateX(150%);
             transition: transform 600ms;
-            transform: translateX(-100%);
         }
 
-        display: ${(props) => (props.modalVisible ? 'block' : 'none')};
         max-width: 412px;
         margin: 0 auto;
 
@@ -29,7 +33,7 @@ export const Container = styled.div`
 
         .modalHeader {
             min-height: 72px;
-            border-bottom: 0.5px solid black;
+            border-bottom: 0.5px solid lightgray;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -54,8 +58,13 @@ export const Container = styled.div`
             height: calc(100vh - 72px);
         }
     }
-
+    @media screen and (max-width: 1023px) {
+        max-width: 630px;
+    }
     @media screen and (max-width: 767px) {
         max-width: 364px;
+        .headerLogo {
+            margin-left: 1rem;
+        }
     }
 `;

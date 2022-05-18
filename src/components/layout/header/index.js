@@ -5,20 +5,15 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { FaUserAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { modalVisibleState, userIdState } from '../../../atoms';
 import Nav from '../../nav';
-import Logo from '../../../images/logo/admin_logo.png';
+import Logo from '../../../images/logo/admin_logo2.svg';
 import * as Styled from './styled';
 
 const NavImg = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    :hover {
-        .NavHover {
-            visibility: visible;
-        }
-    }
 `;
-const NavHover = styled.div`
+const NavTap = styled.div`
     position: absolute;
     width: 100px;
     top: 55px;
@@ -26,7 +21,7 @@ const NavHover = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    visibility: hidden;
+    visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
     transition: all 0.1s;
 `;
 const NavBox = styled.div`
@@ -47,12 +42,14 @@ function Header() {
     const navigate = useNavigate();
     const [modalVisible, setModalVisible] = useRecoilState(modalVisibleState);
     const [userToggled, setUserToggled] = React.useState(false);
+    const [tapVisible, setTapVisible] = React.useState(false);
     const isLoggined = useRecoilValue(userIdState);
     const setUserState = useSetRecoilState(userIdState);
     const logoutClick = () => {
         localStorage.clear();
         setUserState({ userId: '' });
     };
+
     return (
         <Styled.Container modalVisible={modalVisible} userToggled={userToggled}>
             <div className='innerHeader'>
@@ -63,7 +60,9 @@ function Header() {
                     alt='Logo'
                     onClick={() => navigate('/')}
                 />
-                <Nav className='headerNav' />
+                <div className='headerNav'>
+                    <Nav />
+                </div>
                 <div className='headerRight'>
                     <div className='user' aria-hidden='true'>
                         {isLoggined.userId === '' ? (
@@ -71,10 +70,10 @@ function Header() {
                                 <Styled.Login>로그인</Styled.Login>
                             </Link>
                         ) : (
-                            <NavImg>
+                            <NavImg onClick={() => setTapVisible(!tapVisible)}>
                                 <FaUserAlt size={20} />
 
-                                <NavHover className='NavHover'>
+                                <NavTap visible={tapVisible}>
                                     <NavBox>
                                         <Link to='/mypage'>프로필</Link>
                                     </NavBox>
@@ -83,7 +82,7 @@ function Header() {
                                             로그아웃
                                         </Link>
                                     </NavBox>
-                                </NavHover>
+                                </NavTap>
                             </NavImg>
                         )}
                     </div>

@@ -6,16 +6,18 @@ export const Container = styled.ul`
     display: flex;
 
     li {
-        padding: 0 1rem;
+        padding: 0 1.5rem;
     }
 
     a {
         color: inherit;
-        text-decoration: inherit;
+        text-decoration: none;
+        font-weight: bold;
+        text-underline-position: under !important;
     }
 
     a:hover {
-        text-decoration: underline black 2px;
+        text-decoration: underline !important;
     }
 
     @media screen and (max-width: 1023px) {

@@ -6,7 +6,7 @@ import { FaTimes } from 'react-icons/fa';
 import { CSSTransition } from 'react-transition-group';
 import { modalVisibleState } from '../../atoms';
 import Nav from '../nav';
-import Logo from '../../images/logo/admin_logo.png';
+import Logo from '../../images/logo/admin_logo2.svg';
 import * as Styled from './styled';
 
 function Modal() {
@@ -33,14 +33,7 @@ function Modal() {
     }, [width]);
 
     return ReactDOM.createPortal(
-        <CSSTransition
-            in={modalVisible}
-            timeout={600}
-            classNames='modal'
-            className='modal'
-            unmountOnExit
-            nodeRef={nodeRef}
-        >
+        <CSSTransition in={modalVisible} timeout={600} classNames='modal' unmountOnExit>
             <Styled.Container modalVisible={modalVisible}>
                 <div className='modalHeader'>
                     <input
