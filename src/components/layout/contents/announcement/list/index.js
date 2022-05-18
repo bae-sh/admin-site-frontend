@@ -6,7 +6,7 @@
 /* eslint-disable indent */
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../../../../../images/logo/admin_logo.png';
+import Logo from '../../../../../images/logo/admin_logo2.svg';
 import Paging from '../../../paging';
 import * as Styled from '../../listStyled';
 import { useAnnouncements, removeMarkdown } from '../../../../../api';

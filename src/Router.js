@@ -22,6 +22,7 @@ import Modal from './components/modal';
 import Signup from './pages/signup';
 import MyPage from './pages/mypage';
 import Admin from './pages/admin';
+import Footer from './components/layout/footer';
 
 function Router() {
     return (
@@ -50,6 +51,7 @@ function Router() {
                 <Route path='/mypage' element={<MyPage />} />
                 <Route path='/admin' element={<Admin />} />
             </Routes>
+            <Footer />
         </BrowserRouter>
     );
 }
