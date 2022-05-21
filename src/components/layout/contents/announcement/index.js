@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaPlus, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import AnnouncementList from './list';
 import * as Styled from '../styled';
@@ -12,7 +11,6 @@ const addItem = {
 const authList = ['임원', '회장', '관리자'];
 
 function AnnouncementContent() {
-    const [toggleAddBtn, setToggleAddBtn] = React.useState(false);
     const [role, setRole] = React.useState('');
 
     React.useEffect(() => {

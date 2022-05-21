@@ -11,7 +11,6 @@ const addItem = {
 const authList = ['임원', '회장', '관리자'];
 
 function GalleryContent() {
-    const [toggleAddBtn, setToggleAddBtn] = React.useState(false);
     const [role, setRole] = React.useState('');
 
     React.useEffect(() => {

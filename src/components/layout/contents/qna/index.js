@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaRegEdit } from 'react-icons/fa';
 import QnaList from './list';
 import * as Styled from './styled';
 
