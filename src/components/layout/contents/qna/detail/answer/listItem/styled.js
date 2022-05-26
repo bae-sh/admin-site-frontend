@@ -4,7 +4,7 @@ export const Container = styled.div`
     width: 100%;
     text-align: center;
 
-    .answer_container{
+    .answer_container {
         background-color: white;
         text-align: center;
         justify-content: center;
@@ -16,18 +16,20 @@ export const Container = styled.div`
 
     .a_marker {
         color: yellowgreen;
+        font-size: 60px;
         margin-right: 30px;
     }
 
     .wrap_container {
         width: 100%;
-        border-bottom: solid 1px gray;
+        border-bottom: solid 1px lightgray;
         margin-bottom: 30px;
         display: inline-flex;
     }
 
     .detail_title_container {
-        flex-grow: 3;
+        display: flex;
+        margin-left: 10px;
     }
 
     .detail_title1 {
@@ -37,17 +39,19 @@ export const Container = styled.div`
     }
 
     .detail_title2 {
-        margin: 20px 0 20px 0;
+        margin-top: 10px;
         text-align: left;
         font-size: 17px;
         font-weight: 500;
     }
 
     .detail_title2_author_infor {
-        margin-right: 30px;
+        font-size: 24px;
     }
 
     .detail_title2_date_infor {
+        font-size: 15px;
+        font-weight: 400;
         color: #83859c;
     }
 
@@ -61,7 +65,7 @@ export const Container = styled.div`
         flex-grow: 1;
     }
 
-    .modify_btn{
+    .modify_btn {
         margin-right: 10px;
     }
 
@@ -84,17 +88,16 @@ export const Container = styled.div`
         color: white;
     }
 
-    .download_file_btn_container{
+    .download_file_btn_container {
         width: 100%;
         padding: 15px;
         display: inline-block;
-        border-top: 1px solid lightgray;
         border-bottom: 1px solid lightgray;
         margin-top: 30px;
         text-align: left;
     }
 
-    .download_file_btn{
+    .download_file_btn {
         font-size: 15px;
         font-weight: 400;
         border-bottom: 1px solid black;
@@ -124,10 +127,10 @@ export const Container = styled.div`
         .delete_btn {
             line-height: 30px;
             width: 50px;
-            height: 30px;         
+            height: 30px;
             font-size: 13px;
         }
-        .content{
+        .content {
             font-size: 12px;
         }
         .download_file_btn {

@@ -28,8 +28,7 @@ export const Container = styled.div`
         letter-spacing: -0.5px;
         font-weight: 500;
         &:hover {
-            background: black;
-            color: white;
+            background: #dfdfdf;
         }
     }
 

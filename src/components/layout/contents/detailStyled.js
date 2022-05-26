@@ -2,14 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
     margin: 30px 0;
-    border-radius: 16px;
-    box-shadow: 0px 0px 15px lightgray;
     text-align: center;
     position: relative;
 
     .btn_container {
         position: absolute;
-        top: 40px;
+        top: 150px;
         right: 50px;
         font-size: 25px;
     }
@@ -32,11 +30,14 @@ export const Container = styled.section`
     }
 
     .detail_title {
-        margin-top: 100px;
+        margin-top: 50px;
+        margin-bottom: 150px;
     }
 
     .detail_title1 {
         font-size: 17px;
+        font-weight: 400;
+        margin-bottom: 20px;
     }
 
     .detail_title2 {
@@ -54,6 +55,7 @@ export const Container = styled.section`
     .detail_content .content {
         margin: 40px 10%;
         text-align: left;
+        min-height: 400px;
     }
 
     .detail_content .content p {
@@ -65,17 +67,18 @@ export const Container = styled.section`
         height: 54px;
         padding: 0 40px;
         border-radius: 30px;
-        background: lightgray;
+        background: #eee;
         line-height: 54px;
         font-size: 20px;
         letter-spacing: -0.5px;
+        margin-top: 40px;
         margin-bottom: 40px;
+        font-weight: 700;
         cursor: pointer;
     }
 
     .back_btn:hover {
-        background: black;
-        color: white;
+        background: #dfdfdf;
     }
 
     .content img {
@@ -87,8 +90,7 @@ export const Container = styled.section`
         flex-direction: column;
         padding: 40px 0;
         margin: 0 10%;
-        border-top: 1.5px solid black;
-        border-bottom: 1.5px solid black;
+        text-align: left;
     }
 
     @media screen and (max-width: 1023px) {
@@ -96,6 +98,7 @@ export const Container = styled.section`
 
         .detail_title {
             margin-top: 50px;
+            margin-bottom: 70px;
         }
 
         .detail_title1 {
@@ -128,7 +131,7 @@ export const Container = styled.section`
         }
 
         .btn_container {
-            top: 20px;
+            top: 100px;
             right: 20px;
             font-size: 16px;
         }
@@ -144,8 +147,6 @@ export const Container = styled.section`
         .download_file_btn_container {
             padding: 30px 0;
             margin: 0 8%;
-            border-top: 1px solid black;
-            border-bottom: 1px solid black;
         }
     }
 

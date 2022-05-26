@@ -3,16 +3,12 @@ import styled from 'styled-components';
 export const Container = styled.div``;
 
 export const FlexContainer = styled.ul`
-    border-bottom: 1px solid lightgray;
     .item_card {
         transition: all 0.1s;
         text-align: center;
         justify-content: center;
         height: 7rem;
-        // border-radius: 16px;
-        // border: 1px solid black;
-        border-top: 1px solid lightgray;
-        // margin-top: 15px;
+        border-bottom: 1px solid lightgray;
         margin: 0 10px;
         position: relative;
     }
@@ -24,9 +20,9 @@ export const FlexContainer = styled.ul`
     }
 
     .wrap_container {
-        width: 90%;
+        width: 100%;
         display: inline-flex;
-        margin: 30px;
+        margin: 30px 0 0 0;
         justify-content: space-between;
     }
 
@@ -62,8 +58,8 @@ export const FlexContainer = styled.ul`
         line-height: 15px;
         color: #83859c;
         margin-top: 1em;
+        margin-right: 1em;
         float: right;
-        // flex-grow: 1;
     }
 
     @media screen and (max-width: 1023px) {

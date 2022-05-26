@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
 import { useMutation, useQueryClient } from 'react-query';
-import { FaPaperclip } from 'react-icons/fa';
+import { AiOutlineFile } from 'react-icons/ai';
 import Comments from './comments';
 import * as Styled from './styled';
 import { deleteQuestion, downloadFile } from '../../../../../../api';
@@ -38,13 +38,13 @@ function QnAQuestionContent(props) {
         <Styled.Container>
             <div className='wrap_container'>
                 <div className='detail_title_container'>
-                    <div className='detail_title1'>
-                        <span className='q_marker'>Q</span>
+                    <div className='q_marker'>Q</div>
+                    <div className='detail_title'>
                         {title}
-                    </div>
-                    <div className='detail_title2'>
-                        <span className='detail_title2_author_infor'>{`${authorEmail} | ${authorName}`}</span>
-                        <span className='detail_title2_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
+                        <div className='detail_author'>
+                            <span className='detail_title2_author_infor'>{`${authorName} | ${authorEmail}`}</span>
+                            <span className='detail_title2_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
+                        </div>
                     </div>
                 </div>
                 {userEmail === authorEmail && (
@@ -76,7 +76,7 @@ function QnAQuestionContent(props) {
                     </div>
                 )}
             </div>
-            <div className='content'>
+            <div className='questionContent'>
                 <Viewer ref={viewerRef} />
             </div>
             <div className='download_file_btn_container'>
@@ -89,12 +89,13 @@ function QnAQuestionContent(props) {
                             key={fileId.current}
                             onClick={() => downloadFile(item.fileUrl, item.fileName)}
                         >
-                            <FaPaperclip />
+                            <AiOutlineFile />
                             {item.fileName}
                         </span>
                     );
                 })}
             </div>
+
             <Comments comments={comments} qId={id} />
         </Styled.Container>
     );

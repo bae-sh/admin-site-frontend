@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-   width: 100%;
+    width: 100%;
     padding-top: 30px;
     margin-bottom: 60px;
-    border-radius: 16px;
-    box-shadow: 0px 0px 15px lightgrey;
+    // border-radius: 16px;
+    // box-shadow: 0px 0px 15px lightgrey;
 
     form {
         display: flex;
@@ -30,7 +30,7 @@ export const Container = styled.section`
         width: 80%;
         min-height: 400px;
         margin: 15px 10% 50px 10%;
-        font-size: 20px;
+        font-size: 30px;
         resize: none;
         padding: 10px;
         border-radius: 16px;

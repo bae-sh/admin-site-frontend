@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    margin: 50px 0;
     text-align: center;
+    position: relative;
 
     .editor-container {
         width: 100%;
@@ -143,10 +145,9 @@ export const Container = styled.div`
 
         .back_btn,
         .submit_btn {
-            height: 35px;           
+            height: 35px;
             line-height: 35px;
             font-size: 13px;
-            
         }
 
         .add_file_btn {
@@ -169,7 +170,7 @@ export const Container = styled.div`
         .back_btn,
         .submit_btn {
             width: 15%;
-            height: 27px;           
+            height: 27px;
             line-height: 27px;
             font-size: 10px;
         }
