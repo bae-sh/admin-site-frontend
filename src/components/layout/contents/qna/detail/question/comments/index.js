@@ -28,7 +28,16 @@ function Comments({ comments, qId }) {
     return (
         <Styled.Container>
             <div className='input_container'>
-                <div className='input_title'>댓글</div>
+                <div className='input_title'>
+                    댓글
+                    <span className='title_number'>{comments.length}</span>
+                </div>
+                <div className='comment_container'>
+                    {comments.map((item) => (
+                        <Comment key={item.id} qId={qId} item={item} />
+                    ))}
+                </div>
+
                 <textarea
                     className='input_comment'
                     onChange={(event) => setInputValue(event.target.value)}
@@ -43,9 +52,6 @@ function Comments({ comments, qId }) {
                     댓글 작성
                 </button>
             </div>
-            {comments.map((item) => (
-                <Comment key={item.id} qId={qId} item={item} />
-            ))}
         </Styled.Container>
     );
 }

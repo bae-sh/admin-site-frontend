@@ -10,6 +10,7 @@ export const Container = styled.div`
         border: solid 1px lightgray;
         border-radius: 16px;
         margin-top: 40px;
+        padding: 30px;
     }
 
     .editor-title {
@@ -45,8 +46,8 @@ export const Container = styled.div`
 
     .content_input {
         text-align: left;
-        width: 80%;
-        margin: 15px 10% 20px 10%;
+        width: 90%;
+        margin: 15px 5% 20px 5%;
         font-size: 20px;
         resize: none;
         padding: 10px;
@@ -61,41 +62,42 @@ export const Container = styled.div`
         margin: 15px 11% 0 11%;
     }
 
-    .back_btn,
     .submit_btn {
         height: 44px;
         border-radius: 30px;
-        background: lightgray;
         line-height: 44px;
-        font-size: 17px;
+        font-size: 18px;
         letter-spacing: -0.5px;
-        border: none;
-        width: 10%;
+        border: 1px solid black;
+        width: 20%;
         margin: 0 20px;
         padding: 0;
         cursor: pointer;
+        background: black;
+        color: white;
+    }
+
+    .submit_btn:hover {
+        opacity: 0.7;
     }
 
     .add_file_btn {
         height: 40px;
-        border-radius: 6px;
-        background: lightgray;
+        border-radius: 30px;
+        background: #eee;
         line-height: 40px;
         font-size: 20px;
         letter-spacing: -0.5px;
         border: none;
         width: 15%;
-        margin: 0 11%;
+        margin: 0 6%;
         text-align: center;
         font-weight: 440;
         cursor: pointer;
     }
 
-    .back_btn:hover,
-    .submit_btn:hover,
     .add_file_btn:hover {
-        background: black;
-        color: white;
+        background: #dfdfdf;
     }
 
     .btn_container {

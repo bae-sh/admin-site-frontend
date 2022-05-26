@@ -17,7 +17,6 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
-import { FaCommentDots } from 'react-icons/fa';
 import FileUploadModal from '../../../fileuploadmodal';
 import QnAQuestionContent from './question';
 import QnAAnswerContent from './answer';
@@ -63,7 +62,7 @@ function QnADetailContent({ id }) {
 
     const uploadMutation = useMutation((dataToSubmit) => uploadAnswer(dataToSubmit, id), {
         onSuccess: () => {
-            queryClient.invalidateQueries('qna', { id: id });
+            queryClient.invalidateQueries('qna', { id });
         },
     });
 
@@ -88,7 +87,7 @@ function QnADetailContent({ id }) {
     const handleDeleteFile = React.useCallback(
         (file) => {
             setFiles(files.filter((val) => file !== val));
-            files.map((val) => {
+            files.forEach((val) => {
                 if (file === val) {
                     deleteFile({
                         deleteFileUrls: [val],
@@ -100,7 +99,14 @@ function QnADetailContent({ id }) {
     );
 
     if (status === 'loading') return <span>Loading...</span>;
-    if (status === 'error') return <div>Error: {error.message}</div>;
+    if (status === 'error') {
+        return (
+            <div>
+                Error:
+                {error.message}
+            </div>
+        );
+    }
 
     const { answers, ...question } = data.data;
 
@@ -118,7 +124,7 @@ function QnADetailContent({ id }) {
             />
             <QnAAnswerContent qId={id} answers={answers} />
             <div className='editor-container'>
-                <div className='editor-title'><FaCommentDots />  답변하기!!</div>
+                <div className='editor-title'>답변하기</div>
                 {fileUploadModalVisible && (
                     <FileUploadModal
                         setFileUploadModalVisible={setFileUploadModalVisible}
@@ -161,7 +167,7 @@ function QnADetailContent({ id }) {
                     </div>
                     <div className='btn_container'>
                         <input type='submit' className='submit_btn' value='답변 등록' />
-                        <span
+                        {/* <span
                             className='back_btn'
                             aria-hidden='true'
                             onClick={() => {
@@ -169,7 +175,7 @@ function QnADetailContent({ id }) {
                             }}
                         >
                             목록
-                        </span>
+                        </span> */}
                     </div>
                 </form>
             </div>

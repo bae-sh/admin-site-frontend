@@ -10,7 +10,7 @@ export const Container = styled.div`
         justify-content: center;
         border: 1px solid lightgray;
         border-radius: 16px;
-        padding: 20px 20px 0 20px;
+        padding: 20px 30px 0 30px;
         margin-top: 36px;
     }
 
@@ -24,7 +24,8 @@ export const Container = styled.div`
         width: 100%;
         border-bottom: solid 1px lightgray;
         margin-bottom: 30px;
-        display: inline-flex;
+        display: flex;
+        justify-content: space-between;
     }
 
     .detail_title_container {
@@ -62,9 +63,8 @@ export const Container = styled.div`
 
     .btn_container {
         font-weight: 500;
-        flex-grow: 1;
+        margin-right: 50px;
     }
-
     .modify_btn {
         margin-right: 10px;
     }
@@ -72,41 +72,41 @@ export const Container = styled.div`
     .modify_btn,
     .delete_btn {
         display: inline-block;
-        width: 60px;
+        width: 40px;
         height: 40px;
         border-radius: 30px;
-        background: lightgray;
         line-height: 40px;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 400;
         cursor: pointer;
     }
 
     .modify_btn:hover,
     .delete_btn:hover {
-        background: black;
-        color: white;
+        text-underline-position: under;
+        text-decoration: underline;
     }
 
     .download_file_btn_container {
         width: 100%;
-        padding: 15px;
         display: inline-block;
-        border-bottom: 1px solid lightgray;
+        padding-bottom: 10px;
         margin-top: 30px;
         text-align: left;
     }
 
     .download_file_btn {
         font-size: 15px;
-        font-weight: 400;
-        border-bottom: 1px solid black;
-        margin: 10px;
+        font-weight: 300;
         cursor: pointer;
     }
 
     .content {
         text-align: left;
+    }
+    .content p {
+        font-size: 18px;
+        font-weight: 400;
     }
 
     @media screen and (max-width: 1023px) {

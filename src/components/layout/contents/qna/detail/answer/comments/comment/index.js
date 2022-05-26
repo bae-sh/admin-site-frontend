@@ -46,22 +46,21 @@ function Comment({ qId, aId, item }) {
         <div className='wrap_container'>
             <div className='comment_container'>
                 <div className='comment_title_container'>
-                    <span className='comment_title_author_infor'>{`${item.authorId} | ${item.authorName}`}</span>
-                    <span className='comment_title_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
+                    <span className='comment_title_author_infor'>{`${item.authorName}`}</span>
                 </div>
                 {!isModified ? (
                     <div className='content'>{item.comment}</div>
                 ) : (
-                    <input
-                        type='text'
+                    <textarea
                         className='input_comment'
                         value={modifiedValue}
                         onChange={(event) => setModifiedValue(event.target.value)}
                     />
                 )}
+                <span className='comment_title_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
             </div>
-            {userEmail === item.authorId &&
-                (!isModified ? (
+            {userEmail === item.authorId && (
+                !isModified ? (
                     <div className='btn_container'>
                         <span
                             className='modify_btn'

@@ -79,7 +79,7 @@ export const Container = styled.div`
 
     .download_file_btn {
         font-size: 15px;
-        font-weight: 400;
+        font-weight: 300;
         // margin: 10px;
         cursor: pointer;
     }

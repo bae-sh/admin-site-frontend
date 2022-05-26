@@ -78,14 +78,19 @@ export const Container = styled.div`
     }
 
     .input_container {
+        border-top: 1px solid lightgray;
         position: relative;
-        margin-bottom: 20px;
+        padding-bottom: 50px;
     }
     .input_title {
         float: left;
         font-size: 20px;
         font-weight: 700;
-        margin: 0 0 10px 10px;
+        margin: 20px 0 20px 0;
+    }
+    .title_number {
+        color: skyblue;
+        margin-left: 10px;
     }
 
     .comment_upload_btn {
@@ -100,7 +105,6 @@ export const Container = styled.div`
         float: right;
         cursor: pointer;
         font-size: 17px;
-        margin-bottom: 20px;
     }
 
     .comment_upload_btn:hover {
@@ -111,7 +115,7 @@ export const Container = styled.div`
         padding-top: 10px;
         outline: none;
         width: 100%;
-        min-height: 70px;
+        min-height: 100px;
         background-color: white;
         border: 0.5px solid gray;
         border-radius: 5px;
