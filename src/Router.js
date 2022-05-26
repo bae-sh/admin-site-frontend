@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ScrollToTop from './components/common/ScrollToTop';
 import Home from './pages/home';
 import Announcement from './pages/announcement';
 import AnnouncementDetail from './pages/announcement/detail';
@@ -27,6 +28,7 @@ import Footer from './components/layout/footer';
 function Router() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Modal />
             <Header />
             <Routes>
