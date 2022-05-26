@@ -12,7 +12,7 @@ function GalleryDetail() {
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
-                <Title title='📋 공지사항' description='' />
+                {/* <Title title='📋 공지사항' description='' /> */}
                 <GalleryDetailContent id={id} />
             </div>
         </PageStyled.Container>
