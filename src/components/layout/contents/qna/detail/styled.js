@@ -4,13 +4,19 @@ export const Container = styled.div`
     margin: 50px 0;
     text-align: center;
     position: relative;
-
+    .question-container {
+        // vertical-align: top;
+    }
+    .answer-container {
+        // vertical-align: top;
+    }
     .editor-container {
         width: 100%;
         border: solid 1px lightgray;
         border-radius: 16px;
         margin-top: 40px;
         padding: 30px;
+        position: relative;
     }
 
     .editor-title {
@@ -69,7 +75,7 @@ export const Container = styled.div`
         font-size: 18px;
         letter-spacing: -0.5px;
         border: 1px solid black;
-        width: 20%;
+        width: 30%;
         margin: 0 20px;
         padding: 0;
         cursor: pointer;
@@ -127,10 +133,6 @@ export const Container = styled.div`
         padding-top: 20px;
         margin-bottom: 40px;
 
-        .editor-title {
-            font-size: 20px;
-        }
-
         .title_input {
             border-bottom: 1px solid black;
             width: 70%;
@@ -138,18 +140,11 @@ export const Container = styled.div`
             font-size: 24px;
         }
 
-        .content_input {
-            margin: 7px 10% 50px 10%;
-            font-size: 15px;
-            padding: 8px;
-            border-radius: 10px;
-        }
-
-        .back_btn,
         .submit_btn {
             height: 35px;
             line-height: 35px;
             font-size: 13px;
+            width: 40%;
         }
 
         .add_file_btn {
@@ -161,22 +156,6 @@ export const Container = styled.div`
     }
 
     @media screen and (max-width: 767px) {
-        .editor-title {
-            font-size: 16px;
-        }
-
-        .content_input {
-            margin: 0 10% 50px 10%;
-        }
-
-        .back_btn,
-        .submit_btn {
-            width: 15%;
-            height: 27px;
-            line-height: 27px;
-            font-size: 10px;
-        }
-
         .add_file_btn {
             height: 28px;
             line-height: 28px;

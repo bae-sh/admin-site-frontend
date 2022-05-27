@@ -111,30 +111,59 @@ export const Container = styled.div`
 
     @media screen and (max-width: 1023px) {
         .a_marker {
+            font-size: 40px;
             margin-right: 15px;
         }
-        .detail_title1 {
-            font-size: 35px;
+        .detail_title {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-        .detail_title2 {
-            margin: 15px 0 15px 0;
+        .detail_author {
             font-size: 12px;
         }
-        .detail_title2_author_infor {
-            margin-right: 15px;
+
+        .btn_container {
+            margin: 0;
         }
         .modify_btn,
         .delete_btn {
             line-height: 30px;
             width: 50px;
             height: 30px;
-            font-size: 13px;
         }
-        .content {
-            font-size: 12px;
+        .modify_btn {
+            margin-bottom: 10px;
         }
         .download_file_btn {
             font-size: 12px;
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .a_marker {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+        .detail_title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .detail_author {
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        .modify_btn,
+        .delete_btn {
+            line-height: 30px;
+            width: 35px;
+            height: 30px;
+        }
+        .modify_btn {
+            margin-right: 0px;
+        }
+        .detail_title2_date_infor {
+            font-size: 10px;
+            margin-bottom: 5px;
         }
     }
 `;

@@ -97,10 +97,10 @@ export const Container = styled.div`
         margin-top: 5px;
         width: 100px;
         font-weight: 700;
-        height: 30px;
+        height: 40px;
         border-radius: 5px;
         border: 0;
-        background: black;
+        background: skyblue;
         color: white;
         float: right;
         cursor: pointer;
@@ -140,9 +140,6 @@ export const Container = styled.div`
             width: 50px;
             height: 30px;
             font-size: 11px;
-        }
-        .content {
-            font-size: 12px;
         }
     }
 

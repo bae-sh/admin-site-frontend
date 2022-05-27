@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
     width: 100%;
     text-align: center;
+    position: relative;
 
     .q_marker {
         color: skyblue;
@@ -109,7 +110,7 @@ export const Container = styled.div`
             font-size: 14px;
         }
         .btn_container {
-            flex-direction: column;
+            margin: 0;
         }
         .modify_btn,
         .delete_btn {

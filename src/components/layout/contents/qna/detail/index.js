@@ -112,17 +112,21 @@ function QnADetailContent({ id }) {
 
     return (
         <Styled.Container>
-            <QnAQuestionContent
-                id={id}
-                authorEmail={question.authorEmail}
-                authorName={question.authorName}
-                title={question.title}
-                content={question.content}
-                date={question.lastModifiedAt}
-                files={question.files}
-                comments={question.comments}
-            />
-            <QnAAnswerContent qId={id} answers={answers} />
+            <div className='question-container'>
+                <QnAQuestionContent
+                    id={id}
+                    authorEmail={question.authorEmail}
+                    authorName={question.authorName}
+                    title={question.title}
+                    content={question.content}
+                    date={question.lastModifiedAt}
+                    files={question.files}
+                    comments={question.comments}
+                />
+            </div>
+            <div className='answer-container'>
+                <QnAAnswerContent qId={id} answers={answers} />
+            </div>
             <div className='editor-container'>
                 <div className='editor-title'>답변하기</div>
                 {fileUploadModalVisible && (
@@ -159,6 +163,7 @@ function QnADetailContent({ id }) {
                     </div>
                     <div className='content_input'>
                         <Editor
+                            autofocus={false}
                             placeholder='내용을 입력해주세요'
                             previewStyle='tab'
                             plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
@@ -167,15 +172,6 @@ function QnADetailContent({ id }) {
                     </div>
                     <div className='btn_container'>
                         <input type='submit' className='submit_btn' value='답변 등록' />
-                        {/* <span
-                            className='back_btn'
-                            aria-hidden='true'
-                            onClick={() => {
-                                navigate('/qna');
-                            }}
-                        >
-                            목록
-                        </span> */}
                     </div>
                 </form>
             </div>

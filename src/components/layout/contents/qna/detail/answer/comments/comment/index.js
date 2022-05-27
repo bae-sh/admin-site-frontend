@@ -61,9 +61,9 @@ function Comment({ qId, aId, item }) {
             </div>
             {userEmail === item.authorId && (
                 !isModified ? (
-                    <div className='btn_container'>
+                    <div className='comment_btn_container'>
                         <span
-                            className='modify_btn'
+                            className='comment_modify_btn'
                             aria-hidden='true'
                             onClick={() => {
                                 setIsModified(true);
@@ -72,7 +72,7 @@ function Comment({ qId, aId, item }) {
                             수정
                         </span>
                         <span
-                            className='delete_btn'
+                            className='comment_delete_btn'
                             aria-hidden='true'
                             onClick={() => {
                                 deleteMutation.mutate([qId, aId, item.id], {
@@ -86,9 +86,9 @@ function Comment({ qId, aId, item }) {
                         </span>
                     </div>
                 ) : (
-                    <div className='btn_container'>
+                    <div className='comment_btn_container'>
                         <span
-                            className='modify_upload_btn'
+                            className='comment_modify_upload_btn'
                             aria-hidden='true'
                             onClick={() => {
                                 onSubmit([modifiedValue, qId, aId, item.id]);
