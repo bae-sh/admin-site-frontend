@@ -4,8 +4,7 @@ export const Container = styled.section`
     width: 100%;
     padding-top: 30px;
     margin-bottom: 60px;
-    // border-radius: 16px;
-    // box-shadow: 0px 0px 15px lightgrey;
+    border-radius: 16px;
 
     form {
         display: flex;
@@ -20,17 +19,18 @@ export const Container = styled.section`
     }
 
     .title_input {
-        border-bottom: 1.5px solid black;
-        width: 74%;
-        margin: 50px 13%;
-        font-size: 35px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #dfdfdf;
+        width: 76%;
+        margin: 30px 12%;
+        font-size: 24px;
     }
 
     .content_input {
         width: 80%;
         min-height: 400px;
         margin: 15px 10% 50px 10%;
-        font-size: 30px;
+        font-size: 20px;
         resize: none;
         padding: 10px;
         border-radius: 16px;
@@ -48,21 +48,28 @@ export const Container = styled.section`
     .submit_btn {
         height: 44px;
         border-radius: 30px;
-        background: lightgray;
         line-height: 44px;
-        font-size: 17px;
+        font-size: 18px;
         letter-spacing: -0.5px;
-        border: none;
+        border: 1px solid black;
         width: 20%;
         margin: 0 20px;
         padding: 0;
         cursor: pointer;
     }
+    .submit_btn {
+        background: black;
+        color: white;
+    }
+    .submit_btn:hover,
+    .back_btn:hover {
+        opacity: 0.7;
+    }
 
     .add_file_btn {
         height: 40px;
-        border-radius: 6px;
-        background: lightgray;
+        border-radius: 30px;
+        background: #eee;
         line-height: 40px;
         font-size: 20px;
         letter-spacing: -0.5px;
@@ -74,11 +81,8 @@ export const Container = styled.section`
         cursor: pointer;
     }
 
-    .back_btn:hover,
-    .submit_btn:hover,
     .add_file_btn:hover {
-        background: black;
-        color: white;
+        background: #dfdfdf;
     }
 
     .btn_container {
@@ -114,6 +118,10 @@ export const Container = styled.section`
             margin: 30px 15%;
             font-size: 24px;
         }
+        .back_btn,
+        .submit_btn {
+            width: 30%;
+        }
 
         .content_input {
             margin: 7px 10% 50px 10%;
@@ -133,6 +141,11 @@ export const Container = styled.section`
     @media screen and (max-width: 767px) {
         .content_input {
             margin: 0 10% 50px 10%;
+        }
+
+        .back_btn,
+        .submit_btn {
+            margin: 0 3%;
         }
 
         .add_file_btn {

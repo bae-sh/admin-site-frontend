@@ -2,7 +2,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 import { BsTrash } from 'react-icons/bs';
 
 import Prism from 'prismjs';
@@ -25,7 +24,6 @@ import { useQnADetail, uploadAnswer, uploadFiles, deleteFile } from '../../../..
 
 function QnADetailContent({ id }) {
     const queryClient = useQueryClient();
-    const navigate = useNavigate();
     const { status, data, error, isFetching } = useQnADetail(id);
     const [fileUploadModalVisible, setFileUploadModalVisible] = useState(false);
     const [newlyAddedFiles, setNewlyAddedFiles] = useState([]);
@@ -168,6 +166,7 @@ function QnADetailContent({ id }) {
                             previewStyle='tab'
                             plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
                             ref={editorRef}
+                            height='400px'
                         />
                     </div>
                     <div className='btn_container'>

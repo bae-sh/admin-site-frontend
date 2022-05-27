@@ -84,7 +84,7 @@ function QnAUPloadContent() {
     const handleDeleteFile = React.useCallback(
         (file) => {
             setFiles(files.filter((val) => file !== val));
-            files.map((val) => {
+            files.forEach((val) => {
                 if (file === val) {
                     deleteFile({
                         deleteFileUrls: [val],
@@ -140,6 +140,7 @@ function QnAUPloadContent() {
                         previewStyle='tab'
                         plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
                         ref={editorRef}
+                        height='500px'
                     />
                 </div>
                 <div className='btn_container'>
