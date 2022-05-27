@@ -507,6 +507,7 @@ export function putMyData(data, setError) {
         data: data,
     })
         .then((response) => {
+            console.log(data);
             console.log(response);
             alert('수정되었습니다.');
         })
@@ -537,29 +538,7 @@ export function resignMyData(setError, setUserState, navigate) {
         });
 }
 
-export function fetchMyApply(userId, setMyApply) {
-    axios({
-        method: 'get',
-        url: `${url}/levelups`,
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
-        .then((response) => {
-            const temp = response.data.data.find((item) => item.userId === userId);
-            if (temp) {
-                setMyApply(temp);
-                console.log(temp);
-            } else {
-                console.log('no apply');
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
-
-export function applyRole(data, applyBtnUpdate) {
+export function applyRole(data) {
     axios({
         method: 'post',
         url: `${url}/levelups`,
@@ -571,7 +550,6 @@ export function applyRole(data, applyBtnUpdate) {
         .then((response) => {
             console.log(response);
             alert('신청되었습니다.');
-            applyBtnUpdate();
         })
         .catch((error) => {
             console.log(error.response.data.message);
@@ -590,6 +568,23 @@ export function deleteApplyRole(id, setMyApply) {
             console.log(response);
             setMyApply({ id: '', userId: '', name: '', registerRoleType: '' });
             alert('권한 신청내역이 삭제 되었습니다.');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function changeImage(data) {
+    axios({
+        method: 'PUT',
+        url: `${url}/members/image`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        data: data,
+    })
+        .then((response) => {
+            console.log(response);
         })
         .catch((error) => {
             console.log(error);

@@ -1,19 +1,21 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import {
     deleteApplyRole,
-    fetchMyApply,
     getMyData,
     putMyData,
     resignMyData,
     applyRole,
+    changeImage,
 } from '../../api';
 import { modalVisibleState, userIdState } from '../../atoms';
 import * as PageStyled from '../pageStyled';
+import Title from '../../components/layout/title';
+import profileImg from '../../images/profile.png';
 
 const listName = [
     {
@@ -91,18 +93,37 @@ export const ErrorMsg = styled.span`
     margin: 15px;
     font-size: 14px;
 `;
+
+const Avata = styled.img`
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    margin-top: 90px;
+    &:hover {
+        opacity: 0.6;
+    }
+`;
+const PhotoSelect = styled.input`
+    display: none;
+`;
 function MyPage() {
     const modalVisible = useRecoilValue(modalVisibleState);
     const navigate = useNavigate();
     const setUserState = useSetRecoilState(userIdState);
     const [roleData, setRoleData] = useState({ role: '관리자' });
-
+    const [myImg, setMyImg] = useState(profileImg);
+    const [imgData, setImgData] = useState();
     const [myData, setMyData] = useState({
         email: '',
         name: '',
         phoneNumber: '',
         role: '',
         studentNumber: '',
+        // profileImage: {
+        //     fileName: '',
+        //     fileUrl: '',
+        // },
     });
     const [myApply, setMyApply] = useState({
         id: '',
@@ -117,6 +138,7 @@ function MyPage() {
         setValue,
         setError,
     } = useForm();
+    const uploadPhotoRef = useRef();
 
     useEffect(() => {
         getMyData(setMyData, navigate);
@@ -124,17 +146,14 @@ function MyPage() {
 
     useEffect(() => {
         listName.map((data) => setValue(data.id, myData[data.id]));
-        applyBtnUpdate();
+        setMyImg(myData.profileImage ? myData.profileImage.fileUrl : profileImg);
     }, [myData]);
-
-    const applyBtnUpdate = () => {
-        fetchMyApply(myData.email, setMyApply);
-    };
 
     const onValid = (data) => {
         const newData = data;
         delete newData.role;
         putMyData(newData, setError);
+        if (imgData) changeImage(imgData);
     };
     const onChange = (e) => {
         setMyData((prev) => ({
@@ -157,16 +176,45 @@ function MyPage() {
             id: myData.id,
             role: roleData,
         };
-        applyRole(newData, applyBtnUpdate);
+        applyRole(newData);
     };
     const deleteApplyRoleClick = () => {
         deleteApplyRole(myApply.id, setMyApply);
     };
+
+    const onPhotoClick = () => {
+        uploadPhotoRef.current.click();
+    };
+    const onImgChange = async (e) => {
+        const formData = new FormData();
+        formData.append('image', e.target.files[0]);
+        console.log(e.target.files[0]);
+        setImgData(formData);
+
+        const reader = new FileReader();
+        reader.onloadend = (finishedEvent) => {
+            const {
+                currentTarget: { result },
+            } = finishedEvent;
+            setMyImg(result);
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
+                <Title title='⚙️ 프로필 수정' description='' />
                 <form onSubmit={handleSubmit(onValid)}>
                     <Container>
+                        <PhotoSelect
+                            type='file'
+                            accept='image/*'
+                            ref={uploadPhotoRef}
+                            name='photo'
+                            onChange={onImgChange}
+                        />
+                        <Avata src={myImg} onClick={onPhotoClick} />
                         {listName.map((data) => (
                             <InputList key={data.id}>
                                 <span>{data.name}</span>

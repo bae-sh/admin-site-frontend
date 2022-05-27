@@ -109,8 +109,7 @@ function Admin() {
                                 <Styled.ModalBody>
                                     <div>이름 : {`${applyList[selectNumber]?.name}`}</div>
                                     <div>학번 : {`${applyList[selectNumber]?.studentNumber}`}</div>
-                                    <div>Email : {`${applyList[selectNumber]?.email}`}</div>
-                                    <div>현재권한 : {`${applyList[selectNumber]?.role}`}</div>
+                                    <div>Email : {`${applyList[selectNumber]?.userId}`}</div>
                                     <div>
                                         신청권한 : {`${applyList[selectNumber]?.registerRoleType}`}
                                     </div>
