@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getMyData, putMyData, resignMyData, applyRole, changeImage } from '../../api';
 import { modalVisibleState, userIdState } from '../../atoms';
@@ -99,6 +99,20 @@ const UpdateBtn = styled.button`
     cursor: pointer;
     border: 1px solid lightgray;
     padding: 10px 80px 10px 80px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: white;
+    &:hover {
+        background: #eee;
+    }
+`;
+
+const AdminBtn = styled.div`
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    padding: 10px 60px 10px 60px;
     margin-bottom: 20px;
     border-radius: 5px;
     background-color: white;
@@ -300,6 +314,11 @@ function MyPage() {
                         </RoleUpgrade>
                         <div>
                             <UpdateBtn type='submit'>수정하기</UpdateBtn>
+                            {myData.role === '관리자' && (
+                                <Link to='/admin'>
+                                    <AdminBtn>관리자 페이지</AdminBtn>
+                                </Link>
+                            )}
                             <ResignBtn type='button' onClick={resignClick}>
                                 회원탈퇴
                             </ResignBtn>
