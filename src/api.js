@@ -549,14 +549,15 @@ export function applyRole(data) {
     })
         .then((response) => {
             console.log(response);
-            alert('신청되었습니다.');
+            alert('등업 신청이 완료 되었습니다.');
         })
         .catch((error) => {
             console.log(error.response.data.message);
+            alert(error.response.data.message);
         });
 }
 
-export function deleteApplyRole(id, setMyApply) {
+export function deleteApplyRole(id) {
     axios({
         method: 'delete',
         url: `${url}/levelups/${id}`,
@@ -566,7 +567,6 @@ export function deleteApplyRole(id, setMyApply) {
     })
         .then((response) => {
             console.log(response);
-            setMyApply({ id: '', userId: '', name: '', registerRoleType: '' });
             alert('권한 신청내역이 삭제 되었습니다.');
         })
         .catch((error) => {

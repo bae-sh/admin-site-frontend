@@ -134,7 +134,7 @@ export const LoginBtn = styled.button`
     width: 100%;
     background-color: black;
     color: white;
-    border-radius: 16px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
 `;
