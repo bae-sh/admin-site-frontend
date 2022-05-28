@@ -432,6 +432,24 @@ export async function getMyData(setMyData, navigate) {
             navigate('/');
         });
 }
+
+export async function getMyProfileImg(setImg, profileImg) {
+    axios({
+        method: 'get',
+        url: `${url}/members/me`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((response) => {
+            const data = response.data.data;
+            setImg(data.profileImage ? data.profileImage.fileUrl : profileImg);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
 export function fetchStudentList(setStudentList) {
     axios({
         method: 'get',
