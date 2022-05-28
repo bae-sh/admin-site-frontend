@@ -11,7 +11,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
-
+import { AiOutlineFile } from 'react-icons/ai';
 import { Viewer } from '@toast-ui/react-editor';
 
 import * as Styled from '../../detailStyled';
@@ -56,6 +56,10 @@ function AnnouncementDetailContent(id) {
                 const date = data.data.lastModifiedAt.split(/T|-|[.]/);
                 return (
                     <>
+                        <div className='detail_title'>
+                            <div className='detail_title1'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]} | ${data.data.authorName}`}</div>
+                            <div className='detail_title2'>{data.data.title}</div>
+                        </div>
                         {authList.includes(role) && (
                             <div className='btn_container'>
                                 <span
@@ -82,33 +86,32 @@ function AnnouncementDetailContent(id) {
                                 </span>
                             </div>
                         )}
-                        <div className='detail_title'>
-                            <div className='detail_title1'>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]} | ${data.data.authorName}`}</div>
-                            <div className='detail_title2'>{data.data.title}</div>
-                        </div>
                         <div className='detail_content'>
+                            <div className='content'>
+                                <Viewer ref={viewerRef} />
+                            </div>
                             {data.data.files.length !== 0 && (
                                 <div className='download_file_btn_container'>
                                     {data.data.files.map((item) => {
                                         fileId.current += 1;
                                         return (
-                                            <span
-                                                className='download_file_btn'
-                                                aria-hidden='true'
-                                                key={fileId.current}
-                                                onClick={() =>
-                                                    downloadFile(item.fileUrl, item.fileName)
-                                                }
-                                            >
-                                                {item.fileName}
-                                            </span>
+                                            <div>
+                                                <AiOutlineFile />
+                                                <span
+                                                    className='download_file_btn'
+                                                    aria-hidden='true'
+                                                    key={fileId.current}
+                                                    onClick={() =>
+                                                        downloadFile(item.fileUrl, item.fileName)
+                                                    }
+                                                >
+                                                    {item.fileName}
+                                                </span>
+                                            </div>
                                         );
                                     })}
                                 </div>
                             )}
-                            <div className='content'>
-                                <Viewer ref={viewerRef} />
-                            </div>
                             <span
                                 className='back_btn'
                                 aria-hidden='true'

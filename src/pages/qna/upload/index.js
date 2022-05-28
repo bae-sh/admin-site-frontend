@@ -10,7 +10,7 @@ function QnAUpload() {
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
-                <Title title='📋 Q&A 게시판' description='' />
+                <Title title='🙋‍♀️ Q&A 게시판' description='' />
                 <QnAUploadContent />
             </div>
         </PageStyled.Container>

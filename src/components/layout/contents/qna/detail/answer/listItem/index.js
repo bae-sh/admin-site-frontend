@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
 import { useMutation, useQueryClient } from 'react-query';
-import { FaPaperclip } from 'react-icons/fa';
+import { AiOutlineFile } from 'react-icons/ai';
 import Comments from '../comments';
 import * as Styled from './styled';
 import { deleteAnswer, downloadFile } from '../../../../../../../api';
@@ -13,6 +13,7 @@ function QnAAnswerListItemContent({ qId, item }) {
     const navigate = useNavigate();
     const lastDate = item.lastModifiedAt.split(/T|-|[.]/);
     const viewerRef = useRef();
+    const { content } = item;
 
     const deleteMutation = useMutation((ids) => deleteAnswer(ids[0], ids[1]), {
         onSuccess: () => {
@@ -27,7 +28,6 @@ function QnAAnswerListItemContent({ qId, item }) {
         }
     }, []);
 
-    const content = item.content;
     useEffect(() => {
         const instance = viewerRef.current.getInstance();
         instance.setMarkdown(content);
@@ -42,38 +42,40 @@ function QnAAnswerListItemContent({ qId, item }) {
                             <span className='a_marker'>A</span>
                         </div>
                         <div className='detail_title2'>
-                            <span className='detail_title2_author_infor'>{`${item.authorId}| ${item.authorName}`}</span>
-                            <span className='detail_title2_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
+                            <div className='detail_title2_author_infor'>{`${item.authorName}님의 답변`}</div>
+                            <div className='detail_title2_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]} | ${item.authorId}`}</div>
                         </div>
                     </div>
-                    {userEmail === item.authorId && (
-                        <div className='btn_container'>
-                            <span
-                                className='modify_btn'
-                                aria-hidden='true'
-                                onClick={() => {
-                                    navigate(`/qna/modify/${qId}/answers/${item.id}`, {
-                                        state: item,
-                                    });
-                                }}
-                            >
-                                수정
-                            </span>
-                            <span
-                                className='delete_btn'
-                                aria-hidden='true'
-                                onClick={() => {
-                                    deleteMutation.mutate([qId, item.id], {
-                                        onSuccess: () => {
-                                            navigate(`/qna/${qId}`);
-                                        },
-                                    });
-                                }}
-                            >
-                                삭제
-                            </span>
-                        </div>
-                    )}
+                    <div>
+                        {userEmail === item.authorId && (
+                            <div className='btn_container'>
+                                <span
+                                    className='modify_btn'
+                                    aria-hidden='true'
+                                    onClick={() => {
+                                        navigate(`/qna/modify/${qId}/answers/${item.id}`, {
+                                            state: item,
+                                        });
+                                    }}
+                                >
+                                    수정
+                                </span>
+                                <span
+                                    className='delete_btn'
+                                    aria-hidden='true'
+                                    onClick={() => {
+                                        deleteMutation.mutate([qId, item.id], {
+                                            onSuccess: () => {
+                                                navigate(`/qna/${qId}`);
+                                            },
+                                        });
+                                    }}
+                                >
+                                    삭제
+                                </span>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <div className='content'>
                     <Viewer ref={viewerRef} />
@@ -88,7 +90,8 @@ function QnAAnswerListItemContent({ qId, item }) {
                                 key={fileId.current}
                                 onClick={() => downloadFile(_item.fileUrl, _item.fileName)}
                             >
-                                <FaPaperclip /> {_item.fileName}
+                                <AiOutlineFile />
+                                {_item.fileName}
                             </span>
                         );
                     })}

@@ -13,7 +13,7 @@ function AnnouncementDetail() {
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
-                <Title title='📋 공지사항' description='' />
+                {/* <Title title='📋 공지사항' description='' /> */}
                 <AnnouncementDetailContent id={id} />
                 {/* <Comment id={id} kind='announcement' /> */}
             </div>

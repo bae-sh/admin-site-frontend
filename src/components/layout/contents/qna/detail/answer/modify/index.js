@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -56,7 +56,7 @@ function AnswerModifyContent() {
     useEffect(() => {
         let temp = files;
         let temp2 = newFiles;
-        newlyAddedFiles.map((file) => {
+        newlyAddedFiles.forEach((file) => {
             temp = [...temp, file];
             temp2 = [...temp2, file];
         });
@@ -97,7 +97,7 @@ function AnswerModifyContent() {
     const handleDeleteFile = React.useCallback(
         (file) => {
             setFiles(files.filter((val) => file !== val));
-            files.map((val) => {
+            files.forEach((val) => {
                 if (file === val) {
                     setDeleteFileUrls([...deleteFileUrls, val]);
                 }
@@ -147,6 +147,7 @@ function AnswerModifyContent() {
                         previewStyle='tab'
                         plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
                         ref={editorRef}
+                        height='500px'
                     />
                 </div>
                 <div className='btn_container'>

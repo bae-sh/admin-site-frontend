@@ -48,11 +48,16 @@ export const Container = styled.section`
         display: block;
         height: 44px;
         padding: 0 30px;
-        border-radius: 30px;
-        background: lightgray;
+        border-radius: 15px;
+        background: white;
+        border: 1px solid lightgray;
         line-height: 44px;
         font-size: 20px;
         letter-spacing: -0.5px;
+        font-weight: 500;
+        &:hover {
+            background: #dfdfdf;
+        }
     }
 
     @media screen and (max-width: 1023px) {

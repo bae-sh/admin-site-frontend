@@ -10,7 +10,7 @@ function Gallery() {
     return (
         <PageStyled.Container modalVisible={modalVisible}>
             <div className='inner'>
-                <Title title='📷 갤러리' description='Admin 활동 사진' />
+                <Title title='📷 갤러리' description='ADMIN 역사 보관소' />
                 <GalleryContent />
             </div>
         </PageStyled.Container>

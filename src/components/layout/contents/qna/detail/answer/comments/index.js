@@ -30,24 +30,32 @@ function Comments({ comments, qId, aId }) {
 
     return (
         <Styled.Container>
-            {comments.map((item) => {
-                return <Comment key={item.id} qId={qId} aId={aId} item={item} />;
-            })}
-            <div className='input_container'>
-                <div className='input_title'>댓글 달기</div>
-                <input
-                    type='text'
-                    className='input_comment'
-                    onChange={(event) => setInputValue(event.target.value)}
-                />
-                <span
-                    className='comment_upload_btn'
-                    onClick={() => {
-                        onSubmit(inputValue);
-                    }}
-                >
-                    등록
-                </span>
+            <div className='comments_container'>
+                <div className='input_container'>
+                    <div className='input_title'>
+                        댓글
+                        <span className='title_number'>{comments.length}</span>
+                    </div>
+                    <div className='comment_container'>
+                        {comments.map((item) => (
+                            <Comment key={item.id} qId={qId} aId={aId} item={item} />
+                        ))}
+                    </div>
+
+                    <textarea
+                        className='input_comment'
+                        onChange={(event) => setInputValue(event.target.value)}
+                    />
+                    <button
+                        type='button'
+                        className='comment_upload_btn'
+                        onClick={() => {
+                            onSubmit(inputValue);
+                        }}
+                    >
+                        댓글 작성
+                    </button>
+                </div>
             </div>
         </Styled.Container>
     );

@@ -4,30 +4,33 @@ export const Container = styled.div`
     width: 100%;
     text-align: center;
 
-    .answer_container{
+    .answer_container {
         background-color: white;
         text-align: center;
         justify-content: center;
         border: 1px solid lightgray;
         border-radius: 16px;
-        padding: 20px 20px 0 20px;
+        padding: 20px 30px 0 30px;
         margin-top: 36px;
     }
 
     .a_marker {
         color: yellowgreen;
+        font-size: 60px;
         margin-right: 30px;
     }
 
     .wrap_container {
         width: 100%;
-        border-bottom: solid 1px gray;
+        border-bottom: solid 1px lightgray;
         margin-bottom: 30px;
-        display: inline-flex;
+        display: flex;
+        justify-content: space-between;
     }
 
     .detail_title_container {
-        flex-grow: 3;
+        display: flex;
+        margin-left: 10px;
     }
 
     .detail_title1 {
@@ -37,17 +40,19 @@ export const Container = styled.div`
     }
 
     .detail_title2 {
-        margin: 20px 0 20px 0;
+        margin-top: 10px;
         text-align: left;
         font-size: 17px;
         font-weight: 500;
     }
 
     .detail_title2_author_infor {
-        margin-right: 30px;
+        font-size: 24px;
     }
 
     .detail_title2_date_infor {
+        font-size: 15px;
+        font-weight: 400;
         color: #83859c;
     }
 
@@ -58,80 +63,107 @@ export const Container = styled.div`
 
     .btn_container {
         font-weight: 500;
-        flex-grow: 1;
+        margin-right: 50px;
     }
-
-    .modify_btn{
+    .modify_btn {
         margin-right: 10px;
     }
 
     .modify_btn,
     .delete_btn {
         display: inline-block;
-        width: 60px;
+        width: 40px;
         height: 40px;
         border-radius: 30px;
-        background: lightgray;
         line-height: 40px;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 400;
         cursor: pointer;
     }
 
     .modify_btn:hover,
     .delete_btn:hover {
-        background: black;
-        color: white;
+        text-underline-position: under;
+        text-decoration: underline;
     }
 
-    .download_file_btn_container{
+    .download_file_btn_container {
         width: 100%;
-        padding: 15px;
         display: inline-block;
-        border-top: 1px solid lightgray;
-        border-bottom: 1px solid lightgray;
+        padding-bottom: 10px;
         margin-top: 30px;
         text-align: left;
     }
 
-    .download_file_btn{
+    .download_file_btn {
         font-size: 15px;
-        font-weight: 400;
-        border-bottom: 1px solid black;
-        margin: 10px;
+        font-weight: 300;
         cursor: pointer;
     }
 
     .content {
         text-align: left;
     }
+    .content p {
+        font-size: 18px;
+        font-weight: 400;
+    }
 
     @media screen and (max-width: 1023px) {
         .a_marker {
+            font-size: 40px;
             margin-right: 15px;
         }
-        .detail_title1 {
-            font-size: 35px;
+        .detail_title {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-        .detail_title2 {
-            margin: 15px 0 15px 0;
+        .detail_author {
             font-size: 12px;
         }
-        .detail_title2_author_infor {
-            margin-right: 15px;
+
+        .btn_container {
+            margin: 0;
         }
         .modify_btn,
         .delete_btn {
             line-height: 30px;
             width: 50px;
-            height: 30px;         
-            font-size: 13px;
+            height: 30px;
         }
-        .content{
-            font-size: 12px;
+        .modify_btn {
+            margin-bottom: 10px;
         }
         .download_file_btn {
             font-size: 12px;
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .a_marker {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+        .detail_title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .detail_author {
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        .modify_btn,
+        .delete_btn {
+            line-height: 30px;
+            width: 35px;
+            height: 30px;
+        }
+        .modify_btn {
+            margin-right: 0px;
+        }
+        .detail_title2_date_infor {
+            font-size: 10px;
+            margin-bottom: 5px;
         }
     }
 `;

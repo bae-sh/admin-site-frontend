@@ -4,34 +4,35 @@ export const Container = styled.div``;
 
 export const FlexContainer = styled.ul`
     .item_card {
-        transition: all 0.3s;
+        transition: all 0.1s;
         text-align: center;
         justify-content: center;
-        margin: 0 15px;
-        height: 8rem;
-        border-radius: 16px;
-        border: 2px solid lightgray;
-        margin-top: 36px;
+        height: 7rem;
+        border-bottom: 1px solid lightgray;
+        margin: 0 10px;
         position: relative;
     }
 
     .item_card:hover {
-        border: 1px solid lightgray;
-        box-shadow: 3px 3px 3px 1px lightgray;
+        // background: lightgray;
+        color: lightgray;
+        // box-shadow: 0px 5px 10px lightgray;
     }
 
     .wrap_container {
-        width: 90%;
+        width: 100%;
         display: inline-flex;
-        margin: 30px;
+        margin: 30px 0 0 0;
+        justify-content: space-between;
     }
 
-    .qna_content{
+    .qna_content {
         text-align: left;
-        flex-grow: 3;
+        // flex-grow: 3;
     }
 
     .qna_title {
+        margin-top: 0.2em;
         font-family: 'Nunito';
         font-style: normal;
         font-weight: 700;
@@ -40,7 +41,7 @@ export const FlexContainer = styled.ul`
     }
 
     .qna_date {
-        margin: 2rem 0 0 0;
+        margin: 1.2em 0 0 0;
         font-family: 'Nunito';
         font-style: normal;
         font-weight: 400;
@@ -53,32 +54,33 @@ export const FlexContainer = styled.ul`
         font-family: 'Nunito';
         font-style: normal;
         font-weight: 400;
-        font-size: 25px;
+        font-size: 22px;
         line-height: 15px;
         color: #83859c;
-        flex-grow: 1;
+        margin-top: 1em;
+        margin-right: 1em;
+        float: right;
     }
 
     @media screen and (max-width: 1023px) {
-        .wrap_container{
+        .wrap_container {
             margin: 15px;
         }
-        .item_card{
+        .item_card {
             height: 5rem;
         }
-        .qna_title{
+        .qna_title {
             font-size: 20px;
         }
-        .qna_date{
+        .qna_date {
             font-size: 7px;
             margin-top: 1rem;
         }
-        .qna_author_name{
+        .qna_author_name {
             font-size: 15px;
         }
     }
 
     @media screen and (max-width: 767px) {
-        
     }
 `;

@@ -9,7 +9,7 @@ export const Paging = styled.ul`
     }
     li {
         display: inline-block;
-        margin: 0 10px;
+        margin: 0 12px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -18,7 +18,7 @@ export const Paging = styled.ul`
     ul.pagination li a {
         text-decoration: none;
         color: gray;
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
 
     ul.pagination li.active a {

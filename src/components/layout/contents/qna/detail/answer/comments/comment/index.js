@@ -46,25 +46,24 @@ function Comment({ qId, aId, item }) {
         <div className='wrap_container'>
             <div className='comment_container'>
                 <div className='comment_title_container'>
-                    <span className='comment_title_author_infor'>{`${item.authorId} | ${item.authorName}`}</span>
-                    <span className='comment_title_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
+                    <span className='comment_title_author_infor'>{`${item.authorName}`}</span>
                 </div>
                 {!isModified ? (
                     <div className='content'>{item.comment}</div>
                 ) : (
-                    <input
-                        type='text'
+                    <textarea
                         className='input_comment'
                         value={modifiedValue}
                         onChange={(event) => setModifiedValue(event.target.value)}
                     />
                 )}
+                <span className='comment_title_date_infor'>{`${lastDate[0]}년 ${lastDate[1]}월 ${lastDate[2]}일 ${lastDate[3]}`}</span>
             </div>
-            {userEmail === item.authorId &&
-                (!isModified ? (
-                    <div className='btn_container'>
+            {userEmail === item.authorId && (
+                !isModified ? (
+                    <div className='comment_btn_container'>
                         <span
-                            className='modify_btn'
+                            className='comment_modify_btn'
                             aria-hidden='true'
                             onClick={() => {
                                 setIsModified(true);
@@ -73,7 +72,7 @@ function Comment({ qId, aId, item }) {
                             수정
                         </span>
                         <span
-                            className='delete_btn'
+                            className='comment_delete_btn'
                             aria-hidden='true'
                             onClick={() => {
                                 deleteMutation.mutate([qId, aId, item.id], {
@@ -87,9 +86,9 @@ function Comment({ qId, aId, item }) {
                         </span>
                     </div>
                 ) : (
-                    <div className='btn_container'>
+                    <div className='comment_btn_container'>
                         <span
-                            className='modify_upload_btn'
+                            className='comment_modify_upload_btn'
                             aria-hidden='true'
                             onClick={() => {
                                 onSubmit([modifiedValue, qId, aId, item.id]);

@@ -8,7 +8,7 @@ import * as React from 'react';
 import { useRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
 import { galleryPageState } from '../../../../../atoms';
-import Logo from '../../../../../images/logo/admin_logo.png';
+import Logo from '../../../../../images/logo/preview_post.png';
 import Paging from '../../../paging';
 import * as Styled from '../../listStyled';
 import { useGalleries, removeMarkdown } from '../../../../../api';
@@ -35,49 +35,49 @@ function GalleryList() {
                                 const mdRemovedContent = removeMarkdown(item.content);
                                 return (
                                     <li className='item_card' key={item.id}>
-                                        <div className='wrap_container'>
-                                            <div className='contents_title'>
-                                                <Link to={`/gallery/${item.id}`}>
+                                        <Link to={`/gallery/${item.id}`}>
+                                            <div className='wrap_container'>
+                                                <div className='contents_title'>
                                                     {item.title.length > 10
                                                         ? `${item.title.substr(0, 10)}...`
                                                         : item.title}
-                                                </Link>
-                                            </div>
-                                            <div className='contents_main'>
-                                                {mdRemovedContent.length > 20
-                                                    ? `${mdRemovedContent.substr(0, 20)}...`
-                                                    : mdRemovedContent}
-                                            </div>
-                                            <div className='row_wrap'>
-                                                <span>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]}`}</span>
-                                                <span>{`작성자 ${item.authorName}`}</span>
-                                            </div>
-                                            {item.content.includes(
-                                                'https://d260rb3auh0wa7.cloudfront.net/file/',
-                                            ) ? (
-                                                <img
-                                                    className='item_img'
-                                                    alt='image_alt'
-                                                    src={item.content.substring(
-                                                        item.content.indexOf(
-                                                            'https://d260rb3auh0wa7.cloudfront.net/file/',
-                                                        ),
-                                                        item.content.indexOf(
-                                                            ')',
+                                                </div>
+                                                <div className='contents_main'>
+                                                    {mdRemovedContent.length > 20
+                                                        ? `${mdRemovedContent.substr(0, 20)}...`
+                                                        : mdRemovedContent}
+                                                </div>
+                                                <div className='row_wrap'>
+                                                    <span>{`${date[0]}년 ${date[1]}월 ${date[2]}일 ${date[3]}`}</span>
+                                                    <span>{`작성자 ${item.authorName}`}</span>
+                                                </div>
+                                                {item.content.includes(
+                                                    'https://d260rb3auh0wa7.cloudfront.net/file/',
+                                                ) ? (
+                                                    <img
+                                                        className='item_img'
+                                                        alt='image_alt'
+                                                        src={item.content.substring(
                                                             item.content.indexOf(
                                                                 'https://d260rb3auh0wa7.cloudfront.net/file/',
                                                             ),
-                                                        ),
-                                                    )}
-                                                />
-                                            ) : (
-                                                <img
-                                                    className='item_img'
-                                                    alt='admin_logo'
-                                                    src={Logo}
-                                                />
-                                            )}
-                                        </div>
+                                                            item.content.indexOf(
+                                                                ')',
+                                                                item.content.indexOf(
+                                                                    'https://d260rb3auh0wa7.cloudfront.net/file/',
+                                                                ),
+                                                            ),
+                                                        )}
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        className='item_img'
+                                                        alt='admin_logo'
+                                                        src={Logo}
+                                                    />
+                                                )}
+                                            </div>
+                                        </Link>
                                     </li>
                                 );
                             })}

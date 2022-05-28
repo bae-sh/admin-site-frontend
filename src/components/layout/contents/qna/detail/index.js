@@ -2,7 +2,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 import { BsTrash } from 'react-icons/bs';
 
 import Prism from 'prismjs';
@@ -17,7 +16,6 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
-import { FaCommentDots } from 'react-icons/fa';
 import FileUploadModal from '../../../fileuploadmodal';
 import QnAQuestionContent from './question';
 import QnAAnswerContent from './answer';
@@ -26,7 +24,6 @@ import { useQnADetail, uploadAnswer, uploadFiles, deleteFile } from '../../../..
 
 function QnADetailContent({ id }) {
     const queryClient = useQueryClient();
-    const navigate = useNavigate();
     const { status, data, error, isFetching } = useQnADetail(id);
     const [fileUploadModalVisible, setFileUploadModalVisible] = useState(false);
     const [newlyAddedFiles, setNewlyAddedFiles] = useState([]);
@@ -63,7 +60,7 @@ function QnADetailContent({ id }) {
 
     const uploadMutation = useMutation((dataToSubmit) => uploadAnswer(dataToSubmit, id), {
         onSuccess: () => {
-            queryClient.invalidateQueries('qna', { id: id });
+            queryClient.invalidateQueries('qna', { id });
         },
     });
 
@@ -88,7 +85,7 @@ function QnADetailContent({ id }) {
     const handleDeleteFile = React.useCallback(
         (file) => {
             setFiles(files.filter((val) => file !== val));
-            files.map((val) => {
+            files.forEach((val) => {
                 if (file === val) {
                     deleteFile({
                         deleteFileUrls: [val],
@@ -100,25 +97,36 @@ function QnADetailContent({ id }) {
     );
 
     if (status === 'loading') return <span>Loading...</span>;
-    if (status === 'error') return <div>Error: {error.message}</div>;
+    if (status === 'error') {
+        return (
+            <div>
+                Error:
+                {error.message}
+            </div>
+        );
+    }
 
     const { answers, ...question } = data.data;
 
     return (
         <Styled.Container>
-            <QnAQuestionContent
-                id={id}
-                authorEmail={question.authorEmail}
-                authorName={question.authorName}
-                title={question.title}
-                content={question.content}
-                date={question.lastModifiedAt}
-                files={question.files}
-                comments={question.comments}
-            />
-            <QnAAnswerContent qId={id} answers={answers} />
+            <div className='question-container'>
+                <QnAQuestionContent
+                    id={id}
+                    authorEmail={question.authorEmail}
+                    authorName={question.authorName}
+                    title={question.title}
+                    content={question.content}
+                    date={question.lastModifiedAt}
+                    files={question.files}
+                    comments={question.comments}
+                />
+            </div>
+            <div className='answer-container'>
+                <QnAAnswerContent qId={id} answers={answers} />
+            </div>
             <div className='editor-container'>
-                <div className='editor-title'><FaCommentDots />  답변하기!!</div>
+                <div className='editor-title'>답변하기</div>
                 {fileUploadModalVisible && (
                     <FileUploadModal
                         setFileUploadModalVisible={setFileUploadModalVisible}
@@ -153,23 +161,16 @@ function QnADetailContent({ id }) {
                     </div>
                     <div className='content_input'>
                         <Editor
+                            autofocus={false}
                             placeholder='내용을 입력해주세요'
                             previewStyle='tab'
                             plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
                             ref={editorRef}
+                            height='400px'
                         />
                     </div>
                     <div className='btn_container'>
                         <input type='submit' className='submit_btn' value='답변 등록' />
-                        <span
-                            className='back_btn'
-                            aria-hidden='true'
-                            onClick={() => {
-                                navigate('/qna');
-                            }}
-                        >
-                            목록
-                        </span>
                     </div>
                 </form>
             </div>

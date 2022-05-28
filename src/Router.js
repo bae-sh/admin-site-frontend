@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ScrollToTop from './components/common/ScrollToTop';
 import Home from './pages/home';
 import Announcement from './pages/announcement';
 import AnnouncementDetail from './pages/announcement/detail';
@@ -22,10 +23,12 @@ import Modal from './components/modal';
 import Signup from './pages/signup';
 import MyPage from './pages/mypage';
 import Admin from './pages/admin';
+import Footer from './components/layout/footer';
 
 function Router() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Modal />
             <Header />
             <Routes>
@@ -50,6 +53,7 @@ function Router() {
                 <Route path='/mypage' element={<MyPage />} />
                 <Route path='/admin' element={<Admin />} />
             </Routes>
+            <Footer />
         </BrowserRouter>
     );
 }
