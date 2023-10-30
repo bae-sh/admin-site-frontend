@@ -53,7 +53,6 @@ function Router() {
                 <Route path='/mypage' element={<MyPage />} />
                 <Route path='/admin' element={<Admin />} />
             </Routes>
-            <Footer />
         </BrowserRouter>
     );
 }

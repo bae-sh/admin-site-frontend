@@ -14,7 +14,6 @@ const navList = [
     { path: '/gallery', name: '갤러리' },
     { path: '/qna', name: 'Q&A' },
     { path: '/calendar', name: '일정' },
-    { path: '/member', name: '임원진' },
 ];
 
 function Nav() {
