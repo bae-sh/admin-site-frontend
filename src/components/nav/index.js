@@ -9,7 +9,7 @@ import {
 } from '../../atoms';
 import * as Styled from './styled';
 
-const navList = [
+const navList = [{ path: '/member', name: '임원진' },
     { path: '/announcement', name: '공지사항' },
     { path: '/gallery', name: '갤러리' },
     { path: '/qna', name: 'Q&A' },
